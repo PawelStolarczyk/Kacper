@@ -1,0 +1,40 @@
+---
+// src/components/layout/Footer.astro
+const year = new Date().getFullYear();
+---
+
+<footer
+  style="
+    position:relative; z-index:1;
+    border-top:1px solid var(--border);
+    padding:40px 56px;
+    display:flex; align-items:center; justify-content:space-between;
+  "
+>
+  <div
+    style="font-family:var(--font-display); font-weight:800; font-size:14px; letter-spacing:-.02em; display:flex; align-items:center; gap:6px"
+  >
+    <span style="color:var(--accent)">●</span>
+    kacper.design
+  </div>
+
+  <div style="font-size:11px; color:var(--fg-30); letter-spacing:.06em">
+    © {year} Kacper Stolarczyk — UI/UX Designer
+  </div>
+
+  <a
+    href="#hero"
+    style="font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--fg-30); display:flex; align-items:center; gap:8px; transition:color .2s"
+    class="back-top"
+    aria-label="Wróć na górę"
+  >
+    Do góry
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M12 19V5M5 12l7-7 7 7" />
+    </svg>
+  </a>
+</footer>
+
+<style>
+  .back-top:hover { color: var(--accent) !important; }
+</style>

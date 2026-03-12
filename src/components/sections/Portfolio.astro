@@ -1,0 +1,124 @@
+---
+import { getCollection } from 'astro:content';
+import Tag from '@components/ui/Tag.astro';
+
+const allProjects = (await getCollection('projects'))
+  .sort((a, b) => (a.data.order ?? 99) - (b.data.order ?? 99));
+---
+
+<section class="section" id="portfolio">
+  <div class="container">
+    <div class="sec-header reveal">
+      <div class="sec-num">02<br>Portfolio</div>
+      <div>
+        <h2 class="sec-title">Wybrane <strong>projekty</strong></h2>
+        <p class="sec-lead">End-to-end — od badań użytkownika, przez identyfikację wizualną, po wdrożenie. Każdy z udziałem AI.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="proj-grid">
+    {allProjects.map((project) => {
+      const { title, subtitle, year, tags, accent, coverBg, wide, liveUrl } = project.data;
+      const href = liveUrl ?? `/projects/${project.id}`;
+      const bg = coverBg ?? '#1A1D21';
+      const isQljoy = project.id === 'qljoy';
+      return (
+        <a
+          href={href}
+          class:list={['proj-card', wide ? 'proj-wide' : 'proj-narrow']}
+          style={`background-color:${isQljoy ? 'transparent' : bg}; position:relative; display:block; overflow:hidden; text-decoration:none;`}
+        >
+          <!-- year -->
+          <span style="position:absolute; top:24px; left:24px; font-size:9px; letter-spacing:.2em; text-transform:uppercase; color:rgba(255,255,255,.4); z-index:2;">
+            {year}
+          </span>
+
+          <!-- arrow -->
+          <span class="proj-arrow" style="position:absolute; top:24px; right:24px; width:40px; height:40px; border:1px solid rgba(255,255,255,.14); display:flex; align-items:center; justify-content:center; z-index:2;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </span>
+
+          <!-- QL&Joy hero image background -->
+          {isQljoy && (
+            <div style="position:absolute; inset:0; z-index:1; overflow:hidden;">
+              <img src="/images/qljoy-hero.png" alt="" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; object-position:center;" />
+              <div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(0,0,0,.75) 0%, rgba(0,0,0,.4) 20%, rgba(0,0,0,.1) 40%, transparent 60%);"></div>
+            </div>
+          )}
+
+          <!-- content bottom -->
+          <div style="position:absolute; bottom:0; left:0; right:0; padding:28px 32px; z-index:2;">
+            <div style="display:flex; gap:6px; margin-bottom:10px; flex-wrap:wrap;">
+              {tags?.map(tag => <Tag accent={accent}>{tag}</Tag>)}
+            </div>
+            <div style="font-family:var(--font-display); font-weight:800; font-size:clamp(18px,2.2vw,28px); letter-spacing:-.02em; line-height:1.1; margin-bottom:6px; color:#F2F4F7;">
+              {title}
+            </div>
+            <div style="font-size:12px; line-height:1.5; color:rgba(242,244,247,.65);">
+              {subtitle}
+            </div>
+          </div>
+        </a>
+      );
+    })}
+  </div>
+</section>
+
+<style>
+  .sec-header {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 48px;
+    margin-bottom: 80px;
+    align-items: start;
+  }
+  .sec-num {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: 11px;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--fg-30);
+    padding-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .sec-num::after { content:''; width:24px; height:1px; background:var(--accent); display:block; }
+  .sec-title {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(30px,3.6vw,52px);
+    line-height: 1;
+    letter-spacing: -.03em;
+  }
+  .sec-title strong { color: var(--accent); }
+  .sec-lead { font-size:15px; color:var(--fg-60); line-height:1.85; max-width:540px; margin-top:14px; }
+
+  .proj-grid {
+    padding: 0 56px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+  }
+
+  .proj-narrow { aspect-ratio: 16 / 10; }
+  .proj-wide   { aspect-ratio: 21 / 9; grid-column: 1 / -1; }
+
+  .proj-arrow {
+    opacity: 0;
+    transform: translateY(-8px);
+    transition: opacity .3s, transform .3s;
+  }
+  .proj-card:hover .proj-arrow { opacity: 1 !important; transform: none !important; }
+
+  @media (max-width: 1100px) {
+    .sec-header { grid-template-columns: 1fr; gap: 16px; }
+    .proj-grid  { grid-template-columns: 1fr; padding: 0 32px; }
+    .proj-wide  { aspect-ratio: 16 / 10; }
+  }
+  @media (max-width: 700px) {
+    .proj-grid { padding: 0 20px; }
+  }
+</style>

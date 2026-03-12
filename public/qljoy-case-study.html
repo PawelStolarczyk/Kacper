@@ -1,0 +1,1748 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kacper Stolarczyk — UI/UX Designer · AI-Augmented Design</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+
+/* ═══════════════════════════════════════
+   TOKENS — DARK (default, graphite)
+═══════════════════════════════════════ */
+:root {
+  --bg:        #1A1D21;
+  --bg2:       #1F2329;
+  --bg3:       #252A32;
+  --surface:   #2B3038;
+  --border:    rgba(255,255,255,.08);
+  --border2:   rgba(255,255,255,.14);
+  --white:     #F2F4F7;
+  --white-60:  rgba(242,244,247,.6);
+  --white-30:  rgba(242,244,247,.3);
+  --white-10:  rgba(242,244,247,.07);
+  --accent:    #00E5A0;
+  --accent2:   #00B880;
+  --accent-bg: rgba(0,229,160,.08);
+  --accent-glow: rgba(0,229,160,.18);
+  --off-white: #F8F7F4;
+  --off-border: rgba(14,12,24,.09);
+  --ink:       #0E0C18;
+  --ink-50:    rgba(14,12,24,.5);
+  --ink-20:    rgba(14,12,24,.12);
+  --display:   'Plus Jakarta Sans', system-ui, sans-serif;
+  --body:      'DM Sans', system-ui, sans-serif;
+  /* nav overlay */
+  --nav-bg:    rgba(26,29,33,.88);
+  --nav-bg-s:  rgba(26,29,33,.97);
+  /* body text */
+  --text:      var(--white);
+  --text-60:   var(--white-60);
+  --text-30:   var(--white-30);
+  --text-10:   var(--white-10);
+  /* canvas particle */
+  --particle:  rgba(0,229,160,1);
+}
+
+/* ═══════════════════════════════════════
+   TOKENS — LIGHT
+═══════════════════════════════════════ */
+[data-theme="light"] {
+  --bg:        #F0F2F5;
+  --bg2:       #E8EAED;
+  --bg3:       #DDDFE3;
+  --surface:   #FFFFFF;
+  --border:    rgba(0,0,0,.08);
+  --border2:   rgba(0,0,0,.14);
+  --white:     #111318;
+  --white-60:  rgba(17,19,24,.6);
+  --white-30:  rgba(17,19,24,.35);
+  --white-10:  rgba(17,19,24,.06);
+  --accent:    #009966;
+  --accent2:   #007A52;
+  --accent-bg: rgba(0,153,102,.07);
+  --accent-glow: rgba(0,153,102,.18);
+  --off-white: #FFFFFF;
+  --off-border: rgba(0,0,0,.08);
+  --ink:       #111318;
+  --ink-50:    rgba(17,19,24,.5);
+  --ink-20:    rgba(17,19,24,.12);
+  --nav-bg:    rgba(240,242,245,.9);
+  --nav-bg-s:  rgba(240,242,245,.98);
+  --text:      #111318;
+  --text-60:   rgba(17,19,24,.6);
+  --text-30:   rgba(17,19,24,.35);
+  --text-10:   rgba(17,19,24,.06);
+  --particle:  rgba(0,153,102,1);
+}
+
+/* light: case studies / contact blocks stay white/light */
+[data-theme="light"] .section-light { background: #E8EAED; }
+[data-theme="light"] .case-item     { background: #F0F2F5; }
+[data-theme="light"] .case-item:hover { background: #FFFFFF; }
+[data-theme="light"] .case-detail   { background: #FFFFFF; }
+[data-theme="light"] .cd-body,
+[data-theme="light"] .cd-phase-text { color: var(--ink); }
+
+/* light: about text */
+[data-theme="light"] .about-text p  { color: var(--white-60); }
+[data-theme="light"] .about-text p strong { color: var(--white); }
+
+/* light: tool-item bg */
+[data-theme="light"] .tool-item     { background: #FFFFFF; }
+[data-theme="light"] .tool-item:hover { background: #F0F2F5; }
+[data-theme="light"] .tool-cat      { color: var(--white-30); }
+
+/* light: contact */
+[data-theme="light"] .cb-label      { color: var(--white-30); }
+[data-theme="light"] .cb-value      { color: var(--white); }
+[data-theme="light"] .social-handle { color: var(--white-30); }
+[data-theme="light"] .social-arr    { color: var(--white-30); }
+[data-theme="light"] .form-label    { color: var(--white-30); }
+[data-theme="light"] .form-input,
+[data-theme="light"] .form-textarea { background: #FFFFFF; color: var(--white); }
+[data-theme="light"] .form-submit   { background: var(--accent); color: #fff; }
+[data-theme="light"] .form-submit:hover { background: var(--accent2); }
+
+/* light: footer */
+[data-theme="light"] .footer        { background: var(--bg2); }
+[data-theme="light"] .footer-copy   { color: var(--white-30); }
+[data-theme="light"] .footer-back   { color: var(--white-30); }
+
+/* light: process */
+[data-theme="light"] .process-step  { background: #FFFFFF; border-color: var(--border); }
+[data-theme="light"] .process-step:hover { background: #F0F2F5; }
+[data-theme="light"] .ps-body       { color: var(--white-60); }
+[data-theme="light"] .ps-tool       { color: var(--white-30); border-color: var(--border2); }
+
+/* light: hero */
+[data-theme="light"] .hero-l        { background: var(--bg); }
+[data-theme="light"] .hero-title-line2 { color: var(--white-30); }
+[data-theme="light"] .hero-desc     { color: var(--white-60); }
+[data-theme="light"] .hero-desc strong { color: var(--white); }
+[data-theme="light"] .btn-ghost     { border-color: var(--border2); color: var(--white-60); }
+[data-theme="light"] .btn-ghost:hover { border-color: var(--white); color: var(--white); }
+[data-theme="light"] .hstat-l       { color: var(--white-30); }
+[data-theme="light"] .hstat-n       { color: var(--white); }
+
+/* light: skill rows */
+[data-theme="light"] .skill-row     { border-color: var(--border); }
+[data-theme="light"] .skill-row:hover { background: var(--white-10); }
+[data-theme="light"] .skill-name    { color: var(--white); }
+
+/* light: nav links */
+[data-theme="light"] .nav-links a   { color: var(--white-60); }
+[data-theme="light"] .nav-links a:hover { color: var(--white); }
+[data-theme="light"] .nav-cta       { border-color: var(--accent); color: var(--accent); }
+[data-theme="light"] .nav-cta:hover { background: var(--accent); color: #fff; }
+
+/* light: proj cards */
+/* proj cards always have dark SVG backgrounds → text always white */
+.proj-year  { color: rgba(255,255,255,.4) !important; }
+.proj-name  { color: #F2F4F7 !important; }
+.proj-sub   { color: rgba(242,244,247,.65) !important; }
+.proj-tag   { color: #00E5A0 !important; }
+
+/* light: sec-lead, sec-num */
+[data-theme="light"] .sec-lead      { color: var(--white-60); }
+[data-theme="light"] .sec-num       { color: var(--white-30); }
+[data-theme="light"] .sec-title em  { color: var(--white-30); }
+
+/* ── THEME TOGGLE BUTTON ── */
+.theme-toggle {
+  display:flex; align-items:center; gap:8px;
+  padding:7px 14px; border:1px solid var(--border2);
+  background:transparent; cursor:none;
+  font-family:var(--display); font-size:10px; font-weight:600;
+  letter-spacing:.12em; text-transform:uppercase;
+  color:var(--white-60); transition:border-color .2s, color .2s, background .2s;
+}
+.theme-toggle:hover { border-color:var(--accent); color:var(--accent); }
+.theme-toggle svg { width:14px; height:14px; transition:transform .4s; }
+.theme-toggle:hover svg { transform:rotate(30deg); }
+/* icon swap */
+.icon-dark  { display:block; }
+.icon-light { display:none; }
+[data-theme="light"] .icon-dark  { display:none; }
+[data-theme="light"] .icon-light { display:block; }
+
+/* ═══════════════════════════════════════
+   RESET & BASE
+═══════════════════════════════════════ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;transition:background .35s, color .35s}
+body{
+  background:var(--bg);
+  color:var(--white);
+  font-family:var(--body);
+  font-weight:400;
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+  cursor:none;
+  transition:background .35s, color .35s;
+}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--accent);color:#000}
+
+/* ═══════════════════════════════════════
+   CUSTOM CURSOR
+═══════════════════════════════════════ */
+#cursor {
+  position:fixed; width:8px; height:8px; border-radius:50%;
+  background:var(--accent); pointer-events:none; z-index:9999;
+  transform:translate(-50%,-50%);
+  transition:width .15s,height .15s,opacity .15s;
+  mix-blend-mode:screen;
+}
+#cursor-ring {
+  position:fixed; width:36px; height:36px; border-radius:50%;
+  border:1px solid rgba(0,229,160,.4); pointer-events:none; z-index:9998;
+  transform:translate(-50%,-50%);
+  transition:transform .1s ease-out, width .2s, height .2s, border-color .2s;
+}
+body:has(a:hover,button:hover,.card:hover,.proj-card:hover) #cursor{width:16px;height:16px}
+body:has(a:hover,button:hover,.card:hover,.proj-card:hover) #cursor-ring{width:52px;height:52px;border-color:rgba(0,229,160,.6)}
+
+/* ═══════════════════════════════════════
+   CANVAS BACKGROUND
+═══════════════════════════════════════ */
+#bgCanvas{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.55;transition:opacity .35s}
+[data-theme="light"] #bgCanvas{opacity:.35}
+
+/* ═══════════════════════════════════════
+   NAV
+═══════════════════════════════════════ */
+.nav {
+  position:fixed; top:0; left:0; right:0; z-index:500;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:0 56px; height:60px;
+  border-bottom:1px solid var(--border);
+  background:var(--nav-bg); backdrop-filter:blur(16px);
+  transition:background .3s;
+}
+.nav-logo {
+  font-family:var(--display); font-weight:800; font-size:15px;
+  letter-spacing:-.02em; display:flex; align-items:center; gap:6px;
+}
+.nav-logo-dot {
+  width:6px; height:6px; border-radius:50%; background:var(--accent);
+  animation:pulse 2s ease-in-out infinite;
+}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 var(--accent-glow)}50%{box-shadow:0 0 0 8px transparent}}
+.nav-links{display:flex;gap:36px;align-items:center}
+.nav-links a{
+  font-size:12px; letter-spacing:.06em; color:var(--white-60);
+  position:relative; transition:color .2s;
+}
+.nav-links a::after{
+  content:''; position:absolute; bottom:-4px; left:0; right:0; height:1px;
+  background:var(--accent); transform:scaleX(0); transform-origin:left;
+  transition:transform .25s;
+}
+.nav-links a:hover{color:var(--white)}
+.nav-links a:hover::after{transform:scaleX(1)}
+.nav-cta {
+  font-size:11px; letter-spacing:.14em; text-transform:uppercase;
+  padding:9px 22px; border:1px solid var(--accent); color:var(--accent);
+  transition:background .2s,color .2s; font-family:var(--display); font-weight:700;
+}
+.nav-cta:hover{background:var(--accent);color:#000}
+
+/* ═══════════════════════════════════════
+   HERO
+═══════════════════════════════════════ */
+.hero {
+  position:relative; z-index:1; min-height:100vh;
+  display:grid; grid-template-columns:1fr 1fr;
+  padding-top:60px; overflow:hidden;
+}
+
+/* left */
+.hero-l {
+  padding:80px 64px; display:flex; flex-direction:column;
+  justify-content:center; position:relative;
+}
+.hero-availability {
+  display:inline-flex; align-items:center; gap:8px; margin-bottom:36px;
+  font-size:10px; letter-spacing:.22em; text-transform:uppercase; color:var(--accent);
+}
+.avail-dot {
+  width:7px; height:7px; border-radius:50%; background:var(--accent);
+  animation:blink 1.8s ease-in-out infinite;
+}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+
+.hero-title {
+  font-family:var(--display); font-weight:800;
+  font-size:clamp(44px,5.2vw,80px); line-height:1.0;
+  letter-spacing:-.04em; margin-bottom:10px;
+}
+.hero-title-line2 {
+  font-family:var(--display); font-weight:300;
+  font-size:clamp(44px,5.2vw,80px); line-height:1.0;
+  letter-spacing:-.04em; color:var(--white-30); margin-bottom:36px;
+}
+.hero-role {
+  font-size:13px; letter-spacing:.12em; text-transform:uppercase;
+  color:var(--accent); margin-bottom:28px;
+  display:flex; align-items:center; gap:12px;
+}
+.hero-role::before{content:'';width:40px;height:1px;background:var(--accent)}
+.hero-desc {
+  font-size:15px; line-height:1.85; color:var(--white-60);
+  max-width:440px; margin-bottom:52px;
+}
+.hero-desc strong{color:var(--white);font-weight:500}
+
+.hero-btns{display:flex;gap:14px;margin-bottom:72px}
+.btn-primary {
+  font-family:var(--display); font-weight:700;
+  font-size:11px; letter-spacing:.14em; text-transform:uppercase;
+  padding:13px 28px; background:var(--accent); color:#000;
+  transition:background .2s, transform .2s;
+}
+.btn-primary:hover{background:var(--accent2);transform:translateY(-1px)}
+.btn-ghost {
+  font-family:var(--display); font-weight:500;
+  font-size:11px; letter-spacing:.14em; text-transform:uppercase;
+  padding:13px 28px; border:1px solid var(--border2); color:var(--white-60);
+  transition:border-color .2s, color .2s;
+}
+.btn-ghost:hover{border-color:var(--white);color:var(--white)}
+
+.hero-stats{display:flex;gap:0}
+.hstat {
+  padding:24px 32px; border:1px solid var(--border);
+  border-right:none; position:relative;
+}
+.hstat:last-child{border-right:1px solid var(--border)}
+.hstat-n{
+  font-family:var(--display); font-weight:800; font-size:30px;
+  color:var(--white); line-height:1; margin-bottom:4px;
+}
+.hstat-n span{color:var(--accent)}
+.hstat-l{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--white-30)}
+
+/* right: AI diagram */
+.hero-r {
+  position:relative; display:flex; align-items:center; justify-content:center;
+  padding:80px 48px; overflow:hidden;
+}
+.hero-r::before {
+  content:''; position:absolute; inset:0;
+  background:radial-gradient(ellipse 60% 60% at 60% 40%, rgba(0,229,160,.06) 0%, transparent 70%);
+}
+
+/* ═══════════════════════════════════════
+   AI DIAGRAM (SVG animated)
+═══════════════════════════════════════ */
+.ai-diagram{
+  width:100%; max-width:500px; position:relative; z-index:2;
+}
+.orbit-ring {
+  animation:spin 18s linear infinite;
+  transform-origin:center;
+  transform-box:fill-box;
+}
+.orbit-ring2{animation:spin 28s linear infinite reverse; transform-origin:center; transform-box:fill-box}
+.orbit-ring3{animation:spin 12s linear infinite; transform-origin:center; transform-box:fill-box}
+@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+.node-pulse{animation:nodePulse 3s ease-in-out infinite}
+@keyframes nodePulse{0%,100%{opacity:.6;r:5}50%{opacity:1;r:7}}
+.center-glow{animation:centerGlow 2.5s ease-in-out infinite}
+@keyframes centerGlow{0%,100%{opacity:.8;filter:blur(2px)}50%{opacity:1;filter:blur(0px)}}
+.data-flow{animation:dataFlow 3s linear infinite}
+@keyframes dataFlow{from{stroke-dashoffset:40}to{stroke-dashoffset:0}}
+.data-flow2{animation:dataFlow 2s linear infinite reverse}
+.float-label{animation:floatY 4s ease-in-out infinite}
+@keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+
+/* ═══════════════════════════════════════
+   SECTION BASE (DARK)
+═══════════════════════════════════════ */
+.section{position:relative;z-index:1;padding:120px 0;border-top:1px solid var(--border)}
+.container{max-width:1200px;margin:0 auto;padding:0 56px}
+
+.sec-header{
+  display:grid; grid-template-columns:160px 1fr; gap:48px;
+  margin-bottom:80px; align-items:start;
+}
+.sec-num{
+  font-family:var(--display); font-weight:300;
+  font-size:11px; letter-spacing:.22em; text-transform:uppercase;
+  color:var(--white-30); padding-top:10px;
+  display:flex; flex-direction:column; gap:8px;
+}
+.sec-num::after{content:'';width:24px;height:1px;background:var(--accent)}
+.sec-title{
+  font-family:var(--display); font-weight:800;
+  font-size:clamp(30px,3.6vw,52px); line-height:1.0; letter-spacing:-.03em;
+}
+.sec-title em{font-weight:300;color:var(--white-30);font-style:normal}
+.sec-title strong{color:var(--accent);font-weight:800}
+.sec-lead{font-size:15px;color:var(--white-60);line-height:1.85;max-width:540px;margin-top:14px}
+
+/* ═══════════════════════════════════════
+   LIGHT SECTION
+═══════════════════════════════════════ */
+.section-light{
+  background:var(--off-white);color:var(--ink);
+  border-top:1px solid var(--off-border);
+}
+.section-light .sec-num{color:var(--ink-50)}
+.section-light .sec-num::after{background:var(--ink)}
+.section-light .sec-title{color:var(--ink)}
+.section-light .sec-title em{color:var(--ink-50)}
+.section-light .sec-title strong{color:var(--ink)}
+.section-light .sec-lead{color:var(--ink-50)}
+
+/* ═══════════════════════════════════════
+   ABOUT
+═══════════════════════════════════════ */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+
+.about-text p{font-size:15px;line-height:1.9;color:var(--white-60);margin-bottom:20px}
+.about-text p strong{color:var(--white);font-weight:500}
+.about-text p:last-child{margin-bottom:0}
+
+.about-skills{display:flex;flex-direction:column;gap:2px}
+.skill-row{
+  display:flex; align-items:center; justify-content:space-between;
+  padding:16px 20px; border:1px solid var(--border);
+  transition:background .2s, border-color .2s;
+}
+.skill-row:hover{background:var(--white-10);border-color:var(--border2)}
+.skill-name{font-size:12px;font-weight:500;letter-spacing:.04em}
+.skill-bar{display:flex;gap:3px;align-items:center}
+.skill-pip{
+  width:18px;height:3px;background:var(--border2);
+  transition:background .3s;
+}
+.skill-pip.on{background:var(--accent)}
+
+/* AI tags */
+.ai-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:32px}
+.ai-tag{
+  font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  padding:6px 14px;border:1px solid var(--accent-glow);color:var(--accent);
+  background:var(--accent-bg);
+}
+
+/* tools list */
+.tools-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
+  background:var(--border);border:1px solid var(--border);
+  margin-top:40px;
+}
+.tool-item{
+  background:var(--bg2);padding:18px 20px;
+  display:flex;flex-direction:column;gap:4px;
+  transition:background .2s;
+}
+.tool-item:hover{background:var(--surface)}
+.tool-name{font-size:12px;font-weight:500}
+.tool-cat{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--white-30)}
+
+/* ═══════════════════════════════════════
+   PORTFOLIO
+═══════════════════════════════════════ */
+.portfolio-row{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-bottom:2px}
+.proj-card{
+  position:relative;overflow:hidden;
+  aspect-ratio:16/10; cursor:none;
+  background:var(--surface);
+}
+.proj-card.wide{grid-column:span 2;aspect-ratio:21/9}
+.proj-img{
+  width:100%;height:100%;
+  transition:transform .6s cubic-bezier(.22,.61,.36,1);
+}
+.proj-card:hover .proj-img{transform:scale(1.04)}
+.proj-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(180deg,transparent 30%,rgba(8,11,15,.95) 100%);
+  padding:32px;display:flex;flex-direction:column;justify-content:flex-end;
+  opacity:0;transition:opacity .35s;
+}
+.proj-card:hover .proj-overlay{opacity:1}
+.proj-always{
+  position:absolute;inset:0;
+  padding:28px 32px;display:flex;flex-direction:column;justify-content:flex-end;
+}
+.proj-tags{display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap}
+.proj-tag{
+  font-size:8px;letter-spacing:.18em;text-transform:uppercase;
+  padding:4px 10px;background:var(--accent-bg);color:var(--accent);
+  border:1px solid rgba(0,229,160,.2);
+}
+.proj-name{
+  font-family:var(--display);font-weight:800;
+  font-size:clamp(18px,2.2vw,28px);letter-spacing:-.02em;line-height:1.1;
+  margin-bottom:6px;
+}
+.proj-sub{font-size:12px;color:var(--white-60);line-height:1.5}
+.proj-arrow{
+  position:absolute;top:24px;right:24px;
+  width:40px;height:40px;border:1px solid var(--border2);
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;transform:translateY(-8px);
+  transition:opacity .3s,transform .3s,background .2s;
+}
+.proj-card:hover .proj-arrow{opacity:1;transform:none}
+.proj-arrow:hover{background:var(--accent)}
+.proj-arrow:hover path{stroke:#000}
+.proj-year{
+  position:absolute;top:24px;left:24px;
+  font-size:9px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--white-30);
+}
+
+/* ═══════════════════════════════════════
+   PROCESS (AI section)
+═══════════════════════════════════════ */
+.process-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px}
+.process-step{
+  padding:40px 32px;background:var(--surface);
+  border:1px solid var(--border);
+  position:relative;overflow:hidden;
+  transition:background .3s;
+}
+.process-step:hover{background:var(--bg3)}
+.process-step::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--accent),transparent);
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .4s;
+}
+.process-step:hover::before{transform:scaleX(1)}
+.ps-icon{
+  width:44px;height:44px;border:1px solid var(--border2);
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:24px;font-size:18px;
+  transition:border-color .3s,background .3s;
+}
+.process-step:hover .ps-icon{border-color:var(--accent);background:var(--accent-bg)}
+.ps-n{
+  font-family:var(--display);font-weight:800;font-size:10px;
+  letter-spacing:.22em;color:var(--accent);text-transform:uppercase;margin-bottom:12px;
+}
+.ps-title{
+  font-family:var(--display);font-weight:700;font-size:15px;
+  margin-bottom:10px;letter-spacing:-.01em;
+}
+.ps-body{font-size:12px;color:var(--white-60);line-height:1.7}
+.ps-tools{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px}
+.ps-tool{font-size:9px;padding:3px 9px;border:1px solid var(--border2);color:var(--white-30)}
+
+/* ═══════════════════════════════════════
+   CASE STUDIES (light bg)
+═══════════════════════════════════════ */
+.case-list{display:flex;flex-direction:column;gap:1px;background:var(--off-border)}
+
+.case-item{
+  display:grid;grid-template-columns:80px 1fr auto;
+  gap:40px;align-items:center;padding:36px 40px;
+  background:var(--off-white);
+  border:1px solid transparent;
+  transition:background .2s,border-color .2s;
+  cursor:none;
+}
+.case-item:hover{background:#fff;border-color:var(--off-border)}
+.case-n{
+  font-family:var(--display);font-weight:800;font-size:32px;
+  color:var(--ink-20);letter-spacing:-.04em;line-height:1;
+}
+.case-title{
+  font-family:var(--display);font-weight:700;font-size:20px;
+  letter-spacing:-.02em;color:var(--ink);margin-bottom:6px;
+}
+.case-desc{font-size:13px;color:var(--ink-50);line-height:1.6;max-width:480px}
+.case-tags{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap}
+.case-tag{
+  font-size:9px;letter-spacing:.16em;text-transform:uppercase;
+  padding:4px 10px;border:1px solid var(--off-border);color:var(--ink-50);
+}
+.case-cta{
+  font-family:var(--display);font-weight:700;
+  font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+  padding:11px 22px;border:1px solid var(--ink);color:var(--ink);
+  white-space:nowrap;
+  transition:background .2s,color .2s;
+}
+.case-item:hover .case-cta{background:var(--ink);color:#fff}
+
+/* case detail (expandable) */
+.case-detail{
+  display:none;background:#fff;
+  border-top:1px solid var(--off-border);
+  padding:60px 40px 60px 160px;
+}
+.case-detail.open{display:block}
+.cd-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;margin-bottom:48px}
+.cd-title{
+  font-family:var(--display);font-weight:700;
+  font-size:13px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-50);margin-bottom:16px;
+}
+.cd-body{font-size:14px;line-height:1.85;color:var(--ink-50)}
+.cd-body strong{color:var(--ink);font-weight:500}
+.cd-phases{display:flex;flex-direction:column;gap:1px}
+.cd-phase{
+  display:grid;grid-template-columns:120px 1fr;gap:24px;
+  padding:16px 0;border-bottom:1px solid var(--off-border);
+}
+.cd-phase:last-child{border-bottom:none}
+.cd-phase-label{
+  font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-50);
+  padding-top:2px;
+}
+.cd-phase-text{font-size:13px;color:var(--ink);line-height:1.7}
+
+/* ═══════════════════════════════════════
+   CONTACT
+═══════════════════════════════════════ */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+.contact-info{display:flex;flex-direction:column;gap:28px}
+.contact-block{}
+.cb-label{
+  font-size:9px;letter-spacing:.24em;text-transform:uppercase;
+  color:var(--white-30);margin-bottom:8px;
+}
+.cb-value{
+  font-family:var(--display);font-weight:700;font-size:18px;
+  letter-spacing:-.01em;color:var(--white);
+  transition:color .2s;
+}
+.cb-value a:hover{color:var(--accent)}
+.socials{display:flex;flex-direction:column;gap:2px;margin-top:8px}
+.social-link{
+  display:flex;align-items:center;gap:16px;
+  padding:14px 20px;border:1px solid var(--border);
+  transition:border-color .2s,background .2s;
+}
+.social-link:hover{border-color:var(--accent);background:var(--accent-bg)}
+.social-icon{
+  width:32px;height:32px;display:flex;align-items:center;justify-content:center;
+  border:1px solid var(--border2);font-size:14px;flex-shrink:0;
+}
+.social-name{font-size:13px;font-weight:500;flex:1}
+.social-handle{font-size:12px;color:var(--white-30)}
+.social-arr{font-size:14px;color:var(--white-30);transition:color .2s,transform .2s}
+.social-link:hover .social-arr{color:var(--accent);transform:translateX(4px)}
+
+/* contact form */
+.contact-form{display:flex;flex-direction:column;gap:16px}
+.form-group{display:flex;flex-direction:column;gap:6px}
+.form-label{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--white-30)}
+.form-input,.form-textarea{
+  background:var(--surface);border:1px solid var(--border);
+  color:var(--white);padding:14px 18px;font-family:var(--body);font-size:14px;
+  outline:none;transition:border-color .2s;resize:none;
+}
+.form-input:focus,.form-textarea:focus{border-color:var(--accent)}
+.form-textarea{height:120px}
+.form-submit{
+  font-family:var(--display);font-weight:700;font-size:11px;
+  letter-spacing:.16em;text-transform:uppercase;
+  padding:15px;background:var(--accent);color:#000;border:none;
+  cursor:none;transition:background .2s;
+}
+.form-submit:hover{background:var(--accent2)}
+
+/* ═══════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════ */
+.footer{
+  position:relative;z-index:1;
+  border-top:1px solid var(--border);
+  padding:40px 56px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.footer-logo{font-family:var(--display);font-weight:800;font-size:14px;letter-spacing:-.02em}
+.footer-copy{font-size:11px;color:var(--white-30);letter-spacing:.06em}
+.footer-back{
+  font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--white-30);display:flex;align-items:center;gap:8px;
+  transition:color .2s;
+}
+.footer-back:hover{color:var(--accent)}
+
+/* ═══════════════════════════════════════
+   SCROLL REVEAL
+═══════════════════════════════════════ */
+.r{opacity:0;transform:translateY(32px);transition:opacity .8s cubic-bezier(.22,.61,.36,1),transform .8s cubic-bezier(.22,.61,.36,1)}
+.r.v{opacity:1;transform:none}
+.r.d1{transition-delay:.1s}.r.d2{transition-delay:.2s}.r.d3{transition-delay:.3s}.r.d4{transition-delay:.4s}
+.r.from-left{transform:translateX(-32px)}
+.r.from-right{transform:translateX(32px)}
+.r.from-left.v,.r.from-right.v{transform:none}
+
+/* hero enter */
+@keyframes up{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+.ha{animation:up .9s cubic-bezier(.22,.61,.36,1) both}
+.ha0{animation-delay:.1s}.ha1{animation-delay:.24s}.ha2{animation-delay:.38s}
+.ha3{animation-delay:.52s}.ha4{animation-delay:.66s}.ha5{animation-delay:.8s}
+
+/* counter */
+.count-num{font-family:var(--display);font-weight:800}
+
+/* ═══════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════ */
+@media(max-width:1100px){
+  .hero{grid-template-columns:1fr;min-height:auto}
+  .hero-r{display:none}
+  .about-grid,.contact-grid{grid-template-columns:1fr;gap:48px}
+  .portfolio-row{grid-template-columns:1fr}
+  .proj-card.wide{aspect-ratio:16/10}
+  .process-grid{grid-template-columns:1fr 1fr}
+  .sec-header{grid-template-columns:1fr;gap:16px}
+  .case-item{grid-template-columns:60px 1fr;gap:24px}
+  .case-cta{display:none}
+  .cd-grid{grid-template-columns:1fr}
+  .case-detail{padding:40px 24px}
+}
+@media(max-width:700px){
+  .nav{padding:0 20px}
+  .container{padding:0 20px}
+  .hero-l{padding:60px 20px}
+  .process-grid{grid-template-columns:1fr}
+  .tools-grid{grid-template-columns:1fr 1fr}
+  .footer{flex-direction:column;gap:16px;text-align:center}
+  .hero-stats{flex-direction:column}
+  .hstat{border-right:1px solid var(--border)}
+}
+</style>
+</head>
+<body>
+
+<!-- Back to portfolio banner -->
+<div id="back-banner" style="
+  position:fixed; bottom:32px; left:50%; transform:translateX(-50%);
+  z-index:1000; display:flex; align-items:center; gap:12px;
+  background:rgba(26,29,33,.96); border:1px solid rgba(0,229,160,.25);
+  backdrop-filter:blur(16px); padding:12px 24px;
+  font-family:'Plus Jakarta Sans',system-ui,sans-serif;
+  animation: slideUp .6s cubic-bezier(.22,.61,.36,1) .8s both;
+">
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#00E5A0" stroke-width="1.8"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+  <a href="/#portfolio" style="font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:#00E5A0; font-weight:700; transition:opacity .2s" onmouseover="this.style.opacity='.7'" onmouseout="this.style.opacity='1'">
+    Powrót do portfolio Kacpra
+  </a>
+  <span style="width:1px; height:14px; background:rgba(0,229,160,.2); display:inline-block"></span>
+  <a href="/projects/qljoy" style="font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:rgba(242,244,247,.4); font-weight:600; transition:color .2s" onmouseover="this.style.color='#F2F4F7'" onmouseout="this.style.color='rgba(242,244,247,.4)'">
+    Case study Astro →
+  </a>
+  <button onclick="document.getElementById('back-banner').style.display='none'" style="background:none; border:none; cursor:pointer; color:rgba(242,244,247,.3); font-size:16px; line-height:1; padding:0 0 0 4px; margin-left:4px" aria-label="Zamknij">×</button>
+</div>
+
+<style>
+@keyframes slideUp { from{opacity:0;transform:translateX(-50%) translateY(20px)} to{opacity:1;transform:translateX(-50%) translateY(0)} }
+</style>
+
+<!-- cursor -->
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+<canvas id="bgCanvas"></canvas>
+
+<!-- ══════════════════════════════════════
+     NAV
+══════════════════════════════════════ -->
+<nav class="nav" id="nav">
+  <div class="nav-logo">
+    <div class="nav-logo-dot"></div>
+    kacper.design
+  </div>
+  <div class="nav-links">
+    <a href="/#about">O mnie</a>
+    <a href="/#portfolio">Portfolio</a>
+    <a href="/#process">Proces</a>
+    <a href="/#cases">Case Studies</a>
+    <a href="/#contact">Kontakt</a>
+  </div>
+  <div style="display:flex;align-items:center;gap:12px">
+    <button class="theme-toggle" id="themeToggle" aria-label="Przełącz motyw">
+      <svg class="icon-dark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="width:14px;height:14px"><path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"/></svg>
+      <svg class="icon-light" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="width:14px;height:14px"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg>
+      <span id="themeLabel">Light</span>
+    </button>
+    <a href="/#contact" class="nav-cta">Porozmawiajmy</a>
+  </div>
+</nav>
+
+
+<!-- ══════════════════════════════════════
+     HERO
+══════════════════════════════════════ -->
+<section class="hero" id="hero">
+
+  <!-- left -->
+  <div class="hero-l">
+    <div class="hero-availability ha ha0">
+      <span class="avail-dot"></span>
+      Dostępny do współpracy · 2025
+    </div>
+
+    <div class="hero-title ha ha1">Kacper Stolarczyk</div>
+    <div class="hero-title-line2 ha ha2">UI/UX Designer</div>
+
+    <div class="hero-role ha ha3">AI-Augmented Design</div>
+
+    <p class="hero-desc ha ha4">
+      Projektuję interfejsy, które <strong>rozumieją ludzi</strong>. Łączę
+      klasyczny warsztat UX z <strong>narzędziami AI</strong> — skracam czas
+      dostarczania o 60%, nie rezygnując z głębi procesu.
+    </p>
+
+    <div class="hero-btns ha ha5">
+      <a href="/#portfolio" class="btn-primary">Zobacz portfolio</a>
+      <a href="/#about" class="btn-ghost">O mnie</a>
+    </div>
+
+    <div class="hero-stats ha ha5">
+      <div class="hstat">
+        <div class="hstat-n"><span class="count-num" data-target="24">0</span><span>+</span></div>
+        <div class="hstat-l">Projektów</div>
+      </div>
+      <div class="hstat">
+        <div class="hstat-n"><span class="count-num" data-target="6">0</span><span>lat</span></div>
+        <div class="hstat-l">Doświadczenia</div>
+      </div>
+      <div class="hstat">
+        <div class="hstat-n"><span class="count-num" data-target="60">0</span><span>%</span></div>
+        <div class="hstat-l">Szybciej z AI</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- right: animated AI diagram -->
+  <div class="hero-r">
+    <div class="ai-diagram">
+      <svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg" width="100%">
+        <defs>
+          <radialGradient id="cg" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#00E5A0" stop-opacity=".9"/>
+            <stop offset="100%" stop-color="#00E5A0" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="ng" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#00E5A0" stop-opacity=".5"/>
+            <stop offset="100%" stop-color="#00E5A0" stop-opacity="0"/>
+          </radialGradient>
+          <filter id="glow">
+            <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+            <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+          <filter id="glow2">
+            <feGaussianBlur stdDeviation="6" result="coloredBlur"/>
+            <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+
+        <!-- background grid -->
+        <g opacity=".06">
+          <line x1="0" y1="100" x2="500" y2="100" stroke="#00E5A0" stroke-width=".5"/>
+          <line x1="0" y1="200" x2="500" y2="200" stroke="#00E5A0" stroke-width=".5"/>
+          <line x1="0" y1="300" x2="500" y2="300" stroke="#00E5A0" stroke-width=".5"/>
+          <line x1="0" y1="400" x2="500" y2="400" stroke="#00E5A0" stroke-width=".5"/>
+          <line x1="100" y1="0" x2="100" y2="500" stroke="#00E5A0" stroke-width=".5"/>
+          <line x1="200" y1="0" x2="200" y2="500" stroke="#00E5A0" stroke-width=".5"/>
+          <line x1="300" y1="0" x2="300" y2="500" stroke="#00E5A0" stroke-width=".5"/>
+          <line x1="400" y1="0" x2="400" y2="500" stroke="#00E5A0" stroke-width=".5"/>
+        </g>
+
+        <!-- outer orbit -->
+        <g class="orbit-ring">
+          <circle cx="250" cy="250" r="180" fill="none" stroke="#00E5A0" stroke-width=".5" stroke-dasharray="4 12" opacity=".25"/>
+          <circle cx="250" cy="70" r="5" fill="#00E5A0" opacity=".8" filter="url(#glow)"/>
+          <circle cx="430" cy="250" r="4" fill="#00E5A0" opacity=".6" filter="url(#glow)"/>
+        </g>
+
+        <!-- mid orbit -->
+        <g class="orbit-ring2">
+          <circle cx="250" cy="250" r="130" fill="none" stroke="#00E5A0" stroke-width=".7" stroke-dasharray="2 8" opacity=".3"/>
+          <circle cx="250" cy="120" r="4.5" fill="#00E5A0" opacity=".7" filter="url(#glow)"/>
+          <circle cx="380" cy="250" r="3.5" fill="#00E5A0" opacity=".5"/>
+          <circle cx="250" cy="380" r="4" fill="#00E5A0" opacity=".6" filter="url(#glow)"/>
+        </g>
+
+        <!-- inner orbit -->
+        <g class="orbit-ring3">
+          <circle cx="250" cy="250" r="80" fill="none" stroke="#00E5A0" stroke-width="1" stroke-dasharray="3 6" opacity=".35"/>
+          <circle cx="250" cy="170" r="5" fill="#00E5A0" opacity=".9" filter="url(#glow)"/>
+          <circle cx="330" cy="250" r="4" fill="#00E5A0" opacity=".7"/>
+        </g>
+
+        <!-- connection lines (data flow) -->
+        <g opacity=".4">
+          <line x1="250" y1="250" x2="100" y2="140" stroke="#00E5A0" stroke-width=".8" stroke-dasharray="4 4">
+            <animate attributeName="stroke-dashoffset" from="32" to="0" dur="2s" repeatCount="indefinite"/>
+          </line>
+          <line x1="250" y1="250" x2="400" y2="130" stroke="#00E5A0" stroke-width=".8" stroke-dasharray="4 4">
+            <animate attributeName="stroke-dashoffset" from="0" to="32" dur="2.5s" repeatCount="indefinite"/>
+          </line>
+          <line x1="250" y1="250" x2="130" y2="380" stroke="#00E5A0" stroke-width=".8" stroke-dasharray="4 4">
+            <animate attributeName="stroke-dashoffset" from="32" to="0" dur="3s" repeatCount="indefinite"/>
+          </line>
+          <line x1="250" y1="250" x2="390" y2="360" stroke="#00E5A0" stroke-width=".8" stroke-dasharray="4 4">
+            <animate attributeName="stroke-dashoffset" from="0" to="32" dur="1.8s" repeatCount="indefinite"/>
+          </line>
+        </g>
+
+        <!-- satellite nodes -->
+        <!-- UX Research -->
+        <g filter="url(#glow)">
+          <rect x="60" y="110" width="82" height="48" fill="rgba(0,229,160,.06)" stroke="#00E5A0" stroke-width=".8" rx="2"/>
+          <text x="101" y="130" font-family="Plus Jakarta Sans,sans-serif" font-weight="700" font-size="8.5" fill="#00E5A0" text-anchor="middle" letter-spacing=".5">UX RESEARCH</text>
+          <text x="101" y="146" font-family="DM Sans,sans-serif" font-size="7.5" fill="rgba(0,229,160,.5)" text-anchor="middle">AI-assisted</text>
+        </g>
+
+        <!-- Brand Identity -->
+        <g filter="url(#glow)">
+          <rect x="355" y="100" width="90" height="48" fill="rgba(0,229,160,.06)" stroke="#00E5A0" stroke-width=".8" rx="2"/>
+          <text x="400" y="120" font-family="Plus Jakarta Sans,sans-serif" font-weight="700" font-size="8.5" fill="#00E5A0" text-anchor="middle" letter-spacing=".5">BRAND ID</text>
+          <text x="400" y="136" font-family="DM Sans,sans-serif" font-size="7.5" fill="rgba(0,229,160,.5)" text-anchor="middle">Generative</text>
+        </g>
+
+        <!-- Prototyping -->
+        <g filter="url(#glow)">
+          <rect x="72" y="355" width="90" height="48" fill="rgba(0,229,160,.06)" stroke="#00E5A0" stroke-width=".8" rx="2"/>
+          <text x="117" y="375" font-family="Plus Jakarta Sans,sans-serif" font-weight="700" font-size="8.5" fill="#00E5A0" text-anchor="middle" letter-spacing=".5">PROTOTYPE</text>
+          <text x="117" y="391" font-family="DM Sans,sans-serif" font-size="7.5" fill="rgba(0,229,160,.5)" text-anchor="middle">Rapid iteration</text>
+        </g>
+
+        <!-- E-commerce -->
+        <g filter="url(#glow)">
+          <rect x="347" y="346" width="100" height="48" fill="rgba(0,229,160,.06)" stroke="#00E5A0" stroke-width=".8" rx="2"/>
+          <text x="397" y="366" font-family="Plus Jakarta Sans,sans-serif" font-weight="700" font-size="8.5" fill="#00E5A0" text-anchor="middle" letter-spacing=".5">E-COMMERCE</text>
+          <text x="397" y="382" font-family="DM Sans,sans-serif" font-size="7.5" fill="rgba(0,229,160,.5)" text-anchor="middle">UX-optimized</text>
+        </g>
+
+        <!-- center glow -->
+        <circle cx="250" cy="250" r="50" fill="url(#cg)" opacity=".25">
+          <animate attributeName="r" values="45;55;45" dur="3s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values=".2;.35;.2" dur="3s" repeatCount="indefinite"/>
+        </circle>
+
+        <!-- center core -->
+        <circle cx="250" cy="250" r="28" fill="rgba(0,229,160,.1)" stroke="#00E5A0" stroke-width="1" filter="url(#glow2)"/>
+        <circle cx="250" cy="250" r="14" fill="rgba(0,229,160,.3)" stroke="#00E5A0" stroke-width="1.5"/>
+
+        <!-- center text -->
+        <text x="250" y="246" font-family="Plus Jakarta Sans,sans-serif" font-weight="800" font-size="8" fill="#00E5A0" text-anchor="middle" letter-spacing=".5">AI</text>
+        <text x="250" y="258" font-family="Plus Jakarta Sans,sans-serif" font-weight="800" font-size="8" fill="#00E5A0" text-anchor="middle" letter-spacing=".5">CORE</text>
+
+        <!-- floating data particles -->
+        <g opacity=".5">
+          <circle cx="185" cy="190" r="2" fill="#00E5A0">
+            <animate attributeName="cy" values="190;175;190" dur="4s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values=".5;1;.5" dur="4s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="320" cy="310" r="1.5" fill="#00E5A0">
+            <animate attributeName="cy" values="310;298;310" dur="3.5s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="160" cy="290" r="2" fill="#00E5A0">
+            <animate attributeName="cx" values="160;170;160" dur="5s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="340" cy="200" r="1.5" fill="#00E5A0">
+            <animate attributeName="cx" values="340;330;340" dur="4.5s" repeatCount="indefinite"/>
+          </circle>
+        </g>
+
+        <!-- label -->
+        <text x="250" y="488" font-family="Plus Jakarta Sans,sans-serif" font-weight="300" font-size="9" fill="rgba(0,229,160,.35)" text-anchor="middle" letter-spacing="2">AI-AUGMENTED DESIGN PROCESS</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════
+     01 O MNIE
+══════════════════════════════════════ -->
+<section class="section" id="about">
+  <div class="container">
+    <div class="sec-header r">
+      <div class="sec-num">01<br>O mnie</div>
+      <div>
+        <h2 class="sec-title">Projektuję <em>z ludźmi,</em> <strong>wspomagany przez AI</strong></h2>
+        <p class="sec-lead">Sześć lat doświadczenia w UI/UX, ostatnie trzy lata aktywnie integrując AI w każdym etapie procesu projektowego.</p>
+      </div>
+    </div>
+
+    <div class="about-grid">
+      <div class="about-text r from-left">
+        <p>Jestem UI/UX designerem z <strong>6-letnim doświadczeniem</strong> w projektowaniu produktów cyfrowych dla e-commerce, startupów technologicznych i marek lifestyle. Specjalizuję się w projektach, które wymagają głębokiego rozumienia użytkownika i mocnej tożsamości wizualnej.</p>
+        <p>Od 2022 roku systematycznie integruję <strong>narzędzia AI</strong> w procesie projektowym — od generowania konceptów i analizy persony, przez prototypowanie wspomagane modelem, po automatyzację testów użyteczności. Efekt: <strong>krótszy czas realizacji bez kompromisów</strong> w jakości.</p>
+        <p>Nie wierzę, że AI zastąpi designera. Wierzę, że <strong>designer z AI zastąpi designera bez AI</strong>. Dlatego uczę się, eksperymentuję i dokumentuję każde odkrycie.</p>
+
+        <div class="ai-tags">
+          <span class="ai-tag">Prompt Engineering</span>
+          <span class="ai-tag">AI Prototyping</span>
+          <span class="ai-tag">Generative Branding</span>
+          <span class="ai-tag">Claude · GPT-4 · Midjourney</span>
+          <span class="ai-tag">AI User Research</span>
+        </div>
+
+        <div class="tools-grid" style="margin-top:32px">
+          <div class="tool-item"><div class="tool-name">Figma</div><div class="tool-cat">UI · Prototype</div></div>
+          <div class="tool-item"><div class="tool-name">Claude AI</div><div class="tool-cat">Strategy · Copy</div></div>
+          <div class="tool-item"><div class="tool-name">Midjourney</div><div class="tool-cat">Visual concepts</div></div>
+          <div class="tool-item"><div class="tool-name">Framer</div><div class="tool-cat">No-code · Motion</div></div>
+          <div class="tool-item"><div class="tool-name">Maze</div><div class="tool-cat">User testing</div></div>
+          <div class="tool-item"><div class="tool-name">Webflow</div><div class="tool-cat">CMS · Deploy</div></div>
+        </div>
+      </div>
+
+      <div class="about-skills r from-right d1">
+        <div style="font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--white-30);margin-bottom:20px">Kompetencje</div>
+        <div class="skill-row"><span class="skill-name">UX Research & Strategy</span><div class="skill-bar"><div class="skill-pip on"></div><div class="skill-pip on"></div><div class="skill-pip on"></div><div class="skill-pip on"></div><div class="skill-pip on"></div></div></div>
+        <div class="skill-row"><span class="skill-name">UI Design & Systems</span><div class="skill-bar"><div class="skill-pip on"></div><div class="skill-pip on"></div><div class="skill-pip on"></div><div class="skill-pip on"></div><div class="skill-pip on"></div></div></div>
+        <div class="skill-row"><span class="skill-name">Brand Identity</span><div class="skill-bar"><div class="skill-pip on"></div><div class="skill-pip on"></div><div class="skill-pip on"></div><div class="skill-pip on"></div><div class="skill-pip"></div></div></div>
+        <div class="skill-row"><span class="skill-name">AI-Assisted Prototyping</span><div class="skill-bar"><div class="skill-pip on"></div><div class="skill-pip on"></div><div class="skill-pip on"></div><div class="skill-pip on"></div><div class="skill-pip on"></div></div></div>
+        <div class="skill-row"><span class="skill-name">Front-end (HTML/CSS/JS)</span><div class="skill-bar"><div class="skill-pip on"></div><div class="skill-pip on"></div><div class="skill-pip on"></div><div class="skill-pip on"></div><div class="skill-pip"></div></div></div>
+        <div class="skill-row"><span class="skill-name">E-commerce UX</span><div class="skill-bar"><div class="skill-pip on"></div><div class="skill-pip on"></div><div class="skill-pip on"></div><div class="skill-pip on"></div><div class="skill-pip on"></div></div></div>
+        <div class="skill-row"><span class="skill-name">Prompt Engineering</span><div class="skill-bar"><div class="skill-pip on"></div><div class="skill-pip on"></div><div class="skill-pip on"></div><div class="skill-pip on"></div><div class="skill-pip"></div></div></div>
+        <div class="skill-row"><span class="skill-name">User Testing & Analytics</span><div class="skill-bar"><div class="skill-pip on"></div><div class="skill-pip on"></div><div class="skill-pip on"></div><div class="skill-pip"></div><div class="skill-pip"></div></div></div>
+
+        <!-- education / certs -->
+        <div style="margin-top:36px;font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--white-30);margin-bottom:16px">Wykształcenie & certyfikaty</div>
+        <div style="display:flex;flex-direction:column;gap:2px">
+          <div class="skill-row" style="flex-direction:column;align-items:flex-start;gap:3px">
+            <div class="skill-name">Akademia Sztuk Pięknych w Łodzi</div>
+            <div style="font-size:11px;color:var(--white-30)">Wzornictwo przemysłowe · 2018</div>
+          </div>
+          <div class="skill-row" style="flex-direction:column;align-items:flex-start;gap:3px">
+            <div class="skill-name">Google UX Design Certificate</div>
+            <div style="font-size:11px;color:var(--white-30)">Coursera · 2021</div>
+          </div>
+          <div class="skill-row" style="flex-direction:column;align-items:flex-start;gap:3px">
+            <div class="skill-name" style="color:var(--accent)">AI for Designers — Reforge</div>
+            <div style="font-size:11px;color:var(--white-30)">2024 · w trakcie</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════
+     02 PORTFOLIO
+══════════════════════════════════════ -->
+<section class="section" id="portfolio">
+  <div class="container">
+    <div class="sec-header r">
+      <div class="sec-num">02<br>Portfolio</div>
+      <div>
+        <h2 class="sec-title">Wybrane <strong>projekty</strong></h2>
+        <p class="sec-lead">Projekty end-to-end — od badań użytkownika, przez identyfikację wizualną, po wdrożenie. Każdy z udziałem AI.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- project cards (full bleed) -->
+  <div style="padding:0 56px">
+
+    <!-- row 1: wide -->
+    <div style="margin-bottom:2px" class="r">
+      <div class="proj-card wide" style="background:#0D1520">
+        <!-- SVG: QL&Joy preview -->
+        <svg class="proj-img" viewBox="0 0 1200 514" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+          <defs>
+            <linearGradient id="pjbg" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#2D2250"/><stop offset="100%" stop-color="#1E1638"/>
+            </linearGradient>
+          </defs>
+          <rect width="1200" height="514" fill="url(#pjbg)"/>
+          <ellipse cx="900" cy="257" rx="400" ry="300" fill="rgba(123,94,167,.12)"/>
+          <!-- wordmark big -->
+          <text x="80" y="230" font-family="Plus Jakarta Sans,sans-serif" font-weight="800" font-size="120" fill="rgba(242,167,179,.08)" letter-spacing="-6">QL</text>
+          <text x="290" y="230" font-family="Plus Jakarta Sans,sans-serif" font-weight="300" font-size="140" fill="rgba(242,167,179,.06)">&amp;</text>
+          <text x="360" y="230" font-family="Plus Jakarta Sans,sans-serif" font-weight="800" font-size="120" fill="rgba(242,167,179,.08)" letter-spacing="-6">JOY</text>
+          <!-- product cards preview -->
+          <rect x="620" y="80" width="150" height="200" fill="rgba(45,34,80,.9)" stroke="rgba(242,167,179,.15)" stroke-width="1"/>
+          <rect x="620" y="80" width="150" height="140" fill="rgba(242,167,179,.08)"/>
+          <path d="M672 100 L664 114 L662 165 L720 165 L718 114 L710 100 L703 94 Q695 90 695 90 Q687 94 687 94 Z" fill="rgba(242,167,179,.25)" stroke="rgba(242,167,179,.4)" stroke-width="1"/>
+          <path d="M672 100 L648 110 L646 138 L664 136 L666 116 Z" fill="rgba(242,167,179,.15)"/>
+          <path d="M710 100 L734 110 L736 138 L718 136 L716 116 Z" fill="rgba(242,167,179,.15)"/>
+          <path d="M662 167 L664 240 L680 238 L695 208 L710 208 L726 238 L728 240 L730 167 Z" fill="rgba(28,20,50,.95)" stroke="rgba(232,0,108,.2)" stroke-width="1"/>
+          <text x="627" y="258" font-family="Plus Jakarta Sans,sans-serif" font-weight="700" font-size="9" fill="#FAFAFA">Rose Powder</text>
+          <text x="627" y="272" font-family="DM Sans,sans-serif" font-size="8.5" fill="#E8006C" font-weight="500">489 zł</text>
+
+          <rect x="788" y="80" width="150" height="200" fill="rgba(45,34,80,.9)" stroke="rgba(242,167,179,.15)" stroke-width="1"/>
+          <rect x="788" y="80" width="150" height="140" fill="rgba(123,94,167,.08)"/>
+          <path d="M840 100 L832 114 L830 165 L888 165 L886 114 L878 100 L871 94 Q863 90 863 90 Q855 94 855 94 Z" fill="rgba(123,94,167,.3)" stroke="rgba(123,94,167,.45)" stroke-width="1"/>
+          <path d="M840 100 L816 110 L814 138 L832 136 L834 116 Z" fill="rgba(123,94,167,.18)"/>
+          <path d="M878 100 L902 110 L904 138 L886 136 L884 116 Z" fill="rgba(123,94,167,.18)"/>
+          <path d="M830 167 L832 240 L848 238 L863 208 L878 208 L894 238 L896 240 L898 167 Z" fill="rgba(20,14,38,.95)" stroke="rgba(123,94,167,.25)" stroke-width="1"/>
+          <text x="795" y="258" font-family="Plus Jakarta Sans,sans-serif" font-weight="700" font-size="9" fill="#FAFAFA">Midnight Plum</text>
+          <text x="795" y="272" font-family="DM Sans,sans-serif" font-size="8.5" fill="rgba(242,167,179,.8)" font-weight="500">529 zł</text>
+
+          <rect x="956" y="80" width="150" height="200" fill="rgba(45,34,80,.9)" stroke="rgba(242,167,179,.15)" stroke-width="1"/>
+          <rect x="956" y="80" width="150" height="140" fill="rgba(247,197,208,.08)"/>
+          <path d="M1008 94 L1000 108 L998 159 L1056 159 L1054 108 L1046 94 L1039 88 Q1031 84 1031 84 Q1023 88 1023 88 Z" fill="rgba(247,197,208,.35)" stroke="rgba(242,167,179,.45)" stroke-width="1"/>
+          <path d="M1008 94 L984 104 L982 132 L1000 130 L1002 110 Z" fill="rgba(247,197,208,.22)"/>
+          <path d="M1046 94 L1070 104 L1072 132 L1054 130 L1052 110 Z" fill="rgba(247,197,208,.22)"/>
+          <path d="M998 161 L1000 234 L1016 232 L1031 202 L1046 202 L1062 232 L1064 234 L1066 161 Z" fill="rgba(28,20,50,.92)" stroke="rgba(232,0,108,.18)" stroke-width="1"/>
+          <text x="963" y="258" font-family="Plus Jakarta Sans,sans-serif" font-weight="700" font-size="9" fill="#FAFAFA">Petal White</text>
+          <text x="963" y="272" font-family="DM Sans,sans-serif" font-size="8.5" fill="#E8006C" font-weight="500">390 zł</text>
+
+          <!-- brand colour dots bottom -->
+          <circle cx="80" cy="420" r="12" fill="#F2A7B3"/>
+          <circle cx="104" cy="420" r="12" fill="#E8006C"/>
+          <circle cx="128" cy="420" r="12" fill="#F7C5D0"/>
+          <circle cx="152" cy="420" r="12" fill="#7B5EA7"/>
+          <circle cx="176" cy="420" r="12" fill="#2D2250" stroke="rgba(255,255,255,.2)" stroke-width="1"/>
+          <!-- tagline -->
+          <text x="80" y="470" font-family="Plus Jakarta Sans,sans-serif" font-weight="300" font-size="11" fill="rgba(255,255,255,.35)" letter-spacing="2">QUIET LUXURY &amp; JOY — POLSKA MARKA PREMIUM</text>
+        </svg>
+
+        <div class="proj-year">2025</div>
+        <div class="proj-always">
+          <div class="proj-tags">
+            <span class="proj-tag">Naming</span>
+            <span class="proj-tag">Branding</span>
+            <span class="proj-tag">E-commerce UX</span>
+            <span class="proj-tag">AI-assisted</span>
+          </div>
+          <div class="proj-name">QL&amp;Joy Studio</div>
+          <div class="proj-sub">Identyfikacja wizualna i sklep e-commerce dla premium marki dzianin kobiecych 40+</div>
+        </div>
+        <a href="/qljoy-case-study.html" class="proj-arrow">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- row 2: 2 cards -->
+    <div class="portfolio-row r d1">
+      <!-- card 2 -->
+      <div class="proj-card" style="background:#0C1410">
+        <svg class="proj-img" viewBox="0 0 600 375" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+          <rect width="600" height="375" fill="#0C1410"/>
+          <circle cx="300" cy="187" r="200" fill="rgba(0,229,160,.04)"/>
+          <!-- dashboard mockup -->
+          <rect x="40" y="40" width="520" height="295" fill="rgba(13,23,18,.9)" stroke="rgba(0,229,160,.12)" stroke-width="1" rx="3"/>
+          <rect x="40" y="40" width="520" height="32" fill="rgba(0,229,160,.06)"/>
+          <circle cx="58" cy="56" r="5" fill="rgba(0,229,160,.3)"/>
+          <text x="76" y="60" font-family="Plus Jakarta Sans,sans-serif" font-weight="700" font-size="10" fill="rgba(0,229,160,.6)" letter-spacing=".5">MEDTRACK DASHBOARD</text>
+          <!-- charts -->
+          <rect x="56" y="88" width="150" height="100" fill="rgba(0,229,160,.04)" stroke="rgba(0,229,160,.1)" stroke-width=".8" rx="2"/>
+          <text x="66" y="104" font-family="DM Sans,sans-serif" font-size="8" fill="rgba(0,229,160,.45)" letter-spacing="1">AKTYWNOŚĆ</text>
+          <path d="M66 165 L84 148 L102 155 L120 138 L138 142 L156 128 L174 132 L192 118" fill="none" stroke="#00E5A0" stroke-width="1.5"/>
+          <path d="M66 165 L84 148 L102 155 L120 138 L138 142 L156 128 L174 132 L192 118 L192 165 Z" fill="rgba(0,229,160,.06)"/>
+          <rect x="222" y="88" width="150" height="100" fill="rgba(0,229,160,.04)" stroke="rgba(0,229,160,.1)" stroke-width=".8" rx="2"/>
+          <text x="232" y="104" font-family="DM Sans,sans-serif" font-size="8" fill="rgba(0,229,160,.45)" letter-spacing="1">PARAMETRY</text>
+          <circle cx="297" cy="143" r="32" fill="none" stroke="rgba(0,229,160,.15)" stroke-width="8"/>
+          <circle cx="297" cy="143" r="32" fill="none" stroke="#00E5A0" stroke-width="8" stroke-dasharray="130 70" stroke-dashoffset="32"/>
+          <text x="297" y="149" font-family="Plus Jakarta Sans,sans-serif" font-weight="700" font-size="14" fill="#00E5A0" text-anchor="middle">87%</text>
+          <rect x="390" y="88" width="150" height="100" fill="rgba(0,229,160,.04)" stroke="rgba(0,229,160,.1)" stroke-width=".8" rx="2"/>
+          <text x="400" y="104" font-family="DM Sans,sans-serif" font-size="8" fill="rgba(0,229,160,.45)" letter-spacing="1">LEKI</text>
+          <rect x="400" y="112" width="120" height="8" rx="1" fill="rgba(0,229,160,.08)"/>
+          <rect x="400" y="112" width="90" height="8" rx="1" fill="rgba(0,229,160,.4)"/>
+          <rect x="400" y="126" width="120" height="8" rx="1" fill="rgba(0,229,160,.08)"/>
+          <rect x="400" y="126" width="60" height="8" rx="1" fill="rgba(0,229,160,.3)"/>
+          <rect x="400" y="140" width="120" height="8" rx="1" fill="rgba(0,229,160,.08)"/>
+          <rect x="400" y="140" width="100" height="8" rx="1" fill="rgba(0,229,160,.35)"/>
+        </svg>
+        <div class="proj-year">2024</div>
+        <div class="proj-always">
+          <div class="proj-tags"><span class="proj-tag">HealthTech</span><span class="proj-tag">Dashboard UX</span></div>
+          <div class="proj-name">MedTrack</div>
+          <div class="proj-sub">Aplikacja do monitorowania zdrowia z AI diagnostics</div>
+        </div>
+        <a href="#" class="proj-arrow">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </a>
+      </div>
+
+      <!-- card 3 -->
+      <div class="proj-card" style="background:#0F0C1A">
+        <svg class="proj-img" viewBox="0 0 600 375" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+          <rect width="600" height="375" fill="#0F0C1A"/>
+          <ellipse cx="300" cy="200" rx="280" ry="200" fill="rgba(123,94,167,.08)"/>
+          <!-- finance app mockup -->
+          <rect x="195" y="20" width="210" height="335" fill="#1A1530" stroke="rgba(123,94,167,.2)" stroke-width="1" rx="14"/>
+          <rect x="195" y="20" width="210" height="335" fill="none" stroke="rgba(255,255,255,.06)" stroke-width="1" rx="14"/>
+          <!-- status bar -->
+          <text x="210" y="42" font-family="DM Sans,sans-serif" font-size="8" fill="rgba(255,255,255,.3)">9:41</text>
+          <text x="370" y="42" font-family="DM Sans,sans-serif" font-size="8" fill="rgba(255,255,255,.3)" text-anchor="end">●●●</text>
+          <!-- balance -->
+          <text x="300" y="80" font-family="DM Sans,sans-serif" font-size="9" fill="rgba(255,255,255,.35)" text-anchor="middle" letter-spacing="1.5">PORTFEL</text>
+          <text x="300" y="108" font-family="Plus Jakarta Sans,sans-serif" font-weight="800" font-size="28" fill="#FAFAFA" text-anchor="middle" letter-spacing="-1">24 840 zł</text>
+          <text x="300" y="124" font-family="DM Sans,sans-serif" font-size="10" fill="rgba(123,94,167,.8)" text-anchor="middle">▲ +3.2% ten miesiąc</text>
+          <!-- action buttons -->
+          <rect x="210" y="136" width="55" height="32" rx="4" fill="rgba(123,94,167,.2)" stroke="rgba(123,94,167,.3)" stroke-width=".8"/>
+          <text x="237" y="156" font-family="DM Sans,sans-serif" font-size="8.5" fill="rgba(255,255,255,.6)" text-anchor="middle">Wyślij</text>
+          <rect x="272" y="136" width="55" height="32" rx="4" fill="rgba(123,94,167,.2)" stroke="rgba(123,94,167,.3)" stroke-width=".8"/>
+          <text x="299" y="156" font-family="DM Sans,sans-serif" font-size="8.5" fill="rgba(255,255,255,.6)" text-anchor="middle">Odbierz</text>
+          <rect x="334" y="136" width="55" height="32" rx="4" fill="rgba(123,94,167,.5)" stroke="none"/>
+          <text x="361" y="156" font-family="DM Sans,sans-serif" font-size="8.5" fill="white" text-anchor="middle">Więcej</text>
+          <!-- transactions -->
+          <text x="210" y="188" font-family="DM Sans,sans-serif" font-size="8.5" fill="rgba(255,255,255,.3)" letter-spacing="1">OSTATNIE</text>
+          <rect x="210" y="195" width="180" height="28" rx="2" fill="rgba(255,255,255,.04)"/>
+          <text x="220" y="213" font-family="DM Sans,sans-serif" font-size="9" fill="rgba(255,255,255,.6)">Netflix</text>
+          <text x="382" y="213" font-family="Plus Jakarta Sans,sans-serif" font-weight="700" font-size="9" fill="rgba(255,100,100,.7)" text-anchor="end">-49 zł</text>
+          <rect x="210" y="227" width="180" height="28" rx="2" fill="rgba(255,255,255,.04)"/>
+          <text x="220" y="245" font-family="DM Sans,sans-serif" font-size="9" fill="rgba(255,255,255,.6)">Przelew</text>
+          <text x="382" y="245" font-family="Plus Jakarta Sans,sans-serif" font-weight="700" font-size="9" fill="rgba(0,229,160,.7)" text-anchor="end">+1 200 zł</text>
+          <rect x="210" y="259" width="180" height="28" rx="2" fill="rgba(255,255,255,.04)"/>
+          <text x="220" y="277" font-family="DM Sans,sans-serif" font-size="9" fill="rgba(255,255,255,.6)">Biedronka</text>
+          <text x="382" y="277" font-family="Plus Jakarta Sans,sans-serif" font-weight="700" font-size="9" fill="rgba(255,100,100,.7)" text-anchor="end">-87 zł</text>
+        </svg>
+        <div class="proj-year">2024</div>
+        <div class="proj-always">
+          <div class="proj-tags"><span class="proj-tag">FinTech</span><span class="proj-tag">Mobile UX</span></div>
+          <div class="proj-name">Vault — FinApp</div>
+          <div class="proj-sub">Aplikacja bankowa dla Gen Z z AI budget advisor</div>
+        </div>
+        <a href="#" class="proj-arrow">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- row 3 -->
+    <div class="portfolio-row r d2">
+      <!-- card 4 -->
+      <div class="proj-card" style="background:#0F1210">
+        <svg class="proj-img" viewBox="0 0 600 375" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+          <rect width="600" height="375" fill="#0A1208"/>
+          <rect x="0" y="0" width="600" height="375" fill="url(#foodbg)"/>
+          <defs><linearGradient id="foodbg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="rgba(40,80,30,.3)"/><stop offset="100%" stop-color="rgba(10,20,8,.8)"/></linearGradient></defs>
+          <!-- food app -->
+          <text x="50" y="100" font-family="Plus Jakarta Sans,sans-serif" font-weight="800" font-size="52" fill="rgba(140,210,100,.06)" letter-spacing="-2">FRESH</text>
+          <rect x="50" y="56" width="200" height="265" fill="rgba(15,22,12,.9)" stroke="rgba(100,200,80,.12)" stroke-width="1" rx="10"/>
+          <rect x="50" y="56" width="200" height="130" fill="rgba(60,120,40,.2)" rx="10 10 0 0"/>
+          <!-- product illustration -->
+          <ellipse cx="150" cy="100" rx="50" ry="35" fill="rgba(80,180,50,.15)"/>
+          <text x="150" y="108" font-family="serif" font-size="38" text-anchor="middle">🥗</text>
+          <text x="60" y="208" font-family="Plus Jakarta Sans,sans-serif" font-weight="700" font-size="12" fill="#FAFAFA">Bowl of Greens</text>
+          <text x="60" y="222" font-family="DM Sans,sans-serif" font-size="9.5" fill="rgba(255,255,255,.4)">Zdrowa · 320 kcal</text>
+          <rect x="60" y="234" width="70" height="20" rx="10" fill="rgba(100,200,80,.2)" stroke="rgba(100,200,80,.3)" stroke-width=".8"/>
+          <text x="95" y="248" font-family="DM Sans,sans-serif" font-size="8.5" fill="rgba(100,200,80,.9)" text-anchor="middle">★ 4.9</text>
+          <text x="60" y="286" font-family="Plus Jakarta Sans,sans-serif" font-weight="800" font-size="18" fill="#FAFAFA">24,99 zł</text>
+          <rect x="60" y="295" width="180" height="20" rx="2" fill="rgba(100,200,80,.7)"/>
+          <text x="150" y="309" font-family="Plus Jakarta Sans,sans-serif" font-weight="700" font-size="9" fill="#0A1208" text-anchor="middle" letter-spacing="1">DODAJ DO KOSZYKA</text>
+        </svg>
+        <div class="proj-year">2023</div>
+        <div class="proj-always">
+          <div class="proj-tags"><span class="proj-tag">FoodTech</span><span class="proj-tag">Mobile App</span></div>
+          <div class="proj-name">FreshBowl</div>
+          <div class="proj-sub">Platforma dostaw zdrowej żywności z AI meal planner</div>
+        </div>
+        <a href="#" class="proj-arrow">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </a>
+      </div>
+
+      <!-- card 5 -->
+      <div class="proj-card" style="background:#0C0F14">
+        <svg class="proj-img" viewBox="0 0 600 375" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+          <rect width="600" height="375" fill="#0A0D12"/>
+          <!-- SaaS dashboard -->
+          <rect x="0" y="0" width="180" height="375" fill="rgba(255,255,255,.02)"/>
+          <text x="22" y="40" font-family="Plus Jakarta Sans,sans-serif" font-weight="800" font-size="12" fill="rgba(255,255,255,.6)" letter-spacing="-.3">Synapse</text>
+          <circle cx="16" cy="36" r="4" fill="#00E5A0"/>
+          <rect x="12" y="56" width="154" height="26" rx="3" fill="rgba(0,229,160,.08)" stroke="rgba(0,229,160,.2)" stroke-width=".8"/>
+          <text x="22" y="73" font-family="DM Sans,sans-serif" font-size="9" fill="rgba(0,229,160,.8)">⬡ Dashboard</text>
+          <text x="22" y="100" font-family="DM Sans,sans-serif" font-size="9" fill="rgba(255,255,255,.3)">⬡ Analytics</text>
+          <text x="22" y="120" font-family="DM Sans,sans-serif" font-size="9" fill="rgba(255,255,255,.3)">⬡ Projects</text>
+          <text x="22" y="140" font-family="DM Sans,sans-serif" font-size="9" fill="rgba(255,255,255,.3)">⬡ Team</text>
+          <text x="22" y="160" font-family="DM Sans,sans-serif" font-size="9" fill="rgba(255,255,255,.3)">⬡ AI Reports</text>
+          <!-- main area -->
+          <text x="200" y="40" font-family="Plus Jakarta Sans,sans-serif" font-weight="700" font-size="14" fill="rgba(255,255,255,.8)">Overview</text>
+          <rect x="200" y="55" width="120" height="65" fill="rgba(255,255,255,.03)" stroke="rgba(255,255,255,.06)" stroke-width=".8" rx="3"/>
+          <text x="212" y="72" font-family="DM Sans,sans-serif" font-size="8" fill="rgba(255,255,255,.3)" letter-spacing="1">PROJEKTY</text>
+          <text x="212" y="96" font-family="Plus Jakarta Sans,sans-serif" font-weight="800" font-size="22" fill="#FAFAFA">14</text>
+          <text x="212" y="112" font-family="DM Sans,sans-serif" font-size="8" fill="rgba(0,229,160,.6)">▲ +3 nowe</text>
+          <rect x="332" y="55" width="120" height="65" fill="rgba(255,255,255,.03)" stroke="rgba(255,255,255,.06)" stroke-width=".8" rx="3"/>
+          <text x="344" y="72" font-family="DM Sans,sans-serif" font-size="8" fill="rgba(255,255,255,.3)" letter-spacing="1">NPS</text>
+          <text x="344" y="96" font-family="Plus Jakarta Sans,sans-serif" font-weight="800" font-size="22" fill="#FAFAFA">82</text>
+          <text x="344" y="112" font-family="DM Sans,sans-serif" font-size="8" fill="rgba(0,229,160,.6)">▲ +12 pts</text>
+          <rect x="464" y="55" width="120" height="65" fill="rgba(255,255,255,.03)" stroke="rgba(255,255,255,.06)" stroke-width=".8" rx="3"/>
+          <text x="476" y="72" font-family="DM Sans,sans-serif" font-size="8" fill="rgba(255,255,255,.3)" letter-spacing="1">CZAS</text>
+          <text x="476" y="96" font-family="Plus Jakarta Sans,sans-serif" font-weight="800" font-size="22" fill="#FAFAFA">-42%</text>
+          <text x="476" y="112" font-family="DM Sans,sans-serif" font-size="8" fill="rgba(0,229,160,.6)">AI workflow</text>
+          <!-- kanban -->
+          <text x="200" y="142" font-family="DM Sans,sans-serif" font-size="9" fill="rgba(255,255,255,.3)" letter-spacing="1">BACKLOG</text>
+          <rect x="200" y="150" width="120" height="22" rx="2" fill="rgba(255,255,255,.04)" stroke="rgba(255,255,255,.06)" stroke-width=".8"/>
+          <text x="210" y="165" font-family="DM Sans,sans-serif" font-size="8.5" fill="rgba(255,255,255,.5)">Research — mobile nav</text>
+          <rect x="200" y="176" width="120" height="22" rx="2" fill="rgba(255,255,255,.04)" stroke="rgba(255,255,255,.06)" stroke-width=".8"/>
+          <text x="210" y="191" font-family="DM Sans,sans-serif" font-size="8.5" fill="rgba(255,255,255,.5)">Wireframes v2</text>
+          <text x="332" y="142" font-family="DM Sans,sans-serif" font-size="9" fill="rgba(0,229,160,.5)" letter-spacing="1">IN PROGRESS</text>
+          <rect x="332" y="150" width="120" height="22" rx="2" fill="rgba(0,229,160,.05)" stroke="rgba(0,229,160,.15)" stroke-width=".8"/>
+          <text x="342" y="165" font-family="DM Sans,sans-serif" font-size="8.5" fill="rgba(255,255,255,.5)">Component library</text>
+        </svg>
+        <div class="proj-year">2023</div>
+        <div class="proj-always">
+          <div class="proj-tags"><span class="proj-tag">SaaS</span><span class="proj-tag">B2B UX</span><span class="proj-tag">Design System</span></div>
+          <div class="proj-name">Synapse</div>
+          <div class="proj-sub">B2B project management z AI workflow automation</div>
+        </div>
+        <a href="#" class="proj-arrow">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════
+     03 PROCES AI
+══════════════════════════════════════ -->
+<section class="section" id="process">
+  <div class="container">
+    <div class="sec-header r">
+      <div class="sec-num">03<br>Proces</div>
+      <div>
+        <h2 class="sec-title">AI <em>w każdym</em> <strong>kroku</strong></h2>
+        <p class="sec-lead">Nie używam AI do zastąpienia myślenia. Używam go do przyspieszenia iteracji i eliminacji blokad twórczych w konkretnych fazach procesu.</p>
+      </div>
+    </div>
+
+    <div class="process-grid">
+      <div class="process-step r d1">
+        <div class="ps-icon">🔍</div>
+        <div class="ps-n">01 — Discover</div>
+        <div class="ps-title">Research & Definicja</div>
+        <div class="ps-body">AI pomaga generować pytania badawcze, analizować wywiady z użytkownikami i syntetyzować insighty w 10 minut, nie 10 godzin.</div>
+        <div class="ps-tools">
+          <span class="ps-tool">Claude AI</span>
+          <span class="ps-tool">Dovetail</span>
+          <span class="ps-tool">Maze</span>
+        </div>
+      </div>
+      <div class="process-step r d2">
+        <div class="ps-icon">💡</div>
+        <div class="ps-n">02 — Define</div>
+        <div class="ps-title">Strategia & Persony</div>
+        <div class="ps-body">Generuję dziesiątki wariantów person i scenariuszy użycia, a AI wskazuje te statystycznie najbardziej prawdopodobne dla segmentu.</div>
+        <div class="ps-tools">
+          <span class="ps-tool">GPT-4</span>
+          <span class="ps-tool">Figma AI</span>
+          <span class="ps-tool">Hotjar</span>
+        </div>
+      </div>
+      <div class="process-step r d3">
+        <div class="ps-icon">🎨</div>
+        <div class="ps-n">03 — Design</div>
+        <div class="ps-title">Prototypowanie & UI</div>
+        <div class="ps-body">Midjourney dla moodboardów, Claude do copywritingu i naming, Figma AI do generowania wariantów komponentów z semantic layers.</div>
+        <div class="ps-tools">
+          <span class="ps-tool">Midjourney</span>
+          <span class="ps-tool">Figma</span>
+          <span class="ps-tool">Claude</span>
+        </div>
+      </div>
+      <div class="process-step r d4">
+        <div class="ps-icon">🚀</div>
+        <div class="ps-n">04 — Deliver</div>
+        <div class="ps-title">Testowanie & Wdrożenie</div>
+        <div class="ps-body">Automatyczne testy A/B, AI-generated test scenarios, dokumentacja design systemu generowana przez modele językowe.</div>
+        <div class="ps-tools">
+          <span class="ps-tool">Framer</span>
+          <span class="ps-tool">Webflow</span>
+          <span class="ps-tool">Notion AI</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════
+     04 CASE STUDIES (light)
+══════════════════════════════════════ -->
+<section class="section section-light" id="cases">
+  <div class="container">
+    <div class="sec-header r">
+      <div class="sec-num">04<br>Case Studies</div>
+      <div>
+        <h2 class="sec-title">Proces <em>od środka</em></h2>
+        <p class="sec-lead">Szczegółowe opisy projektów — decyzje, wyzwania, rola AI i mierzalne efekty.</p>
+      </div>
+    </div>
+
+    <div class="case-list">
+
+      <!-- case 1: QL&Joy -->
+      <div>
+        <div class="case-item r" onclick="toggleCase('case1')">
+          <div class="case-n">01</div>
+          <div>
+            <div class="case-title">QL&amp;Joy Studio — Brand Identity &amp; E-commerce</div>
+            <div class="case-desc">Kompleksowy projekt od zero — naming, brand book, system logo, strona e-commerce dla polskiej marki premium dzianin kobiecych 40+.</div>
+            <div class="case-tags">
+              <span class="case-tag">Naming</span>
+              <span class="case-tag">Branding</span>
+              <span class="case-tag">UX/UI</span>
+              <span class="case-tag">E-commerce</span>
+              <span class="case-tag">AI-assisted</span>
+              <span class="case-tag">2025</span>
+            </div>
+          </div>
+          <span class="case-cta" id="cta-case1">Czytaj więcej ↓</span>
+        </div>
+
+        <div class="case-detail" id="case1">
+          <div class="cd-grid">
+            <div>
+              <div class="cd-title">Kontekst & wyzwanie</div>
+              <div class="cd-body">
+                <p>Klientka — właścicielka małej szwalni w Łodzi — produkowała dresy wysokiej jakości dla kobiet 40+, ale funkcjonowała bez nazwy, identyfikacji wizualnej ani obecności online. <strong>Projekt zakładał stworzenie kompletnej marki od zera.</strong></p>
+                <br>
+                <p>Kluczowe wyzwanie: <strong>segment kobiet 40+ jest rzadko traktowany poważnie</strong> przez branżę mody. Jak zbudować markę premium, która jest ciepła, ale nie infantylna? Elegancka, ale prawdziwa?</p>
+              </div>
+            </div>
+            <div>
+              <div class="cd-title">Rola AI w projekcie</div>
+              <div class="cd-body">
+                <p>Claude AI generował iteracje naming (182 propozycje w 4 rundach z uzasadnieniami), sugestie palety bazowanej na psychologii koloru dla segmentu 40+ i drafty Tone of Voice.</p>
+                <br>
+                <p><strong>Efekt:</strong> 5 kompletnych koncepcji brandingowych w czasie, który tradycyjnie zajmuje jedną. Klientka wybierała spośród pełnych propozycji, nie szkiców.</p>
+              </div>
+            </div>
+          </div>
+          <div class="cd-title" style="margin-bottom:16px">Fazy projektu</div>
+          <div class="cd-phases">
+            <div class="cd-phase"><div class="cd-phase-label">Tydzień 1–2</div><div class="cd-phase-text">Research pozycjonowania, analiza konkurencji, AI-assisted persona (Agnieszka, 47 lat, managerka), brief strategiczny</div></div>
+            <div class="cd-phase"><div class="cd-phase-label">Tydzień 3–4</div><div class="cd-phase-text">Naming — 4 rundy propozycji (182 nazwy), iteracyjna selekcja z klientką, finalizacja: <strong>QL&amp;Joy</strong></div></div>
+            <div class="cd-phase"><div class="cd-phase-label">Tydzień 5–8</div><div class="cd-phase-text">5 kompletnych koncepcji identyfikacji wizualnej, wybór i dopracowanie, brand book 8 sekcji (logo, kolory, TOV, typografia, szablony)</div></div>
+            <div class="cd-phase"><div class="cd-phase-label">Tydzień 9–12</div><div class="cd-phase-text">Projekt strony e-commerce — 10 sekcji, editorial layout, AJAX cart, animacje scroll; front-end HTML/CSS/JS</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- case 2 -->
+      <div>
+        <div class="case-item r d1" onclick="toggleCase('case2')">
+          <div class="case-n">02</div>
+          <div>
+            <div class="case-title">MedTrack — HealthTech Dashboard UX</div>
+            <div class="case-desc">Redesign platformy do monitorowania zdrowia dla pacjentów z chorobami przewlekłymi. AI asystowało w analizie 200 wywiadów użytkownika.</div>
+            <div class="case-tags">
+              <span class="case-tag">HealthTech</span>
+              <span class="case-tag">Dashboard</span>
+              <span class="case-tag">Accessibility</span>
+              <span class="case-tag">2024</span>
+            </div>
+          </div>
+          <span class="case-cta" id="cta-case2">Czytaj więcej ↓</span>
+        </div>
+        <div class="case-detail" id="case2">
+          <div class="cd-grid">
+            <div>
+              <div class="cd-title">Wyzwanie</div>
+              <div class="cd-body"><p>Platforma posiadała <strong>bogaty zestaw danych zdrowotnych</strong>, ale interfejs był chaotyczny. Pacjenci z chorobami przewlekłymi (docelowo 45–70 lat) rezygnowali po 2 tygodniach. Task completion rate: 34%.</p></div>
+            </div>
+            <div>
+              <div class="cd-title">Rozwiązanie & AI</div>
+              <div class="cd-body"><p>AI (Claude) przetworzyło 200 transkryptów wywiadów i wyodrębniło 12 kluczowych wzorców frustracji. Na tej podstawie przeprojektowałam hierarchię informacji i model nawigacji. <strong>Task completion po redesignie: 81%.</strong></p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- case 3 -->
+      <div>
+        <div class="case-item r d2" onclick="toggleCase('case3')">
+          <div class="case-n">03</div>
+          <div>
+            <div class="case-title">Vault — FinTech Mobile UX</div>
+            <div class="case-desc">Aplikacja bankowa dla Gen Z z AI budget advisor i gamifikacją oszczędzania. Od user research po interaktywny prototyp.</div>
+            <div class="case-tags">
+              <span class="case-tag">FinTech</span>
+              <span class="case-tag">Mobile</span>
+              <span class="case-tag">Gen Z</span>
+              <span class="case-tag">2024</span>
+            </div>
+          </div>
+          <span class="case-cta" id="cta-case3">Czytaj więcej ↓</span>
+        </div>
+        <div class="case-detail" id="case3">
+          <div class="cd-grid">
+            <div>
+              <div class="cd-title">Kontekst</div>
+              <div class="cd-body"><p>Gen Z ma specyficzny stosunek do finansów — awersję do tradycyjnych banków i oczekiwanie natychmiastowości. Badania jakościowe (20 wywiadów) uzupełnione AI-syntezą wskazały: <strong>brak kontekstu w danych to główny bloker.</strong></p></div>
+            </div>
+            <div>
+              <div class="cd-title">Rola AI</div>
+              <div class="cd-body"><p>Midjourney wygenerował moodboardy estetyki (wybrany kierunek: "dark luxury minimalism"). GPT-4 stworzył 40 wariantów microcopies dla onboardingu. Testy A/B wybrały wariant z konwersją wyższą o 28%.</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════
+     05 KONTAKT
+══════════════════════════════════════ -->
+<section class="section" id="contact">
+  <div class="container">
+    <div class="sec-header r">
+      <div class="sec-num">05<br>Kontakt</div>
+      <div>
+        <h2 class="sec-title">Zacznijmy <strong>razem</strong></h2>
+        <p class="sec-lead">Szukasz designera, która rozumie zarówno użytkownika, jak i potencjał AI? Porozmawiajmy.</p>
+      </div>
+    </div>
+
+    <div class="contact-grid">
+      <div class="contact-info r from-left">
+        <div class="contact-block">
+          <div class="cb-label">Email</div>
+          <div class="cb-value"><a href="/cdn-cgi/l/email-protection#d3b2bdbdb293b8b2b0a3b6a1fdb7b6a0bab4bd"><span class="__cf_email__" data-cfemail="2c4d42424d6c474d4f5c495e0248495f454b42">[email&#160;protected]</span></a></div>
+        </div>
+        <div class="contact-block">
+          <div class="cb-label">Telefon</div>
+          <div class="cb-value"><a href="tel:+48500123456">+48 500 123 456</a></div>
+        </div>
+        <div class="contact-block">
+          <div class="cb-label">Lokalizacja</div>
+          <div class="cb-value" style="font-size:16px;font-weight:500">Łódź, Polska · Remote OK</div>
+        </div>
+
+        <div>
+          <div class="cb-label" style="margin-bottom:12px">Social media</div>
+          <div class="socials">
+            <a href="#" class="social-link">
+              <div class="social-icon">in</div>
+              <div class="social-name">LinkedIn</div>
+              <div class="social-handle">kacper-nowak-ux</div>
+              <div class="social-arr">→</div>
+            </a>
+            <a href="#" class="social-link">
+              <div class="social-icon" style="font-size:12px">Bē</div>
+              <div class="social-name">Behance</div>
+              <div class="social-handle">kacpernowak</div>
+              <div class="social-arr">→</div>
+            </a>
+            <a href="#" class="social-link">
+              <div class="social-icon" style="font-size:11px">Dr</div>
+              <div class="social-name">Dribbble</div>
+              <div class="social-handle">kacper_design</div>
+              <div class="social-arr">→</div>
+            </a>
+            <a href="#" class="social-link">
+              <div class="social-icon" style="font-size:11px">Gh</div>
+              <div class="social-name">GitHub</div>
+              <div class="social-handle">kacper-design-dev</div>
+              <div class="social-arr">→</div>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="r from-right d1">
+        <div style="font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--white-30);margin-bottom:24px">Napisz do mnie</div>
+        <div class="contact-form">
+          <div class="form-group">
+            <label class="form-label">Imię i nazwisko</label>
+            <input class="form-input" type="text" placeholder="Jan Kowalski">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email</label>
+            <input class="form-input" type="email" placeholder="jan@firma.pl">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Temat</label>
+            <input class="form-input" type="text" placeholder="Projekt UI/UX · Branding · Konsultacja">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Wiadomość</label>
+            <textarea class="form-textarea" placeholder="Opisz krótko projekt lub pytanie..."></textarea>
+          </div>
+          <button class="form-submit">Wyślij wiadomość →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════
+     FOOTER
+══════════════════════════════════════ -->
+<footer class="footer">
+  <div class="footer-logo">
+    <span style="color:var(--accent)">●</span> kacper.design
+  </div>
+  <div class="footer-copy">© 2025 Kacper Stolarczyk — UI/UX Designer</div>
+  <a href="/" class="footer-back">
+    Do góry
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+  </a>
+</footer>
+
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+/* ── CURSOR ── */
+const cur = document.getElementById('cursor');
+const ring = document.getElementById('cursor-ring');
+let mx = 0, my = 0, rx = 0, ry = 0;
+document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; cur.style.left = mx+'px'; cur.style.top = my+'px'; });
+(function animRing() {
+  rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
+  ring.style.left = rx+'px'; ring.style.top = ry+'px';
+  requestAnimationFrame(animRing);
+})();
+
+/* ── PARTICLES CANVAS ── */
+const canvas = document.getElementById('bgCanvas');
+const ctx = canvas.getContext('2d');
+let W, H, particles = [];
+
+function resize() {
+  W = canvas.width = window.innerWidth;
+  H = canvas.height = window.innerHeight;
+}
+resize();
+window.addEventListener('resize', resize);
+
+class Particle {
+  constructor() { this.reset(); }
+  reset() {
+    this.x = Math.random() * W;
+    this.y = Math.random() * H;
+    this.vx = (Math.random() - .5) * .3;
+    this.vy = (Math.random() - .5) * .3;
+    this.r = Math.random() * 1.5 + .3;
+    this.a = Math.random() * .6 + .1;
+    this.life = Math.random() * 200 + 100;
+    this.age = 0;
+  }
+  update() {
+    this.x += this.vx; this.y += this.vy; this.age++;
+    if (this.age > this.life || this.x < 0 || this.x > W || this.y < 0 || this.y > H) this.reset();
+  }
+  draw() {
+    const fade = Math.min(this.age / 30, 1) * Math.min((this.life - this.age) / 30, 1);
+    const isLight = document.documentElement.dataset.theme === 'light';
+    const c = isLight ? `rgba(0,153,102,${this.a * fade})` : `rgba(0,229,160,${this.a * fade})`;
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+    ctx.fillStyle = c;
+    ctx.fill();
+  }
+}
+
+for (let i = 0; i < 120; i++) particles.push(new Particle());
+
+// connections
+function drawConnections() {
+  for (let i = 0; i < particles.length; i++) {
+    for (let j = i + 1; j < particles.length; j++) {
+      const dx = particles[i].x - particles[j].x;
+      const dy = particles[i].y - particles[j].y;
+      const d = Math.sqrt(dx*dx + dy*dy);
+      if (d < 100) {
+        ctx.beginPath();
+        ctx.moveTo(particles[i].x, particles[i].y);
+        ctx.lineTo(particles[j].x, particles[j].y);
+        ctx.strokeStyle = `rgba(0,229,160,${(1 - d/100) * 0.06})`;
+        const isLt = document.documentElement.dataset.theme === 'light';
+        ctx.strokeStyle = isLt
+          ? `rgba(0,153,102,${(1 - d/100) * 0.08})`
+          : `rgba(0,229,160,${(1 - d/100) * 0.06})`;
+        ctx.lineWidth = .5;
+        ctx.stroke();
+      }
+    }
+  }
+}
+
+(function animate() {
+  ctx.clearRect(0, 0, W, H);
+  particles.forEach(p => { p.update(); p.draw(); });
+  drawConnections();
+  requestAnimationFrame(animate);
+})();
+
+/* ── SCROLL REVEAL ── */
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('v'); io.unobserve(e.target); }
+  });
+}, { threshold: 0.08, rootMargin: '0px 0px -48px 0px' });
+document.querySelectorAll('.r').forEach(el => io.observe(el));
+
+/* ── NAV ── */
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  const isLight = document.documentElement.dataset.theme === 'light';
+  nav.style.background = scrollY > 60
+    ? (isLight ? 'rgba(240,242,245,.98)' : 'rgba(26,29,33,.97)')
+    : (isLight ? 'rgba(240,242,245,.9)'  : 'rgba(26,29,33,.88)');
+}, { passive: true });
+
+/* ── THEME TOGGLE ── */
+const toggleBtn = document.getElementById('themeToggle');
+const themeLabel = document.getElementById('themeLabel');
+const root = document.documentElement;
+
+// persist preference
+const saved = localStorage.getItem('kd-theme');
+if (saved) { root.dataset.theme = saved; themeLabel.textContent = saved === 'light' ? 'Dark' : 'Light'; }
+
+toggleBtn.addEventListener('click', () => {
+  const isLight = root.dataset.theme === 'light';
+  root.dataset.theme = isLight ? '' : 'light';
+  if (!isLight) { root.setAttribute('data-theme','light'); themeLabel.textContent = 'Dark'; }
+  else { root.removeAttribute('data-theme'); themeLabel.textContent = 'Light'; }
+  localStorage.setItem('kd-theme', root.dataset.theme || 'dark');
+  // retrigger nav bg
+  window.dispatchEvent(new Event('scroll'));
+});
+
+/* ── COUNTER ── */
+function animateCounter(el, target) {
+  const duration = 1400;
+  const start = performance.now();
+  (function update(now) {
+    const progress = Math.min((now - start) / duration, 1);
+    const ease = 1 - Math.pow(1 - progress, 3);
+    el.textContent = Math.round(ease * target);
+    if (progress < 1) requestAnimationFrame(update);
+  })(start);
+}
+const counterObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.querySelectorAll('.count-num').forEach(el => {
+        animateCounter(el, parseInt(el.dataset.target));
+      });
+      counterObs.unobserve(e.target);
+    }
+  });
+}, { threshold: .5 });
+document.querySelectorAll('.hero-stats').forEach(el => counterObs.observe(el));
+
+/* ── CASE TOGGLE ── */
+function toggleCase(id) {
+  const detail = document.getElementById(id);
+  const cta = document.getElementById('cta-' + id);
+  const isOpen = detail.classList.contains('open');
+  document.querySelectorAll('.case-detail').forEach(d => d.classList.remove('open'));
+  document.querySelectorAll('[id^="cta-"]').forEach(c => c.textContent = 'Czytaj więcej ↓');
+  if (!isOpen) {
+    detail.classList.add('open');
+    cta.textContent = 'Zwiń ↑';
+    detail.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+}
+
+/* ── SKILL PIPS ANIMATE ON SCROLL ── */
+const skillObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.querySelectorAll('.skill-pip.on').forEach((pip, i) => {
+        pip.style.opacity = '0';
+        setTimeout(() => { pip.style.transition = 'opacity .3s, backgro

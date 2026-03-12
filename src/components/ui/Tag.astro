@@ -1,0 +1,31 @@
+---
+// src/components/ui/Tag.astro
+interface Props {
+  accent?: string;
+  size?:   'sm' | 'xs';
+}
+const { accent, size = 'xs' } = Astro.props;
+---
+
+<span
+  class:list={['tag', `tag-${size}`]}
+  style={accent
+    ? `border-color:color-mix(in srgb, ${accent} 35%, transparent); color:${accent}; background:color-mix(in srgb, ${accent} 8%, transparent)`
+    : undefined}
+>
+  <slot />
+</span>
+
+<style>
+  .tag {
+    display: inline-block;
+    text-transform: uppercase;
+    letter-spacing: .16em;
+    border: 1px solid var(--accent-glow);
+    color: var(--accent);
+    background: var(--accent-bg);
+    white-space: nowrap;
+  }
+  .tag-xs { font-size: 8px;  padding: 4px 10px; }
+  .tag-sm { font-size: 10px; padding: 5px 14px; }
+</style>

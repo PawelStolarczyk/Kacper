@@ -1,0 +1,87 @@
+/* ═══════════════════════════════════════════════
+   tokens.css  —  design tokens for kacper.design
+   imported by global.css
+═══════════════════════════════════════════════ */
+
+/* ── DARK (default / graphite) ── */
+:root {
+  /* backgrounds */
+  --bg:       #1A1D21;
+  --bg2:      #1F2329;
+  --bg3:      #252A32;
+  --surface:  #2B3038;
+
+  /* borders */
+  --border:   rgba(255 255 255 / .08);
+  --border2:  rgba(255 255 255 / .14);
+
+  /* text */
+  --fg:       #F2F4F7;
+  --fg-60:    rgba(242 244 247 / .60);
+  --fg-30:    rgba(242 244 247 / .30);
+  --fg-10:    rgba(242 244 247 / .07);
+
+  /* accent */
+  --accent:       #00E5A0;
+  --accent-hover: #00B880;
+  --accent-bg:    rgba(0 229 160 / .08);
+  --accent-glow:  rgba(0 229 160 / .18);
+
+  /* light-section (case studies bg) */
+  --ls-bg:     #F8F7F4;
+  --ls-border: rgba(14 12 24 / .09);
+  --ls-fg:     #0E0C18;
+  --ls-fg-50:  rgba(14 12 24 / .50);
+  --ls-fg-20:  rgba(14 12 24 / .12);
+
+  /* nav */
+  --nav-bg:   rgba(26 29 33 / .88);
+  --nav-bg-s: rgba(26 29 33 / .97);
+
+  /* canvas */
+  --particle-r: 0;
+  --particle-g: 229;
+  --particle-b: 160;
+
+  /* typography */
+  --font-display: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-body:    'DM Sans', system-ui, sans-serif;
+
+  /* easing */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out:   cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ── LIGHT ── */
+[data-theme="light"] {
+  --bg:       #F0F2F5;
+  --bg2:      #E8EAED;
+  --bg3:      #DDDFE3;
+  --surface:  #FFFFFF;
+
+  --border:   rgba(0 0 0 / .08);
+  --border2:  rgba(0 0 0 / .14);
+
+  --fg:       #111318;
+  --fg-60:    rgba(17 19 24 / .60);
+  --fg-30:    rgba(17 19 24 / .35);
+  --fg-10:    rgba(17 19 24 / .06);
+
+  --accent:       #009966;
+  --accent-hover: #007A52;
+  --accent-bg:    rgba(0 153 102 / .07);
+  --accent-glow:  rgba(0 153 102 / .18);
+
+  --ls-bg:     #FFFFFF;
+  --ls-border: rgba(0 0 0 / .08);
+  --ls-fg:     #111318;
+  --ls-fg-50:  rgba(17 19 24 / .50);
+  --ls-fg-20:  rgba(17 19 24 / .12);
+
+  --nav-bg:   rgba(240 242 245 / .90);
+  --nav-bg-s: rgba(240 242 245 / .98);
+
+  --particle-r: 0;
+  --particle-g: 153;
+  --particle-b: 102;
+}

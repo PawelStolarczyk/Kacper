@@ -1,0 +1,131 @@
+---
+// src/components/sections/About.astro
+
+const skills = [
+  { name: 'UX Research & Strategy',      pips: 5 },
+  { name: 'UI Design & Systems',          pips: 5 },
+  { name: 'Brand Identity',               pips: 4 },
+  { name: 'AI-Assisted Prototyping',      pips: 5 },
+  { name: 'Front-end (HTML/CSS/JS)',      pips: 4 },
+  { name: 'E-commerce UX',               pips: 5 },
+  { name: 'Prompt Engineering',           pips: 4 },
+  { name: 'User Testing & Analytics',     pips: 3 },
+];
+
+const tools = [
+  { name:'Figma',      cat:'UI · Prototype'  },
+  { name:'Claude AI',  cat:'Strategy · Copy' },
+  { name:'Midjourney', cat:'Visual concepts' },
+  { name:'Framer',     cat:'No-code · Motion'},
+  { name:'Maze',       cat:'User testing'    },
+  { name:'Webflow',    cat:'CMS · Deploy'    },
+];
+
+const certs = [
+  { name:'Akademia Sztuk Pięknych w Łodzi', sub:'Wzornictwo przemysłowe · 2018' },
+  { name:'Google UX Design Certificate',    sub:'Coursera · 2021' },
+  { name:'AI for Designers — Reforge',      sub:'2024 · w trakcie', accent:true },
+];
+---
+
+<section class="section" id="about">
+  <div class="container">
+    <div class="sec-header reveal">
+      <div class="sec-num">01<br>O mnie</div>
+      <div>
+        <h2 class="sec-title">Projektuję <em>z ludźmi,</em> <strong>wspomagany przez AI</strong></h2>
+        <p class="sec-lead">Sześć lat doświadczenia w UI/UX, ostatnie trzy lata aktywnie integrując AI w każdym etapie procesu projektowego.</p>
+      </div>
+    </div>
+
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:start">
+
+      <!-- Text + tools -->
+      <div class="reveal from-left">
+        <p class="body-p">Jestem UI/UX designerem z <strong>6-letnim doświadczeniem</strong> w projektowaniu produktów cyfrowych dla e-commerce, startupów technologicznych i marek lifestyle. Specjalizuję się w projektach, które wymagają głębokiego rozumienia użytkownika i mocnej tożsamości wizualnej.</p>
+        <p class="body-p">Od 2022 roku systematycznie integruję <strong>narzędzia AI</strong> w procesie projektowym — od generowania konceptów i analizy persony, przez prototypowanie wspomagane modelem, po automatyzację testów użyteczności. Efekt: <strong>krótszy czas realizacji bez kompromisów</strong> w jakości.</p>
+        <p class="body-p">Nie wierzę, że AI zastąpi designera. Wierzę, że <strong>designer z AI zastąpi designera bez AI</strong>. Dlatego uczę się, eksperymentuję i dokumentuję każde odkrycie.</p>
+
+        <!-- AI tags -->
+        <div style="display:flex; flex-wrap:wrap; gap:8px; margin-top:32px">
+          {['Prompt Engineering','AI Prototyping','Generative Branding','Claude · GPT-4 · Midjourney','AI User Research'].map(t => (
+            <span class="ai-tag">{t}</span>
+          ))}
+        </div>
+
+        <!-- Tools grid -->
+        <div class="tools-grid" style="margin-top:32px">
+          {tools.map(({ name, cat }) => (
+            <div class="tool-item">
+              <div style="font-size:12px; font-weight:500">{name}</div>
+              <div style="font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--fg-30)">{cat}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Skills + certs -->
+      <div class="reveal from-right delay-1">
+        <div class="skill-label">Kompetencje</div>
+
+        <div style="display:flex; flex-direction:column; gap:2px; margin-bottom:36px">
+          {skills.map(({ name, pips }) => (
+            <div class="skill-row">
+              <span style="font-size:12px; font-weight:500; letter-spacing:.04em">{name}</span>
+              <div style="display:flex; gap:3px">
+                {Array.from({ length: 5 }, (_, i) => (
+                  <span class:list={['pip', i < pips && 'pip-on']}></span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div class="skill-label">Wykształcenie &amp; certyfikaty</div>
+        <div style="display:flex; flex-direction:column; gap:2px">
+          {certs.map(({ name, sub, accent }) => (
+            <div class="skill-row" style="flex-direction:column; align-items:flex-start; gap:3px">
+              <div style={`font-size:12px; font-weight:500; ${accent ? 'color:var(--accent)' : ''}`}>{name}</div>
+              <div style="font-size:11px; color:var(--fg-30)">{sub}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .sec-header { display:grid; grid-template-columns:160px 1fr; gap:48px; margin-bottom:80px; align-items:start; }
+  .sec-num { font-family:var(--font-display); font-weight:300; font-size:11px; letter-spacing:.22em; text-transform:uppercase; color:var(--fg-30); padding-top:10px; display:flex; flex-direction:column; gap:8px; }
+  .sec-num::after { content:''; width:24px; height:1px; background:var(--accent); display:block; }
+  .sec-title { font-family:var(--font-display); font-weight:800; font-size:clamp(30px,3.6vw,52px); line-height:1; letter-spacing:-.03em; }
+  .sec-title em { font-weight:300; color:var(--fg-30); font-style:normal; }
+  .sec-title strong { color:var(--accent); font-weight:800; }
+  .sec-lead { font-size:15px; color:var(--fg-60); line-height:1.85; max-width:540px; margin-top:14px; }
+
+  .body-p { font-size:15px; line-height:1.9; color:var(--fg-60); margin-bottom:20px; }
+  .body-p strong { color:var(--fg); font-weight:500; }
+
+  .ai-tag {
+    font-size:10px; letter-spacing:.14em; text-transform:uppercase;
+    padding:6px 14px; border:1px solid var(--accent-glow);
+    color:var(--accent); background:var(--accent-bg);
+  }
+
+  .tools-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--border); border:1px solid var(--border); }
+  .tool-item { background:var(--bg2); padding:18px 20px; display:flex; flex-direction:column; gap:4px; transition:background .2s; }
+  .tool-item:hover { background:var(--surface); }
+
+  .skill-label { font-size:10px; letter-spacing:.22em; text-transform:uppercase; color:var(--fg-30); margin-bottom:16px; }
+  .skill-row { display:flex; align-items:center; justify-content:space-between; padding:16px 20px; border:1px solid var(--border); transition:background .2s; margin-bottom:2px; }
+  .skill-row:hover { background:var(--fg-10); }
+
+  .pip { width:18px; height:3px; background:var(--border2); transition:background .3s; }
+  .pip-on { background:var(--accent); }
+
+  @media(max-width:1100px) {
+    .sec-header { grid-template-columns:1fr; gap:16px; }
+    div[style*="grid-template-columns:1fr 1fr"] { grid-template-columns:1fr !important; gap:48px !important; }
+  }
+</style>

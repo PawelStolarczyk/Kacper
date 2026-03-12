@@ -1,0 +1,130 @@
+---
+// src/layouts/CaseStudyLayout.astro
+import BaseLayout from './BaseLayout.astro';
+import Nav from '@components/layout/Nav.astro';
+import Footer from '@components/layout/Footer.astro';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+}
+const { project } = Astro.props;
+const { title, subtitle, year, tags, accent, stats, client, role, duration, tools, seo, liveUrl } = project.data;
+---
+
+<BaseLayout
+  title={`${title} — Kacper Stolarczyk`}
+  description={seo?.description ?? subtitle}
+>
+  <Nav />
+
+  <main style={`--project-accent: ${accent}`}>
+
+    <!-- Case Hero -->
+    <section class="section" style="padding-top: calc(60px + 80px)">
+      <div class="container">
+        <div class="reveal" style="margin-bottom: 16px; display:flex; align-items:center; gap:16px; flex-wrap:wrap">
+          <a href="/#portfolio" style="font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--fg-30); display:inline-flex; align-items:center; gap:8px; transition:color .2s; text-decoration:none" onmouseover="this.style.color='var(--fg)'" onmouseout="this.style.color='var(--fg-30)'">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+            Powrót do portfolio
+          </a>
+          {liveUrl && (
+            <a
+              href={liveUrl}
+              style={`font-size:11px; letter-spacing:.16em; text-transform:uppercase; display:inline-flex; align-items:center; gap:8px; padding:7px 16px; border:1px solid color-mix(in srgb, ${accent} 35%, transparent); color:${accent}; background:color-mix(in srgb, ${accent} 8%, transparent); transition:background .2s; text-decoration:none`}
+              onmouseover={`this.style.background='color-mix(in srgb, ${accent} 16%, transparent)'`}
+              onmouseout={`this.style.background='color-mix(in srgb, ${accent} 8%, transparent)'`}
+            >
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              Interaktywna prezentacja
+            </a>
+          )}
+        </div>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:start">
+          <div>
+            <div class="reveal" style="font-size:10px; letter-spacing:.22em; text-transform:uppercase; color:var(--project-accent); margin-bottom:20px; display:flex; align-items:center; gap:10px">
+              <span style="width:28px; height:1px; background:var(--project-accent); display:inline-block"></span>
+              Case Study · {year}
+            </div>
+            <h1 class="reveal" style="font-family:var(--font-display); font-weight:800; font-size:clamp(40px,5vw,72px); line-height:1; letter-spacing:-.04em; margin-bottom:16px">
+              {title}
+            </h1>
+            <p class="reveal" style="font-size:18px; font-weight:300; color:var(--fg-60); letter-spacing:-.01em; margin-bottom:40px">
+              {subtitle}
+            </p>
+            <div class="reveal" style="display:flex; flex-wrap:wrap; gap:6px; margin-bottom:48px">
+              {tags.map(tag => (
+                <span style={`font-size:9px; letter-spacing:.16em; text-transform:uppercase; padding:5px 12px; border:1px solid color-mix(in srgb, ${accent} 30%, transparent); color:${accent}; background:color-mix(in srgb, ${accent} 8%, transparent)`}>
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <!-- Meta grid -->
+          <div class="reveal delay-2" style="display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--border); border:1px solid var(--border); margin-top:40px">
+            {client && (
+              <div style="padding:24px; background:var(--bg2)">
+                <div style="font-size:9px; letter-spacing:.2em; text-transform:uppercase; color:var(--fg-30); margin-bottom:8px">Klient</div>
+                <div style="font-size:13px; font-weight:500">{client}</div>
+              </div>
+            )}
+            {role && (
+              <div style="padding:24px; background:var(--bg2)">
+                <div style="font-size:9px; letter-spacing:.2em; text-transform:uppercase; color:var(--fg-30); margin-bottom:8px">Rola</div>
+                <div style="font-size:13px; font-weight:500">{role}</div>
+              </div>
+            )}
+            {duration && (
+              <div style="padding:24px; background:var(--bg2)">
+                <div style="font-size:9px; letter-spacing:.2em; text-transform:uppercase; color:var(--fg-30); margin-bottom:8px">Czas trwania</div>
+                <div style="font-size:13px; font-weight:500">{duration}</div>
+              </div>
+            )}
+            {tools.length > 0 && (
+              <div style="padding:24px; background:var(--bg2)">
+                <div style="font-size:9px; letter-spacing:.2em; text-transform:uppercase; color:var(--fg-30); margin-bottom:8px">Narzędzia</div>
+                <div style="font-size:12px; color:var(--fg-60)">{tools.join(' · ')}</div>
+              </div>
+            )}
+          </div>
+        </div>
+
+        <!-- Stats row -->
+        {stats.length > 0 && (
+          <div class="reveal" style="display:grid; grid-template-columns:repeat(4,1fr); border:1px solid var(--border); margin-top:64px">
+            {stats.map((s, i) => (
+              <div style={`padding:32px; border-right:${i < stats.length - 1 ? '1px solid var(--border)' : 'none'}`}>
+                <div style={`font-family:var(--font-display); font-weight:800; font-size:36px; line-height:1; color:${accent}; margin-bottom:6px`}>{s.value}</div>
+                <div style="font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:var(--fg-30)">{s.label}</div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </section>
+
+    <!-- MDX Content -->
+    <section class="section section-light">
+      <div class="container">
+        <div class="prose-case reveal">
+          <slot />
+        </div>
+      </div>
+    </section>
+
+    <!-- Next project CTA -->
+    <section class="section" style="padding:80px 0">
+      <div class="container" style="text-align:center">
+        <div style="font-size:10px; letter-spacing:.22em; text-transform:uppercase; color:var(--fg-30); margin-bottom:16px">Następny projekt</div>
+        <a href="/#portfolio" style="font-family:var(--font-display); font-weight:800; font-size:clamp(28px,3.5vw,52px); letter-spacing:-.03em; color:var(--fg); transition:color .2s; display:inline-block">
+          Zobacz wszystkie projekty →
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <Footer />
+</BaseLayout>

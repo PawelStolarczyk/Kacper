@@ -1,0 +1,99 @@
+---
+// src/components/sections/CaseStudies.astro
+import { getCollection } from 'astro:content';
+
+const projects = (await getCollection('projects'))
+  .sort((a, b) => a.data.order - b.data.order)
+  .slice(0, 3); // show top 3 in the list
+---
+
+<section class="section section-light" id="cases">
+  <div class="container">
+    <div class="sec-header reveal">
+      <div class="sec-num">04<br>Case Studies</div>
+      <div>
+        <h2 class="sec-title">Proces <em>od środka</em></h2>
+        <p class="sec-lead">Szczegółowe opisy projektów — decyzje, wyzwania, rola AI i mierzalne efekty.</p>
+      </div>
+    </div>
+
+    <div class="case-list">
+      {projects.map((project, i) => {
+        const { title, subtitle, year, tags, stats, liveUrl, caseUrl } = project.data;
+        const href = caseUrl ?? liveUrl ?? `/projects/${project.id}`;
+        const ctaLabel = 'Czytaj więcej →';
+        return (
+          <div class:list={['reveal', i > 0 && `delay-${i}`]}>
+            <div class="case-item">
+              <div class="case-n">0{i + 1}</div>
+              <div style="flex:1">
+                <div class="case-title">{title}</div>
+                <div class="case-desc">{subtitle}</div>
+                <div style="display:flex; gap:6px; margin-top:10px; flex-wrap:wrap">
+                  {tags.map(tag => (
+                    <span class="case-tag">{tag}</span>
+                  ))}
+                  <span class="case-tag">{year}</span>
+                </div>
+                <!-- Stats preview -->
+                {stats.length > 0 && (
+                  <div style="display:flex; gap:24px; margin-top:16px; padding-top:16px; border-top:1px solid var(--ls-border)">
+                    {stats.slice(0,3).map(s => (
+                      <div>
+                        <div style="font-family:var(--font-display); font-weight:800; font-size:20px; color:var(--ls-fg)">{s.value}</div>
+                        <div style="font-size:9px; letter-spacing:.14em; text-transform:uppercase; color:var(--ls-fg-50)">{s.label}</div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+              <a href={href} class="case-cta">
+                {ctaLabel}
+              </a>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  </div>
+</section>
+
+<style>
+  .sec-header { display:grid; grid-template-columns:160px 1fr; gap:48px; margin-bottom:80px; align-items:start; }
+  .sec-num { font-family:var(--font-display); font-weight:300; font-size:11px; letter-spacing:.22em; text-transform:uppercase; color:var(--ls-fg-50); padding-top:10px; display:flex; flex-direction:column; gap:8px; }
+  .sec-num::after { content:''; width:24px; height:1px; background:var(--ls-fg); display:block; }
+  .sec-title { font-family:var(--font-display); font-weight:800; font-size:clamp(30px,3.6vw,52px); line-height:1; letter-spacing:-.03em; color:var(--ls-fg); }
+  .sec-title em { font-weight:300; color:var(--ls-fg-50); font-style:normal; }
+  .sec-lead { font-size:15px; color:var(--ls-fg-50); line-height:1.85; max-width:540px; margin-top:14px; }
+
+  .case-list { display:flex; flex-direction:column; gap:1px; background:var(--ls-border); border:1px solid var(--ls-border); }
+
+  .case-item {
+    display:grid; grid-template-columns:80px 1fr auto;
+    gap:40px; align-items:center; padding:36px 40px;
+    background:var(--ls-bg);
+    border:1px solid transparent;
+    transition:background .2s, border-color .2s;
+    
+  }
+  .case-item:hover { background:#fff; border-color:var(--ls-border); }
+
+  .case-n { font-family:var(--font-display); font-weight:800; font-size:32px; color:var(--ls-fg-20); letter-spacing:-.04em; line-height:1; }
+  .case-title { font-family:var(--font-display); font-weight:700; font-size:20px; letter-spacing:-.02em; color:var(--ls-fg); margin-bottom:6px; }
+  .case-desc { font-size:13px; color:var(--ls-fg-50); line-height:1.6; max-width:480px; }
+  .case-tag { font-size:9px; letter-spacing:.16em; text-transform:uppercase; padding:4px 10px; border:1px solid var(--ls-border); color:var(--ls-fg-50); }
+
+  .case-cta {
+    font-family:var(--font-display); font-weight:700; font-size:10px;
+    letter-spacing:.16em; text-transform:uppercase;
+    padding:11px 22px; border:1px solid var(--ls-fg); color:var(--ls-fg);
+    white-space:nowrap; transition:background .2s, color .2s;
+  }
+  .case-item:hover .case-cta { background:var(--ls-fg); color:#fff; }
+
+  @media(max-width:1100px) {
+    .sec-header { grid-template-columns:1fr; gap:16px; }
+    .case-item { grid-template-columns:60px 1fr; gap:24px; }
+    .case-cta { display:none; }
+  }
+</style>

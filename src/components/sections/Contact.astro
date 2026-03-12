@@ -1,0 +1,103 @@
+---
+// src/components/sections/Contact.astro
+import ContactForm from '@components/ui/ContactForm';
+---
+
+<section class="section" id="contact">
+  <div class="container">
+    <div class="sec-header reveal">
+      <div class="sec-num">05<br>Kontakt</div>
+      <div>
+        <h2 class="sec-title">Zacznijmy <strong>razem</strong></h2>
+        <p class="sec-lead">Szukasz designera, który rozumie zarówno użytkownika, jak i potencjał AI? Porozmawiajmy.</p>
+      </div>
+    </div>
+
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:start">
+
+      <!-- Contact info -->
+      <div class="reveal from-left" style="display:flex; flex-direction:column; gap:28px">
+
+        <div>
+          <div class="label">Email</div>
+          <div class="val"><a href="mailto:kacper@kacper.design" style="transition:color .2s" class="val-link">kacper@kacper.design</a></div>
+        </div>
+
+        <div>
+          <div class="label">Telefon</div>
+          <div class="val"><a href="tel:+48500123456" class="val-link">+48 500 123 456</a></div>
+        </div>
+
+        <div>
+          <div class="label">Lokalizacja</div>
+          <div style="font-family:var(--font-display); font-weight:500; font-size:16px">Łódź, Polska · Remote OK</div>
+        </div>
+
+        <!-- Social links -->
+        <div>
+          <div class="label" style="margin-bottom:12px">Social media</div>
+          <div style="display:flex; flex-direction:column; gap:2px">
+            {[
+              { name:'LinkedIn',  handle:'kacper-stolarczyk-ux', icon:'in',  href:'#' },
+              { name:'Behance',   handle:'kacperstolarczyk',      icon:'Bē',  href:'#' },
+              { name:'Dribbble',  handle:'kacper_design',         icon:'Dr',  href:'#' },
+              { name:'GitHub',    handle:'kacper-design-dev',      icon:'Gh',  href:'#' },
+            ].map(({ name, handle, icon, href }) => (
+              <a href={href} class="social-link">
+                <span class="social-icon">{icon}</span>
+                <span class="social-name">{name}</span>
+                <span class="social-handle">{handle}</span>
+                <span class="social-arr">→</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <!-- Form — React island (needs client JS for validation) -->
+      <div class="reveal from-right delay-1">
+        <div class="label" style="margin-bottom:24px">Napisz do mnie</div>
+        <ContactForm client:visible />
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .sec-header {
+    display: grid; grid-template-columns: 160px 1fr; gap:48px; margin-bottom:80px; align-items:start;
+  }
+  .sec-num {
+    font-family:var(--font-display); font-weight:300; font-size:11px;
+    letter-spacing:.22em; text-transform:uppercase; color:var(--fg-30); padding-top:10px;
+    display:flex; flex-direction:column; gap:8px;
+  }
+  .sec-num::after { content:''; width:24px; height:1px; background:var(--accent); display:block; }
+  .sec-title { font-family:var(--font-display); font-weight:800; font-size:clamp(30px,3.6vw,52px); line-height:1; letter-spacing:-.03em; }
+  .sec-title strong { color:var(--accent); }
+  .sec-lead { font-size:15px; color:var(--fg-60); line-height:1.85; max-width:540px; margin-top:14px; }
+
+  .label { font-size:9px; letter-spacing:.24em; text-transform:uppercase; color:var(--fg-30); margin-bottom:8px; }
+  .val   { font-family:var(--font-display); font-weight:700; font-size:18px; letter-spacing:-.01em; }
+  .val-link:hover { color:var(--accent) !important; }
+
+  .social-link {
+    display:flex; align-items:center; gap:16px; padding:14px 20px;
+    border:1px solid var(--border); transition:border-color .2s, background .2s;
+  }
+  .social-link:hover { border-color:var(--accent); background:var(--accent-bg); }
+  .social-icon {
+    width:32px; height:32px; display:flex; align-items:center; justify-content:center;
+    border:1px solid var(--border2); font-size:12px; flex-shrink:0;
+  }
+  .social-name   { font-size:13px; font-weight:500; flex:1; }
+  .social-handle { font-size:12px; color:var(--fg-30); }
+  .social-arr    { font-size:14px; color:var(--fg-30); transition:color .2s, transform .2s; }
+  .social-link:hover .social-arr { color:var(--accent); transform:translateX(4px); }
+
+  @media(max-width:1100px) {
+    .sec-header { grid-template-columns:1fr; gap:16px; }
+    div[style*="grid-template-columns:1fr 1fr"] { grid-template-columns:1fr !important; gap:48px !important; }
+  }
+</style>

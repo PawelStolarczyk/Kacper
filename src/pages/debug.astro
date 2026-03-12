@@ -1,0 +1,18 @@
+---
+import { getCollection } from 'astro:content';
+const projects = await getCollection('projects');
+---
+<html>
+<body style="font-family:monospace; padding:40px; background:#111; color:#0f0">
+  <h1>Projekty: {projects.length}</h1>
+  {projects.map(p => (
+    <div style="border:1px solid #0f0; padding:16px; margin:8px 0">
+      <div><strong>{p.id}</strong> — {p.data.title}</div>
+      <div>coverBg: {p.data.coverBg ?? 'BRAK'}</div>
+      <div>accent: {p.data.accent ?? 'BRAK'}</div>
+      <div>wide: {String(p.data.wide ?? 'BRAK')}</div>
+      <div>order: {p.data.order ?? 'BRAK'}</div>
+    </div>
+  ))}
+</body>
+</html>

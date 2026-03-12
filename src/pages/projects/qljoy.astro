@@ -1,0 +1,262 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Nav from '@components/layout/Nav.astro';
+import Footer from '@components/layout/Footer.astro';
+---
+<BaseLayout
+  title="QL&Joy Studio — Projekt · Kacper Stolarczyk"
+  description="Brand identity i sklep e-commerce dla polskiej marki premium dzianin kobiecych. Naming, branding, UX/UI, WooCommerce — end-to-end w 12 tygodni."
+>
+  <Nav />
+  <style>
+    :root { --rasp:#E8006C; --plum:#2D2250; --powder:#F2A7B3; --mauve:#7B5EA7; }
+
+    /* HERO */
+    .hero {
+      min-height: 90vh; padding-top: 60px;
+      position: relative; overflow: hidden;
+      display: flex; align-items: flex-end;
+    }
+    .hero-bg { position: absolute; inset: 0; }
+    .hero-bg img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+    .hero-bg::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,.80) 0%, rgba(0,0,0,.25) 40%, transparent 65%);
+    }
+    .hero-body { position: relative; z-index: 1; width: 100%; padding: 0 56px 64px; }
+    .back {
+      position: absolute; top: 28px; left: 56px;
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 10px; letter-spacing: .18em; text-transform: uppercase;
+      color: rgba(255,255,255,.3); transition: color .2s;
+    }
+    .back:hover { color: rgba(255,255,255,.75); }
+    .eyebrow {
+      font-size: 10px; letter-spacing: .26em; text-transform: uppercase;
+      color: rgba(255,255,255,.55); margin-bottom: 18px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .eyebrow::before { content: ''; width: 24px; height: 1px; background: var(--rasp); }
+    h1 {
+      font-family: var(--font-display); font-weight: 900;
+      font-size: clamp(56px, 6vw, 96px); line-height: .92;
+      letter-spacing: -.04em; color: #fff; margin-bottom: 20px;
+    }
+    h1 em { color: var(--powder); font-weight: 300; font-style: normal; }
+    .sub { font-size: 14px; color: rgba(255,255,255,.5); max-width: 380px; line-height: 1.7; margin-bottom: 36px; }
+    .pills { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 40px; }
+    .pill { font-size: 9px; letter-spacing: .16em; text-transform: uppercase; padding: 5px 13px; border: 1px solid rgba(255,255,255,.18); color: rgba(255,255,255,.4); }
+    .pill.on { border-color: var(--rasp); color: var(--powder); }
+    .stats { display: grid; grid-template-columns: repeat(4, auto); gap: 1px; background: rgba(255,255,255,.08); width: fit-content; }
+    .stat { padding: 16px 28px; background: rgba(0,0,0,.35); }
+    .stat-n { font-family: var(--font-display); font-weight: 900; font-size: 26px; color: #fff; line-height: 1; }
+    .stat-l { font-size: 8px; letter-spacing: .14em; text-transform: uppercase; color: rgba(255,255,255,.32); margin-top: 4px; }
+
+    /* META */
+    .meta {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      border: 1px solid var(--border); background: var(--bg);
+    }
+    .meta-cell { padding: 28px 32px; border-right: 1px solid var(--border); }
+    .meta-cell:last-child { border-right: none; }
+    .meta-l { font-size: 9px; letter-spacing: .18em; text-transform: uppercase; color: var(--fg-60); margin-bottom: 7px; }
+    .meta-v { font-size: 13px; font-weight: 500; color: var(--fg); line-height: 1.4; }
+
+    /* PALETTE */
+    .palette { display: flex; height: 100px; border: 1px solid var(--border); overflow: hidden; }
+    .swatch { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; padding: 10px 14px; transition: flex .3s ease; }
+    .palette:hover .swatch { flex: .5; }
+    .palette .swatch:hover { flex: 3; }
+    .sw-name { font-size: 10px; font-weight: 500; white-space: nowrap; overflow: hidden; }
+    .sw-hex  { font-size: 8px; opacity: .5; font-family: monospace; margin-top: 2px; }
+
+    /* ITERS */
+    .iters { display: grid; grid-template-columns: repeat(5, 1fr); border: 1px solid var(--border); overflow: hidden; }
+    .iter { aspect-ratio: 2/3; display: flex; flex-direction: column; justify-content: flex-end; padding: 14px 12px; position: relative; }
+    .iter-tag { font-size: 7px; letter-spacing: .18em; text-transform: uppercase; color: rgba(255,255,255,.3); margin-bottom: 4px; }
+    .iter-name { font-family: var(--font-display); font-weight: 800; font-size: 11px; color: #fff; line-height: 1.25; }
+    .iter.final::after { content: 'FINAL'; position: absolute; top: 10px; right: 10px; font-size: 7px; letter-spacing: .14em; background: var(--rasp); color: #fff; padding: 2px 6px; }
+
+    /* ECOM */
+    .ecom { display: grid; grid-template-columns: repeat(5, 1fr); border: 1px solid var(--border); }
+    .ecom-cell { padding: 24px 20px; border-right: 1px solid var(--border); }
+    .ecom-cell:last-child { border-right: none; }
+    .ecom-n { font-size: 9px; font-weight: 700; color: var(--rasp); margin-bottom: 8px; letter-spacing: .1em; }
+    .ecom-title { font-size: 12px; font-weight: 500; color: var(--fg); margin-bottom: 5px; line-height: 1.3; }
+    .ecom-desc { font-size: 10px; color: var(--fg-60); line-height: 1.55; }
+
+    /* CTA */
+    .cta-band {
+      background: var(--plum); padding: 72px 56px;
+      display: flex; align-items: center; justify-content: space-between; gap: 40px;
+    }
+    .cta-eyebrow { font-size: 9px; letter-spacing: .2em; text-transform: uppercase; color: rgba(255,255,255,.3); margin-bottom: 10px; }
+    .cta-title { font-family: var(--font-display); font-weight: 900; font-size: clamp(22px, 2.6vw, 38px); letter-spacing: -.03em; color: #fff; line-height: 1.15; }
+    .cta-title em { color: var(--powder); font-style: normal; }
+    .cta-btn { font-size: 10px; letter-spacing: .16em; text-transform: uppercase; white-space: nowrap; padding: 15px 32px; border: 1px solid var(--powder); color: var(--powder); transition: background .2s, color .2s; flex-shrink: 0; }
+    .cta-btn:hover { background: var(--powder); color: var(--plum); }
+
+    /* WRAPPERS */
+    .w { max-width: 1160px; margin: 0 auto; padding: 0 56px; }
+    .section { padding: 80px 0; border-top: 1px solid var(--border); background: var(--bg); }
+    .section.alt { background: var(--bg2); }
+    .sec-label { font-size: 9px; letter-spacing: .2em; text-transform: uppercase; color: var(--fg-60); margin-bottom: 32px; }
+    .sec-h { font-family: var(--font-display); font-weight: 900; font-size: clamp(24px, 2.8vw, 40px); letter-spacing: -.03em; color: var(--fg); margin-bottom: 10px; }
+    .sec-h em { color: var(--rasp); font-style: normal; }
+    .sec-lead { font-size: 13px; color: var(--fg-60); line-height: 1.75; max-width: 520px; margin-bottom: 40px; }
+
+    /* NEXT */
+    .next { padding: 72px 0; border-top: 1px solid var(--border); text-align: center; }
+    .next-l { font-size: 9px; letter-spacing: .2em; text-transform: uppercase; color: var(--fg-60); margin-bottom: 14px; }
+    .next-a { font-family: var(--font-display); font-weight: 900; font-size: clamp(24px, 3vw, 44px); letter-spacing: -.03em; color: var(--fg); transition: color .2s; }
+    .next-a:hover { color: var(--rasp); }
+
+    /* REVEAL */
+    .r { opacity: 0; transform: translateY(20px); transition: opacity .65s cubic-bezier(.22,.61,.36,1), transform .65s cubic-bezier(.22,.61,.36,1); }
+    .r.v { opacity: 1; transform: none; }
+    .d1 { transition-delay: .1s; } .d2 { transition-delay: .2s; }
+
+    @media (max-width: 900px) {
+      .hero-body, .back { padding-left: 24px; } .hero-body { padding-right: 24px; }
+      .back { left: 24px; }
+      .stats { grid-template-columns: repeat(2, auto); }
+      .meta { grid-template-columns: 1fr 1fr; }
+      .meta-cell:nth-child(2) { border-right: none; }
+      .meta-cell:nth-child(1), .meta-cell:nth-child(2) { border-bottom: 1px solid var(--border); }
+      .iters { grid-template-columns: repeat(3, 1fr); }
+      .ecom { grid-template-columns: 1fr 1fr; }
+      .ecom-cell:nth-child(even) { border-right: none; }
+      .ecom-cell { border-bottom: 1px solid var(--border); }
+      .ecom-cell:nth-last-child(-n+2) { border-bottom: none; }
+      .w { padding: 0 24px; }
+      .cta-band { flex-direction: column; text-align: center; padding: 56px 24px; }
+    }
+    @media (max-width: 600px) {
+      .meta { grid-template-columns: 1fr; }
+      .meta-cell { border-right: none !important; border-bottom: 1px solid var(--border); }
+      .meta-cell:last-child { border-bottom: none; }
+      .iters { grid-template-columns: repeat(2, 1fr); }
+      .ecom { grid-template-columns: 1fr; }
+      .ecom-cell { border-right: none; }
+    }
+  </style>
+
+  <div>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-bg">
+        <img src="/images/qljoy-hero.png" alt="QL&Joy Studio" fetchpriority="high" decoding="async" />
+      </div>
+      <div class="hero-body">
+        <a href="/#portfolio" class="back">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+          Portfolio
+        </a>
+        <div class="eyebrow">Brand Identity &amp; E-commerce · 2025</div>
+        <h1>QL<em>&amp;</em><br>JOY</h1>
+        <p class="sub">Kompleksowa identyfikacja wizualna i sklep WooCommerce dla polskiej marki premium dzianin kobiecych — od zera do wdrożenia.</p>
+        <div class="pills">
+          <span class="pill on">Naming</span>
+          <span class="pill on">Branding</span>
+          <span class="pill on">UX/UI</span>
+          <span class="pill on">E-commerce</span>
+          <span class="pill">AI-assisted</span>
+        </div>
+        <div class="stats">
+          <div class="stat"><div class="stat-n">182</div><div class="stat-l">nazwy</div></div>
+          <div class="stat"><div class="stat-n">5×</div><div class="stat-l">iteracje</div></div>
+          <div class="stat"><div class="stat-n">10</div><div class="stat-l">sekcji UI</div></div>
+          <div class="stat"><div class="stat-n">12h</div><div class="stat-l">wdrożenie</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- META -->
+    <div class="meta r">
+      <div class="meta-cell"><div class="meta-l">Klient</div><div class="meta-v">QL&amp;Joy Studio<br><span style="font-size:11px;font-weight:400;color:var(--fg-60)">Prywatna szwalnia, Łódź</span></div></div>
+      <div class="meta-cell"><div class="meta-l">Moja rola</div><div class="meta-v">UX/UI Designer<br><span style="font-size:11px;font-weight:400;color:var(--fg-60)">Brand Strategist</span></div></div>
+      <div class="meta-cell"><div class="meta-l">Zakres</div><div class="meta-v">Naming · Branding<br><span style="font-size:11px;font-weight:400;color:var(--fg-60)">UX/UI · WooCommerce</span></div></div>
+      <div class="meta-cell"><div class="meta-l">Czas realizacji</div><div class="meta-v">12 tygodni<br><span style="font-size:11px;font-weight:400;color:var(--fg-60)">End-to-end</span></div></div>
+    </div>
+
+    <!-- BRANDING -->
+    <section class="section alt">
+      <div class="w">
+        <div class="r">
+          <div class="sec-label">01 — Identyfikacja wizualna</div>
+          <h2 class="sec-h">5 iteracji, <em>jeden charakter</em></h2>
+          <p class="sec-lead">Od zimnego bordeaux przez intensywny róż do dojrzałej śliwki z maliną. Wybrana koncepcja łączy luxury z ciepłem rzemiosła.</p>
+        </div>
+        <div class="iters r d1">
+          <div class="iter" style="background:linear-gradient(160deg,#3e1a2a,#1c0912)">
+            <div class="iter-tag">v1</div><div class="iter-name">Velour Atelier</div>
+          </div>
+          <div class="iter" style="background:linear-gradient(160deg,#cc0060,#7a0040)">
+            <div class="iter-tag">v2</div><div class="iter-name">Joie Vivid</div>
+          </div>
+          <div class="iter" style="background:linear-gradient(160deg,#5a3060,#2a1040)">
+            <div class="iter-tag">v3</div><div class="iter-name">Joie Mauve</div>
+          </div>
+          <div class="iter" style="background:linear-gradient(160deg,#e8a0b0,#b05070)">
+            <div class="iter-tag">v4</div><div class="iter-name" style="color:#2d2250">Joie Różana</div>
+          </div>
+          <div class="iter final" style="background:linear-gradient(160deg,#2D2250,#1E1638)">
+            <div class="iter-tag">v5</div><div class="iter-name">QL&amp;Joy</div>
+          </div>
+        </div>
+        <div class="palette r d2">
+          <div class="swatch" style="background:#F2A7B3;color:#2D2250"><div class="sw-name">Puder</div><div class="sw-hex">#F2A7B3</div></div>
+          <div class="swatch" style="background:#E8006C;color:#fff"><div class="sw-name">Malina</div><div class="sw-hex">#E8006C</div></div>
+          <div class="swatch" style="background:#F7C5D0;color:#2D2250"><div class="sw-name">Płatek</div><div class="sw-hex">#F7C5D0</div></div>
+          <div class="swatch" style="background:#7B5EA7;color:#fff"><div class="sw-name">Mauve</div><div class="sw-hex">#7B5EA7</div></div>
+          <div class="swatch" style="background:#2D2250;color:#F2A7B3"><div class="sw-name">Śliwka</div><div class="sw-hex">#2D2250</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ECOM -->
+    <section class="section">
+      <div class="w">
+        <div class="r">
+          <div class="sec-label">02 — Sklep e-commerce</div>
+          <h2 class="sec-h">Editorial, <em>nie katalog</em></h2>
+          <p class="sec-lead">10 sekcji WooCommerce zaprojektowanych tak, żeby klientka angażowała się w historię marki zanim zobaczy cenę.</p>
+        </div>
+        <div class="ecom r d1">
+          <div class="ecom-cell"><div class="ecom-n">01</div><div class="ecom-title">Scroll Strip</div><div class="ecom-desc">Animowany pasek z claimami marki.</div></div>
+          <div class="ecom-cell"><div class="ecom-n">02</div><div class="ecom-title">Hero</div><div class="ecom-desc">Wordmark + claim + SVG + CTA.</div></div>
+          <div class="ecom-cell"><div class="ecom-n">03–04</div><div class="ecom-title">Trust + Produkty</div><div class="ecom-desc">5 gwarancji, siatka z quickshop.</div></div>
+          <div class="ecom-cell"><div class="ecom-n">05</div><div class="ecom-title">Featured</div><div class="ecom-desc">Wyróżniony produkt, AJAX cart.</div></div>
+          <div class="ecom-cell"><div class="ecom-n">06–10</div><div class="ecom-title">Historia · Opinie · NL</div><div class="ecom-desc">Storytelling, ratings, newsletter, stopka.</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <div class="cta-band">
+      <div>
+        <div class="cta-eyebrow">Chcesz poznać cały proces?</div>
+        <div class="cta-title">Pełne case study — <em>decyzje,<br>iteracje i refleksja</em></div>
+      </div>
+      <a href="/cases/qljoy" class="cta-btn">Czytaj case study →</a>
+    </div>
+
+    <!-- NEXT -->
+    <div class="next">
+      <div class="next-l">Następny projekt</div>
+      <a href="/projects/medtrack" class="next-a">MedTrack →</a>
+    </div>
+  </div>
+
+  <Footer />
+
+  <script>
+    const io = new IntersectionObserver(
+      entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('v'); io.unobserve(e.target); } }),
+      { threshold: .08, rootMargin: '0px 0px -40px 0px' }
+    );
+    function initReveal() { document.querySelectorAll('.r:not(.v)').forEach(el => io.observe(el)); }
+    initReveal();
+    document.addEventListener('astro:after-swap', initReveal);
+  </script>
+</BaseLayout>

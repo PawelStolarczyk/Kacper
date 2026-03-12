@@ -1,0 +1,954 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Nav from '@components/layout/Nav.astro';
+import Footer from '@components/layout/Footer.astro';
+---
+
+<BaseLayout
+  title="QL&Joy Studio — Case Study · Kacper Stolarczyk"
+  description="Kompleksowy projekt brandingowy — od namingu przez identyfikację wizualną po wdrożenie sklepu WooCommerce dla polskiej marki premium dzianin kobiecych."
+>
+  <Nav />
+
+  <style>
+    /* ── QL&Joy brand colors (fixed, not theme-dependent) ── */
+    :root {
+      --rasp:   #E8006C;
+      --plum:   #2D2250;
+      --powder: #F2A7B3;
+      --mauve:  #7B5EA7;
+      --petal:  #F7C5D0;
+    }
+
+    /* Map system tokens → ql- aliases */
+    .ql-wrap {
+      --ql-bg:    var(--bg);
+      --ql-bg-off: var(--bg2);
+      --ql-fg:    var(--fg);
+      --ql-fg-40: var(--fg-60);
+      --ql-rule:  var(--border);
+    }
+
+    /* ── BASE ── */
+    .ql-wrap { font-family: var(--font-body); }
+    a { color: inherit; text-decoration: none; }
+
+    /* ── HERO ── */
+    .ql-hero {
+      min-height: 100vh; padding-top: 60px;
+      position: relative; overflow: hidden;
+    }
+    .ql-hero-bg {
+      position: absolute; inset: 0; z-index: 0;
+    }
+    .ql-hero-bg img {
+      width: 100%; height: 100%; object-fit: cover; object-position: center;
+    }
+    .ql-hero-bg::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,.55) 0%, rgba(0,0,0,.1) 30%, transparent 55%);
+    }
+    .ql-hero-left {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 0 56px 56px;
+      z-index: 1;
+    }
+    .ql-hero-right { display: none; }
+
+    .ql-hero-num {
+      position: absolute; top: 56px; left: 56px;
+      font-family: var(--font-display); font-weight: 900; font-size: 13px;
+      color: rgba(255,255,255,.15); letter-spacing: .08em;
+    }
+    .ql-hero-eyebrow {
+      font-size: 10px; letter-spacing: .28em; text-transform: uppercase;
+      color: var(--powder); margin-bottom: 20px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .ql-hero-eyebrow { color: rgba(255,255,255,.7); }
+    .ql-hero-eyebrow::before { content: ''; width: 28px; height: 1px; background: var(--rasp); }
+    .ql-hero-h1 {
+      font-family: var(--font-display); font-weight: 900;
+      font-size: clamp(52px, 5.5vw, 88px); line-height: .95;
+      letter-spacing: -.04em; color: #fff; margin-bottom: 28px;
+    }
+    .ql-hero-h1 em { color: var(--powder); font-weight: 300; font-style: normal; letter-spacing: .04em; }
+    .ql-hero-sub {
+      font-family: var(--font-display); font-weight: 300; font-size: 16px;
+      color: rgba(255,255,255,.65); max-width: 360px; line-height: 1.6; margin-bottom: 48px;
+    }
+    .ql-hero-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 48px; }
+    .ql-pill {
+      font-size: 9px; letter-spacing: .18em; text-transform: uppercase;
+      padding: 5px 14px; border: 1px solid rgba(255,255,255,.25); color: rgba(255,255,255,.5);
+    }
+    .ql-pill.on { border-color: var(--rasp); color: var(--powder); }
+    .ql-hero-stats {
+      display: grid; grid-template-columns: repeat(3,1fr);
+      gap: 1px; background: rgba(255,255,255,.1);
+      max-width: 540px;
+    }
+    .ql-stat { padding: 20px 28px; background: rgba(0,0,0,.25); }
+    .ql-stat-n { font-family: var(--font-display); font-weight: 900; font-size: 32px; color: #fff; line-height: 1; }
+    .ql-stat-l { font-size: 9px; letter-spacing: .14em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-top: 4px; }
+
+    /* Back link */
+    .ql-back {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 11px; letter-spacing: .16em; text-transform: uppercase;
+      color: rgba(255,255,255,.35); transition: color .2s;
+      position: absolute; top: 24px; left: 56px;
+    }
+    .ql-back:hover { color: rgba(255,255,255,.8); }
+
+    /* ── SECTIONS ── */
+    .ql-section { padding: 120px 0; border-top: 1px solid var(--ql-rule); background: var(--ql-bg); }
+    .ql-section.off { background: var(--ql-bg-off); }
+    .ql-container { max-width: 1160px; margin: 0 auto; padding: 0 48px; }
+    .ql-sec-header { display: grid; grid-template-columns: 200px 1fr; gap: 48px; margin-bottom: 72px; align-items: start; }
+    .ql-sec-num { font-family: var(--font-display); font-weight: 300; font-size: 12px; color: var(--ql-fg-40); padding-top: 8px; }
+    .ql-sec-title { font-family: var(--font-display); font-weight: 900; font-size: clamp(32px,3.8vw,54px); line-height: 1; letter-spacing: -.03em; color: var(--ql-fg); }
+    .ql-sec-title em { font-weight: 800; color: var(--rasp); font-style: normal; }
+    .ql-sec-lead { font-size: 15px; color: var(--ql-fg-40); line-height: 1.8; max-width: 520px; margin-top: 12px; }
+
+    /* ── NAMING ── */
+    .ql-naming-grid {
+      display: grid; grid-template-columns: repeat(4,1fr);
+      border: 1px solid var(--ql-rule); margin-bottom: 48px;
+    }
+    .ql-ns {
+      padding: 36px 28px; border-right: 1px solid var(--ql-rule);
+      position: relative; transition: background .25s; 
+    }
+    .ql-ns:last-child { border-right: none; }
+    .ql-ns:hover { background: var(--ql-bg-off); }
+    .ql-ns-n {
+      font-family: var(--font-display); font-weight: 900; font-size: 48px;
+      line-height: 1; color: var(--ql-rule); margin-bottom: 16px; letter-spacing: -.03em;
+    }
+    .ql-ns-title { font-size: 12px; font-weight: 500; letter-spacing: .04em; margin-bottom: 8px; }
+    .ql-ns-body { font-size: 12px; color: var(--ql-fg-40); line-height: 1.6; }
+    .ql-ns-dot {
+      position: absolute; top: 28px; right: 28px;
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--ql-rule); transition: background .25s;
+    }
+    .ql-ns:hover .ql-ns-dot { background: var(--rasp); }
+
+    .ql-cloud {
+      border: 1px solid var(--ql-rule); padding: 36px;
+      display: flex; flex-wrap: wrap; gap: 10px; align-items: center;
+      background: var(--ql-bg-off);
+    }
+    .ql-chip {
+      font-size: 11px; letter-spacing: .06em; padding: 6px 16px;
+      border: 1px solid var(--border2); color: var(--fg-60);
+      transition: all .2s; 
+    }
+    .ql-chip:hover { border-color: var(--fg); color: var(--fg); }
+    .ql-chip.fin { border-color: var(--mauve); color: var(--mauve); }
+    .ql-chip.pick { background: var(--plum); color: #fff; border-color: var(--plum); font-weight: 500; }
+    .ql-cloud-more { font-size: 11px; color: var(--ql-fg-40); font-style: italic; padding: 6px 0; }
+
+    /* ── BRANDING ── */
+    .ql-iter-strip {
+      display: grid; grid-template-columns: repeat(5,1fr);
+      border: 1px solid var(--ql-rule); margin-bottom: 56px; overflow: hidden;
+    }
+    .ql-iter {
+      aspect-ratio: 3/4; position: relative;
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 20px 16px; overflow: hidden; 
+      transition: flex .4s ease;
+    }
+    .ql-iter-strip:hover .ql-iter { flex: .7; }
+    .ql-iter-strip .ql-iter:hover { flex: 2; }
+    .ql-iter-v { font-size: 8px; letter-spacing: .2em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 6px; }
+    .ql-iter-name { font-family: var(--font-display); font-weight: 900; font-size: 13px; color: #fff; line-height: 1.2; }
+    .ql-iter-sub { font-size: 10px; color: rgba(255,255,255,.4); margin-top: 3px; }
+    .ql-iter.final::after {
+      content: 'FINAL'; position: absolute; top: 14px; right: 14px;
+      font-size: 8px; letter-spacing: .18em; background: var(--rasp);
+      padding: 3px 8px; color: #fff;
+    }
+
+    .ql-palette {
+      display: flex; height: 100px;
+      border: 1px solid var(--ql-rule); overflow: hidden; margin-bottom: 48px;
+    }
+    .ql-swatch { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; padding: 14px 16px; transition: flex .3s ease;  }
+    .ql-palette:hover .ql-swatch { flex: .6; }
+    .ql-palette .ql-swatch:hover { flex: 2.2; }
+    .ql-sw-name { font-size: 10px; font-weight: 500; white-space: nowrap; overflow: hidden; }
+    .ql-sw-hex { font-size: 9px; opacity: .6; font-family: monospace; }
+
+    .ql-logo-row { display: grid; grid-template-columns: repeat(3,1fr); border: 1px solid var(--ql-rule); overflow: hidden; }
+    .ql-logo-tile {
+      aspect-ratio: 16/9; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 12px;
+      border-right: 1px solid var(--ql-rule);
+      position: relative; transition: opacity .2s;
+    }
+    .ql-logo-tile:last-child { border-right: none; }
+    .ql-logo-tile:hover { opacity: .85; }
+    .ql-lt-label { position: absolute; bottom: 12px; font-size: 8px; letter-spacing: .2em; text-transform: uppercase; opacity: .3; }
+    .ql-wm {
+      font-family: var(--font-display); font-weight: 900; font-size: 24px;
+      letter-spacing: .03em; display: flex; align-items: center; gap: 2px;
+    }
+    .ql-amp { font-weight: 800; font-size: 1.15em; color: var(--rasp); margin: 0 2px; transform: translateY(.06em); display: inline-block; }
+    .ql-ldots { display: flex; gap: 7px; }
+    .ql-ld { width: 7px; height: 7px; border-radius: 50%; }
+
+    /* ── QUOTE ── */
+    .ql-quote-block {
+      background: var(--plum); padding: 100px 48px;
+      text-align: center; position: relative; overflow: hidden;
+    }
+    .ql-quote-block::before {
+      content: '\201C'; font-family: var(--font-display); font-size: 360px; font-weight: 900;
+      position: absolute; top: -80px; left: 50%; transform: translateX(-50%);
+      color: rgba(255,255,255,.04); line-height: 1; pointer-events: none;
+    }
+    .ql-q-text {
+      font-family: var(--font-display); font-weight: 300;
+      font-size: clamp(22px,3.2vw,40px); color: #fff; line-height: 1.35;
+      max-width: 820px; margin: 0 auto 24px; position: relative; z-index: 1;
+    }
+    .ql-q-attr { font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: rgba(255,255,255,.3); position: relative; z-index: 1; }
+
+    /* ── UX ── */
+    .ql-ux-cols {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1px; background: var(--ql-rule);
+      border: 1px solid var(--ql-rule); margin-bottom: 56px;
+    }
+    .ql-ux-panel { background: var(--ql-bg); }
+    .ql-decisions { display: flex; flex-direction: column; }
+    .ql-dec {
+      display: grid; grid-template-columns: 56px 1fr;
+      padding: 24px 32px; border-bottom: 1px solid var(--ql-rule);
+      transition: background .2s; 
+    }
+    .ql-dec:last-child { border-bottom: none; }
+    .ql-dec:hover { background: var(--ql-bg-off); }
+    .ql-dec-n { font-family: var(--font-display); font-weight: 900; font-size: 11px; color: var(--ql-fg-40); padding-top: 2px; }
+    .ql-dec-title { font-size: 13px; font-weight: 500; margin-bottom: 4px; color: var(--ql-fg); }
+    .ql-dec-body { font-size: 12px; color: var(--ql-fg-40); line-height: 1.6; }
+
+    /* ── RESULTS ── */
+    .ql-results-row {
+      display: grid; grid-template-columns: repeat(4,1fr);
+      border: 1px solid var(--ql-rule); margin-bottom: 56px;
+    }
+    .ql-res {
+      padding: 40px 32px; border-right: 1px solid var(--ql-rule);
+      transition: background .2s; 
+    }
+    .ql-res:last-child { border-right: none; }
+    .ql-res:hover { background: var(--ql-bg-off); }
+    .ql-res-n { font-family: var(--font-display); font-weight: 900; font-size: 48px; line-height: 1; letter-spacing: -.03em; margin-bottom: 6px; color: var(--ql-fg); }
+    .ql-res-n sup { font-size: .45em; color: var(--rasp); vertical-align: super; }
+    .ql-res-l { font-size: 11px; color: var(--ql-fg-40); letter-spacing: .06em; line-height: 1.5; }
+
+    .ql-deliv-grid {
+      display: grid; grid-template-columns: repeat(3,1fr);
+      border: 1px solid var(--ql-rule);
+    }
+    .ql-deliv {
+      padding: 28px 32px; border-right: 1px solid var(--ql-rule); border-bottom: 1px solid var(--ql-rule);
+      display: flex; gap: 18px; align-items: flex-start;
+      transition: background .2s; 
+    }
+    .ql-deliv:nth-child(3n) { border-right: none; }
+    .ql-deliv:nth-last-child(-n+3) { border-bottom: none; }
+    .ql-deliv:hover { background: var(--ql-bg-off); }
+    .ql-deliv-icon { font-size: 20px; flex-shrink: 0; margin-top: 2px; }
+    .ql-deliv-name { font-size: 13px; font-weight: 500; margin-bottom: 3px; color: var(--ql-fg); }
+    .ql-deliv-desc { font-size: 11px; color: var(--ql-fg-40); line-height: 1.55; }
+
+    /* ── CONTEXT ── */
+    .ql-meta-row {
+      display: grid; grid-template-columns: repeat(4,1fr);
+      border-bottom: 1px solid var(--ql-rule); margin-bottom: 64px;
+    }
+    .ql-meta-cell {
+      padding: 28px 32px; border-right: 1px solid var(--ql-rule);
+    }
+    .ql-meta-cell:last-child { border-right: none; }
+    .ql-meta-label { font-size: 9px; letter-spacing: .2em; text-transform: uppercase; color: var(--ql-fg-40); margin-bottom: 8px; }
+    .ql-meta-val { font-size: 14px; font-weight: 500; color: var(--ql-fg); line-height: 1.4; }
+
+    .ql-challenge-block {
+      border: 1px solid var(--ql-rule); padding: 48px;
+      background: var(--ql-bg-off); margin-bottom: 48px; position: relative;
+    }
+    .ql-challenge-block::before {
+      content: '?'; position: absolute; top: -20px; left: 40px;
+      font-family: var(--font-display); font-weight: 900; font-size: 48px;
+      color: var(--rasp); line-height: 1;
+    }
+    .ql-challenge-q {
+      font-family: var(--font-display); font-weight: 300;
+      font-size: clamp(18px,2.2vw,28px); color: var(--ql-fg);
+      line-height: 1.45; max-width: 680px;
+    }
+    .ql-challenge-q em { color: var(--rasp); font-style: normal; font-weight: 600; }
+
+    .ql-goals-row {
+      display: grid; grid-template-columns: repeat(3,1fr);
+      border: 1px solid var(--ql-rule);
+    }
+    .ql-goal {
+      padding: 32px 28px; border-right: 1px solid var(--ql-rule);
+      position: relative; overflow: hidden;
+    }
+    .ql-goal:last-child { border-right: none; }
+    .ql-goal::after {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+      height: 2px; background: var(--rasp); transform: scaleX(0);
+      transform-origin: left; transition: transform .35s;
+    }
+    .ql-goal:hover::after { transform: scaleX(1); }
+    .ql-goal-tag {
+      font-size: 9px; letter-spacing: .18em; text-transform: uppercase;
+      color: var(--rasp); margin-bottom: 12px;
+    }
+    .ql-goal-title { font-weight: 600; font-size: 14px; margin-bottom: 8px; color: var(--ql-fg); }
+    .ql-goal-body { font-size: 12px; color: var(--ql-fg-40); line-height: 1.65; }
+
+    /* ── TYPOGRAPHY ── */
+    .ql-type-grid {
+      display: grid; grid-template-columns: repeat(2,1fr);
+      border: 1px solid var(--ql-rule); margin-bottom: 48px;
+    }
+    .ql-type-cell {
+      padding: 36px; border-right: 1px solid var(--ql-rule);
+      border-bottom: 1px solid var(--ql-rule);
+    }
+    .ql-type-cell:nth-child(even) { border-right: none; }
+    .ql-type-cell:nth-last-child(-n+2) { border-bottom: none; }
+    .ql-type-meta { font-size: 9px; letter-spacing: .18em; text-transform: uppercase; color: var(--ql-fg-40); margin-bottom: 12px; }
+    .ql-type-role { font-size: 10px; color: var(--mauve); margin-bottom: 16px; letter-spacing: .06em; }
+
+    /* ── REFLECTION ── */
+    .ql-refl-cols {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1px; background: var(--ql-rule);
+      border: 1px solid var(--ql-rule); margin-bottom: 56px;
+    }
+    .ql-refl-panel { background: var(--ql-bg); padding: 48px; }
+    .ql-refl-label {
+      font-size: 9px; letter-spacing: .22em; text-transform: uppercase;
+      margin-bottom: 28px; display: flex; align-items: center; gap: 10px;
+    }
+    .ql-refl-label.good { color: #00c97a; }
+    .ql-refl-label.hard { color: var(--rasp); }
+    .ql-refl-label::before { content: ''; width: 20px; height: 1px; background: currentColor; }
+    .ql-refl-item {
+      padding: 16px 0; border-bottom: 1px solid var(--ql-rule);
+      font-size: 13px; color: var(--ql-fg-40); line-height: 1.65;
+    }
+    .ql-refl-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .ql-refl-item strong { color: var(--ql-fg); font-weight: 500; display: block; margin-bottom: 4px; }
+
+    /* ── COMPETENCIES ── */
+    .ql-skills-grid {
+      display: grid; grid-template-columns: repeat(3,1fr);
+      border: 1px solid var(--ql-rule);
+    }
+    .ql-skill {
+      padding: 32px 28px; border-right: 1px solid var(--ql-rule);
+      border-bottom: 1px solid var(--ql-rule);
+      transition: background .2s;
+    }
+    .ql-skill:nth-child(3n) { border-right: none; }
+    .ql-skill:nth-last-child(-n+3) { border-bottom: none; }
+    .ql-skill:hover { background: var(--ql-bg-off); }
+    .ql-skill-area {
+      font-size: 9px; letter-spacing: .2em; text-transform: uppercase;
+      color: var(--rasp); margin-bottom: 10px;
+    }
+    .ql-skill-title { font-weight: 600; font-size: 14px; color: var(--ql-fg); margin-bottom: 8px; }
+    .ql-skill-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .ql-skill-tag {
+      font-size: 10px; padding: 3px 10px;
+      border: 1px solid var(--ql-rule); color: var(--ql-fg-40);
+    }
+
+    /* ── RESPONSIVE additions ── */
+    @media (max-width: 1024px) {
+      .ql-meta-row { grid-template-columns: 1fr 1fr; }
+      .ql-goals-row { grid-template-columns: 1fr; }
+      .ql-goal { border-right: none; border-bottom: 1px solid var(--ql-rule); }
+      .ql-goal:last-child { border-bottom: none; }
+      .ql-type-grid { grid-template-columns: 1fr; }
+      .ql-type-cell { border-right: none; }
+      .ql-refl-cols { grid-template-columns: 1fr; }
+      .ql-skills-grid { grid-template-columns: 1fr 1fr; }
+      .ql-skill:nth-child(3n) { border-right: 1px solid var(--ql-rule); }
+      .ql-skill:nth-child(even) { border-right: none; }
+      .ql-skill:nth-last-child(-n+3) { border-bottom: 1px solid var(--ql-rule); }
+      .ql-skill:nth-last-child(-n+2) { border-bottom: none; }
+    }
+    @media (max-width: 640px) {
+      .ql-meta-row { grid-template-columns: 1fr 1fr; }
+      .ql-skills-grid { grid-template-columns: 1fr; }
+      .ql-skill { border-right: none; }
+      .ql-challenge-block { padding: 36px 24px; }
+    }
+    .ql-next { padding: 80px 0; border-top: 1px solid var(--ql-rule); text-align: center; background: var(--ql-bg); }
+    .ql-next-label { font-size: 10px; letter-spacing: .22em; text-transform: uppercase; color: var(--ql-fg-40); margin-bottom: 16px; }
+    .ql-next-link {
+      font-family: var(--font-display); font-weight: 900;
+      font-size: clamp(28px,3.5vw,52px); letter-spacing: -.03em;
+      color: var(--ql-fg); transition: color .2s; display: inline-block;
+    }
+    .ql-next-link:hover { color: var(--rasp); }
+
+    /* ── REVEAL ── */
+    .r { opacity: 0; transform: translateY(28px); transition: opacity .75s cubic-bezier(.22,.61,.36,1), transform .75s cubic-bezier(.22,.61,.36,1); }
+    .r.v { opacity: 1; transform: none; }
+    .r.d1 { transition-delay: .1s; } .r.d2 { transition-delay: .2s; } .r.d3 { transition-delay: .3s; }
+    @keyframes ha-up { from { opacity:0; transform:translateY(22px); } to { opacity:1; transform:none; } }
+    .ha { animation: ha-up .85s cubic-bezier(.22,.61,.36,1) both; }
+    .ha0 { animation-delay: .08s; } .ha1 { animation-delay: .2s; } .ha2 { animation-delay: .34s; }
+    .ha3 { animation-delay: .48s; } .ha4 { animation-delay: .62s; } .ha5 { animation-delay: .76s; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      .ql-hero { grid-template-columns: 1fr; }
+      .ql-hero-right { display: none; }
+      .ql-naming-grid { grid-template-columns: 1fr 1fr; }
+      .ql-iter-strip { grid-template-columns: repeat(3,1fr); }
+      .ql-ux-cols { grid-template-columns: 1fr; }
+      .ql-results-row { grid-template-columns: 1fr 1fr; }
+      .ql-deliv-grid { grid-template-columns: 1fr 1fr; }
+      .ql-sec-header { grid-template-columns: 1fr; gap: 12px; }
+    }
+    @media (max-width: 640px) {
+      .ql-naming-grid, .ql-logo-row, .ql-results-row, .ql-deliv-grid { grid-template-columns: 1fr; }
+      .ql-iter-strip { grid-template-columns: repeat(2,1fr); }
+      .ql-container { padding: 0 20px; }
+      .ql-hero-left { padding: 60px 24px; }
+      .ql-back { left: 24px; }
+    }
+  </style>
+
+  <div class="ql-wrap">
+
+    <!-- ══ HERO ══ -->
+    <section class="ql-hero">
+      <div class="ql-hero-bg">
+        <img src="/images/qljoy-hero.png" alt="QL&Joy Studio" fetchpriority="high" decoding="async" />
+      </div>
+      <div class="ql-hero-left">
+        <div class="ql-hero-num">001</div>
+        <a href="/#cases" class="ql-back">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+          Case Studies
+        </a>
+        <div class="ql-hero-eyebrow">Brand Identity &amp; E-commerce</div>
+        <h1 class="ql-hero-h1">QL<em>&amp;</em><br>JOY</h1>
+        <p class="ql-hero-sub">Identyfikacja wizualna i sklep e-commerce dla polskiej marki premium dzianin dla kobiet 40+.</p>
+        <div class="ql-hero-pills">
+          <span class="ql-pill on">Naming</span>
+          <span class="ql-pill on">Branding</span>
+          <span class="ql-pill on">UX/UI</span>
+          <span class="ql-pill">E-commerce</span>
+          <span class="ql-pill">2025</span>
+        </div>
+        <div class="ql-hero-stats">
+          <div class="ql-stat"><div class="ql-stat-n">182</div><div class="ql-stat-l">nazwy</div></div>
+          <div class="ql-stat"><div class="ql-stat-n">5×</div><div class="ql-stat-l">iteracje</div></div>
+          <div class="ql-stat"><div class="ql-stat-n">10</div><div class="ql-stat-l">sekcji UI</div></div>
+        </div>
+      </div>
+
+      <div class="ql-hero-right"></div>
+    </section>
+
+
+    <!-- ══ 00 KONTEKST ══ -->
+    <section class="ql-section">
+      <div class="ql-container">
+        <div class="ql-sec-header r">
+          <div class="ql-sec-num">00 — Kontekst</div>
+          <div>
+            <h2 class="ql-sec-title">Od <em>szwalni</em><br>do marki premium</h2>
+            <p class="ql-sec-lead">Klientka produkowała wyroby wysokiej jakości od lat — ale bez nazwy, bez twarzy, bez obecności online. Projekt zakładał stworzenie kompletnej marki od zera.</p>
+          </div>
+        </div>
+
+        <div class="ql-meta-row r d1">
+          <div class="ql-meta-cell">
+            <div class="ql-meta-label">Klient</div>
+            <div class="ql-meta-val">QL&amp;Joy Studio<br><span style="font-size:11px;color:var(--ql-fg-40);font-weight:400">Prywatna szwalnia, Łódź</span></div>
+          </div>
+          <div class="ql-meta-cell">
+            <div class="ql-meta-label">Moja rola</div>
+            <div class="ql-meta-val">UX/UI Designer<br><span style="font-size:11px;color:var(--ql-fg-40);font-weight:400">Brand Strategist</span></div>
+          </div>
+          <div class="ql-meta-cell">
+            <div class="ql-meta-label">Zakres</div>
+            <div class="ql-meta-val">Naming · Branding<br><span style="font-size:11px;color:var(--ql-fg-40);font-weight:400">UX/UI · E-commerce</span></div>
+          </div>
+          <div class="ql-meta-cell">
+            <div class="ql-meta-label">Czas / Model</div>
+            <div class="ql-meta-val">End-to-end<br><span style="font-size:11px;color:var(--ql-fg-40);font-weight:400">Od zera do wdrożenia · 2025</span></div>
+          </div>
+        </div>
+
+        <div class="ql-challenge-block r d2">
+          <p class="ql-challenge-q">
+            „Jak zbudować markę premium, która jest <em>ciepła i kobieca</em> — ale nie infantylna?
+            <em>Elegancka</em> — ale dostępna? <em>Nowoczesna</em> — ale prawdziwa?"
+          </p>
+        </div>
+
+        <div class="ql-goals-row r d3">
+          <div class="ql-goal">
+            <div class="ql-goal-tag">Cel biznesowy</div>
+            <div class="ql-goal-title">Rozpoznawalna marka premium</div>
+            <div class="ql-goal-body">Zbudować markę w segmencie dzianin/dresów dla kobiet dojrzałych, która odcina się od masowego rynku i mówi do grupy 40+ z szacunkiem.</div>
+          </div>
+          <div class="ql-goal">
+            <div class="ql-goal-tag">Cel brandingowy</div>
+            <div class="ql-goal-title">Spójna identyfikacja wizualna</div>
+            <div class="ql-goal-body">Stworzyć kompletny system — od logotypu, przez paletę i typografię, po tone of voice i szablony cyfrowe gotowe do użycia.</div>
+          </div>
+          <div class="ql-goal">
+            <div class="ql-goal-tag">Cel UX/UI</div>
+            <div class="ql-goal-title">Sklep, który konwertuje</div>
+            <div class="ql-goal-body">Zaprojektować e-commerce oddający charakter marki — editorial, nie katalog. Płynny UX z AJAX cart, inline filterami i skróconą ścieżką zakupową.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ══ 01 NAMING ══ -->
+    <section class="ql-section">
+      <div class="ql-container">
+        <div class="ql-sec-header r">
+          <div class="ql-sec-num">01 — Naming</div>
+          <div>
+            <h2 class="ql-sec-title">Znalezienie <em>nazwy</em></h2>
+            <p class="ql-sec-lead">Cztery rundy propozycji, pięć kierunków strategicznych, 182 kandydatki — zanim padła finalna odpowiedź.</p>
+          </div>
+        </div>
+
+        <div class="ql-naming-grid r d1">
+          <div class="ql-ns"><div class="ql-ns-dot"></div><div class="ql-ns-n">01</div><div class="ql-ns-title">Pozycjonowanie</div><div class="ql-ns-body">Premium · Polska · Rzemiosło · Kobiecość 40+ · Quiet Luxury</div></div>
+          <div class="ql-ns"><div class="ql-ns-dot"></div><div class="ql-ns-n">02</div><div class="ql-ns-title">5 kierunków</div><div class="ql-ns-body">Emocjonalne, opisowe, skrótowe, zagraniczne, abstrakcyjne</div></div>
+          <div class="ql-ns"><div class="ql-ns-dot"></div><div class="ql-ns-n">03</div><div class="ql-ns-title">182 propozycje</div><div class="ql-ns-body">4 rundy z uzasadnieniem każdej — iteracyjna selekcja z klientką</div></div>
+          <div class="ql-ns"><div class="ql-ns-dot"></div><div class="ql-ns-n">04</div><div class="ql-ns-title">Finalizacja</div><div class="ql-ns-body">QL&amp;Joy — Quiet Luxury &amp; Joy. Znak &amp; sercem identyfikacji.</div></div>
+        </div>
+
+        <div class="ql-cloud r d2">
+          <span class="ql-chip">Velour Atelier</span>
+          <span class="ql-chip">Joie Studio</span>
+          <span class="ql-chip fin">Belle Fil</span>
+          <span class="ql-chip">SoftJoy</span>
+          <span class="ql-chip">VelvetMood</span>
+          <span class="ql-chip fin">Quelo</span>
+          <span class="ql-chip">Szwalnia No.1</span>
+          <span class="ql-chip">WarmCraft</span>
+          <span class="ql-chip fin">QJ Studio</span>
+          <span class="ql-chip">Velua</span>
+          <span class="ql-chip">DouceurPL</span>
+          <span class="ql-chip">Nicią</span>
+          <span class="ql-chip">TissueLux</span>
+          <span class="ql-chip fin">Soire</span>
+          <span class="ql-chip">Modale</span>
+          <span class="ql-chip pick">QL&amp;Joy ✓</span>
+          <span class="ql-cloud-more">+ 166 pozostałych propozycji…</span>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ══ 02 BRANDING ══ -->
+    <section class="ql-section off">
+      <div class="ql-container">
+        <div class="ql-sec-header r">
+          <div class="ql-sec-num">02 — Branding</div>
+          <div>
+            <h2 class="ql-sec-title">5 iteracji, <em>jeden charakter</em></h2>
+            <p class="ql-sec-lead">Każda propozycja była kompletnym brand bookiem — paletą, typografią, przykładami. Dopiero piąta trafiła w sedno.</p>
+          </div>
+        </div>
+
+        <div class="ql-iter-strip r d1">
+          <div class="ql-iter" style="background:linear-gradient(170deg,#3e1a2a,#1c0912)">
+            <div class="ql-iter-v">v1</div><div class="ql-iter-name">Velour Atelier</div><div class="ql-iter-sub">Bordeaux · Chłód</div>
+          </div>
+          <div class="ql-iter" style="background:linear-gradient(170deg,#cc0060,#7a0040)">
+            <div class="ql-iter-v">v2</div><div class="ql-iter-name">Joie Vivid</div><div class="ql-iter-sub">Intensywny róż</div>
+          </div>
+          <div class="ql-iter" style="background:linear-gradient(170deg,#5a3060,#2a1040)">
+            <div class="ql-iter-v">v3</div><div class="ql-iter-name">Joie Elegancka</div><div class="ql-iter-sub">Mauve · Rafinowanie</div>
+          </div>
+          <div class="ql-iter" style="background:linear-gradient(170deg,#e8a0b0,#c06080)">
+            <div class="ql-iter-v">v4</div><div class="ql-iter-name" style="color:#2d2250">Joie Różana</div><div class="ql-iter-sub" style="color:rgba(45,34,80,.5)">Pełna paleta różu</div>
+          </div>
+          <div class="ql-iter final" style="background:linear-gradient(170deg,#2D2250,#1E1638)">
+            <div class="ql-iter-v">v5</div><div class="ql-iter-name">QL&amp;Joy</div><div class="ql-iter-sub">Śliwka · Dojrzałość</div>
+          </div>
+        </div>
+
+        <div class="ql-palette r d2">
+          <div class="ql-swatch" style="background:#F2A7B3;color:#2D2250"><div class="ql-sw-name">Puder Różany</div><div class="ql-sw-hex">#F2A7B3</div></div>
+          <div class="ql-swatch" style="background:#E8006C;color:white"><div class="ql-sw-name">Malina</div><div class="ql-sw-hex">#E8006C</div></div>
+          <div class="ql-swatch" style="background:#F7C5D0;color:#2D2250"><div class="ql-sw-name">Płatek</div><div class="ql-sw-hex">#F7C5D0</div></div>
+          <div class="ql-swatch" style="background:#7B5EA7;color:white"><div class="ql-sw-name">Mauve</div><div class="ql-sw-hex">#7B5EA7</div></div>
+          <div class="ql-swatch" style="background:#2D2250;color:white"><div class="ql-sw-name">Śliwka</div><div class="ql-sw-hex">#2D2250</div></div>
+        </div>
+
+        <div class="ql-logo-row r d3">
+          <div class="ql-logo-tile" style="background:#FAFAFA">
+            <div class="ql-wm" style="color:#2D2250">QL<span class="ql-amp">&amp;</span>JOY</div>
+            <div class="ql-ldots">
+              <div class="ql-ld" style="background:#E8006C"></div>
+              <div class="ql-ld" style="background:#F2A7B3"></div>
+              <div class="ql-ld" style="background:#F7C5D0"></div>
+              <div class="ql-ld" style="background:#7B5EA7"></div>
+            </div>
+            <div class="ql-lt-label" style="color:#2D2250">Jasne tło</div>
+          </div>
+          <div class="ql-logo-tile" style="background:#2D2250">
+            <div class="ql-wm" style="color:#FAFAFA">QL<span class="ql-amp">&amp;</span>JOY</div>
+            <div class="ql-ldots">
+              <div class="ql-ld" style="background:#E8006C"></div>
+              <div class="ql-ld" style="background:#F2A7B3"></div>
+              <div class="ql-ld" style="background:#F7C5D0"></div>
+              <div class="ql-ld" style="background:#7B5EA7"></div>
+            </div>
+            <div class="ql-lt-label" style="color:#F2A7B3">Ciemne tło</div>
+          </div>
+          <div class="ql-logo-tile" style="background:#F7C5D0">
+            <div style="text-align:center;font-family:var(--font-display);font-weight:900;color:#2D2250;font-size:20px;line-height:1.1">
+              QL<br><span style="font-weight:800;font-size:1.3em;color:#E8006C;display:block;line-height:.9">&amp;</span>JOY
+            </div>
+            <div class="ql-ldots">
+              <div class="ql-ld" style="background:#E8006C"></div>
+              <div class="ql-ld" style="background:#2D2250"></div>
+              <div class="ql-ld" style="background:#7B5EA7"></div>
+              <div class="ql-ld" style="background:#F2A7B3"></div>
+            </div>
+            <div class="ql-lt-label" style="color:#2D2250">Wersja pionowa</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ TYPOGRAPHY SECTION ══ -->
+    <section class="ql-section off">
+      <div class="ql-container">
+        <div class="ql-sec-header r">
+          <div class="ql-sec-num">02b — Typografia</div>
+          <div>
+            <h2 class="ql-sec-title">Cztery fonty, <em>jeden głos</em></h2>
+            <p class="ql-sec-lead">Każdy krój pełni precyzyjną funkcję. Razem tworzą spójny system — od ekspresyjnych nagłówków po czytelny interfejs sklepu.</p>
+          </div>
+        </div>
+
+        <div class="ql-type-grid r d1">
+          <div class="ql-type-cell">
+            <div class="ql-type-meta">Unbounded 900</div>
+            <div class="ql-type-role">Logotyp · nagłówki · hero</div>
+            <div style="font-family:var(--font-display);font-weight:900;font-size:clamp(40px,5vw,72px);line-height:.95;letter-spacing:-.04em;color:var(--ql-fg)">QL<span style="color:var(--rasp)">&amp;</span>JOY</div>
+            <div style="margin-top:12px;font-size:11px;color:var(--ql-fg-40)">Nowoczesny · geometryczny · ekspresyjny</div>
+          </div>
+          <div class="ql-type-cell">
+            <div class="ql-type-meta">Alex Brush</div>
+            <div class="ql-type-role">Znak &amp; w logotypie · akcenty kaligraficzne</div>
+            <div style="font-size:clamp(52px,7vw,100px);line-height:.9;color:var(--rasp);font-style:italic;font-weight:400">&amp;</div>
+            <div style="margin-top:12px;font-size:11px;color:var(--ql-fg-40)">Kaligrafia — most między precyzją a ciepłem</div>
+          </div>
+          <div class="ql-type-cell">
+            <div class="ql-type-meta">Cormorant Garamond Italic</div>
+            <div class="ql-type-role">Cytaty · podtytuły · editorial prose</div>
+            <div style="font-style:italic;font-size:clamp(22px,2.8vw,36px);line-height:1.25;color:var(--ql-fg);max-width:320px">„Cicha elegancja to nie brak głosu — to pewność siebie."</div>
+            <div style="margin-top:12px;font-size:11px;color:var(--ql-fg-40)">Literacka elegancja · serif premium</div>
+          </div>
+          <div class="ql-type-cell">
+            <div class="ql-type-meta">Outfit 400/500</div>
+            <div class="ql-type-role">UI · body · labels · nawigacja</div>
+            <div style="font-size:14px;line-height:1.7;color:var(--ql-fg-40);max-width:320px">100% modal certyfikowany OEKO-TEX®<br><span style="font-weight:500;color:var(--ql-fg)">Darmowa dostawa od 199 zł</span><br>30 dni na zwrot bez pytań</div>
+            <div style="margin-top:12px;font-size:11px;color:var(--ql-fg-40)">Czytelność · nowoczesność · neutralność</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ══ QUOTE ══ -->
+    <div class="ql-quote-block">
+      <p class="ql-q-text">„Finalna nazwa QL&amp;Joy pochodzi od <em style="color:var(--powder);font-style:normal">Quiet Luxury &amp; Joy</em> — cicha elegancja i radość. Znak &amp; w Alex Brush stał się sercem całej identyfikacji wizualnej."</p>
+      <div class="ql-q-attr">Decyzja projektowa — naming finał</div>
+    </div>
+
+
+    <!-- ══ 03 UX/UI ══ -->
+    <section class="ql-section">
+      <div class="ql-container">
+        <div class="ql-sec-header r">
+          <div class="ql-sec-num">03 — UX/UI</div>
+          <div>
+            <h2 class="ql-sec-title">Sklep jako <em>narracja</em></h2>
+            <p class="ql-sec-lead">Zamiast katalogu — editorial story. Użytkowniczka przechodzi przez świat marki, zanim zobaczy cenę produktu.</p>
+          </div>
+        </div>
+
+        <div class="ql-ux-cols r d1">
+          <!-- left: wireframe -->
+          <div class="ql-ux-panel" style="padding:40px 36px;border-right:1px solid var(--ql-rule)">
+            <div style="font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--ql-fg-40);margin-bottom:20px">Architektura — 10 sekcji</div>
+            <svg viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg" width="100%">
+              <defs>
+                <linearGradient id="acl" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#E8006C"/><stop offset="100%" stop-color="#E8006C" stop-opacity=".1"/>
+                </linearGradient>
+              </defs>
+              <rect x="0" y="0" width="294" height="22" rx="2" fill="#0E0C18"/>
+              <text x="10" y="15" font-family="DM Sans,sans-serif" font-size="7.5" fill="rgba(255,255,255,.35)" letter-spacing="1.2">NAWIGACJA</text>
+              <rect x="0" y="26" width="294" height="11" rx="1" fill="rgba(232,0,108,.15)"/>
+              <text x="10" y="35" font-family="DM Sans,sans-serif" font-size="7" fill="rgba(232,0,108,.65)" letter-spacing="1.2">SCROLL STRIP</text>
+              <rect x="0" y="41" width="294" height="70" rx="2" fill="rgba(45,34,80,.07)"/>
+              <rect x="0" y="41" width="3" height="70" fill="#E8006C" rx="1 0 0 1"/>
+              <text x="12" y="58" font-family="Plus Jakarta Sans,system-ui,sans-serif" font-weight="900" font-size="10" fill="#0E0C18" letter-spacing="-.2">HERO</text>
+              <text x="12" y="72" font-family="DM Sans,sans-serif" font-size="7.5" fill="rgba(14,12,24,.4)">Wordmark · copy · CTA · ilustracja</text>
+              <path d="M256 50 L248 62 L246 100 L278 100 L276 62 L268 50 L263 46 Q261 44 261 44 Q259 46 259 46 Z" fill="rgba(45,34,80,.1)" stroke="rgba(45,34,80,.18)" stroke-width=".6"/>
+              <rect x="0" y="115" width="294" height="14" rx="1" fill="rgba(123,94,167,.1)"/>
+              <text x="10" y="125" font-family="DM Sans,sans-serif" font-size="7" fill="rgba(123,94,167,.7)" letter-spacing="1.2">TRUST BAR</text>
+              <rect x="0" y="133" width="294" height="76" rx="2" fill="rgba(45,34,80,.05)"/>
+              <rect x="0" y="133" width="3" height="76" fill="rgba(45,34,80,.3)" rx="1 0 0 1"/>
+              <text x="12" y="149" font-family="Plus Jakarta Sans,system-ui,sans-serif" font-weight="900" font-size="9.5" fill="#0E0C18">SKLEP — 3 kolumny</text>
+              <rect x="12" y="154" width="80" height="48" rx="1" fill="rgba(242,167,179,.16)"/>
+              <rect x="106" y="154" width="80" height="48" rx="1" fill="rgba(242,167,179,.16)"/>
+              <rect x="200" y="154" width="80" height="48" rx="1" fill="rgba(242,167,179,.16)"/>
+              <rect x="0" y="213" width="294" height="34" rx="2" fill="rgba(232,0,108,.07)"/>
+              <rect x="0" y="213" width="3" height="34" fill="#E8006C" rx="1 0 0 1"/>
+              <text x="12" y="228" font-family="DM Sans,sans-serif" font-size="7.5" fill="rgba(232,0,108,.8)" letter-spacing="1">FEATURED PRODUCT</text>
+              <text x="12" y="240" font-family="DM Sans,sans-serif" font-size="7" fill="rgba(14,12,24,.35)">Rozmiary · Ilość · AJAX cart</text>
+              <rect x="0" y="251" width="144" height="28" rx="2" fill="rgba(45,34,80,.05)"/>
+              <text x="10" y="268" font-family="DM Sans,sans-serif" font-size="7" fill="rgba(14,12,24,.5)" letter-spacing=".8">HISTORIA</text>
+              <rect x="150" y="251" width="144" height="28" rx="2" fill="rgba(45,34,80,.05)"/>
+              <text x="160" y="268" font-family="DM Sans,sans-serif" font-size="7" fill="rgba(14,12,24,.5)" letter-spacing=".8">PROCES</text>
+              <rect x="0" y="283" width="144" height="26" rx="2" fill="rgba(242,167,179,.1)"/>
+              <text x="10" y="299" font-family="DM Sans,sans-serif" font-size="7" fill="rgba(232,0,108,.7)" letter-spacing=".8">OPINIE</text>
+              <rect x="150" y="283" width="144" height="26" rx="2" fill="rgba(232,0,108,.1)"/>
+              <text x="160" y="299" font-family="DM Sans,sans-serif" font-size="7" fill="rgba(232,0,108,.65)" letter-spacing=".8">NEWSLETTER</text>
+              <rect x="0" y="313" width="294" height="24" rx="2" fill="#0E0C18"/>
+              <text x="10" y="328" font-family="DM Sans,sans-serif" font-size="7" fill="rgba(255,255,255,.3)" letter-spacing="1.2">STOPKA — 4 kolumny</text>
+              <rect x="296" y="0" width="4" height="337" rx="2" fill="url(#acl)"/>
+            </svg>
+          </div>
+
+          <!-- right: decisions -->
+          <div class="ql-ux-panel">
+            <div style="font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--ql-fg-40);padding:40px 36px 20px;border-bottom:1px solid var(--ql-rule)">Kluczowe decyzje UX</div>
+            <div class="ql-decisions">
+              <div class="ql-dec"><div class="ql-dec-n">01</div><div><div class="ql-dec-title">Editorial, nie katalog</div><div class="ql-dec-body">Strona prowadzi przez narrację marki — produkty pojawiają się po zbudowaniu kontekstu emocjonalnego.</div></div></div>
+              <div class="ql-dec"><div class="ql-dec-n">02</div><div><div class="ql-dec-title">Social proof inline</div><div class="ql-dec-body">Trust bar i opinie wbudowane w flow scrollowania — zaufanie budowane bez odrywania od treści.</div></div></div>
+              <div class="ql-dec"><div class="ql-dec-n">03</div><div><div class="ql-dec-title">Filter pills zamiast sidebara</div><div class="ql-dec-body">Kompaktowe filtry inline — mniej kliknięć, lepsza responsywność mobile.</div></div></div>
+              <div class="ql-dec"><div class="ql-dec-n">04</div><div><div class="ql-dec-title">AJAX cart + toast</div><div class="ql-dec-body">Dodanie do koszyka bez przeładowania. Użytkowniczka nie traci kontekstu przeglądania.</div></div></div>
+              <div class="ql-dec"><div class="ql-dec-n">05</div><div><div class="ql-dec-title">Size selector na homepage</div><div class="ql-dec-body">Wybór rozmiaru w sekcji featured bezpośrednio — ścieżka zakupowa krótsza o jeden krok.</div></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ══ 04 EFEKTY ══ -->
+    <section class="ql-section off">
+      <div class="ql-container">
+        <div class="ql-sec-header r">
+          <div class="ql-sec-num">04 — Efekty</div>
+          <div>
+            <h2 class="ql-sec-title">Od zera <em>do marki</em></h2>
+            <p class="ql-sec-lead">Projekt end-to-end — od pierwszej rozmowy o nazwie po gotową stronę e-commerce.</p>
+          </div>
+        </div>
+
+        <div class="ql-results-row r d1">
+          <div class="ql-res"><div class="ql-res-n">182</div><div class="ql-res-l">propozycje nazw<br>4 iteracyjne rundy</div></div>
+          <div class="ql-res"><div class="ql-res-n">5<sup>×</sup></div><div class="ql-res-l">kompletne identyfikacje<br>wizualne</div></div>
+          <div class="ql-res"><div class="ql-res-n">10</div><div class="ql-res-l">sekcji strony<br>e-commerce</div></div>
+          <div class="ql-res"><div class="ql-res-n">0→1</div><div class="ql-res-l">od zera<br>do gotowej marki</div></div>
+        </div>
+
+        <div class="ql-deliv-grid r d2">
+          <div class="ql-deliv"><div class="ql-deliv-icon">✍</div><div><div class="ql-deliv-name">Naming</div><div class="ql-deliv-desc">182 propozycje w 4 rundach z uzasadnieniem i analizą</div></div></div>
+          <div class="ql-deliv"><div class="ql-deliv-icon">🎨</div><div><div class="ql-deliv-name">5 identyfikacji wizualnych</div><div class="ql-deliv-desc">Pełne brand booki z paletą, typografią i przykładami</div></div></div>
+          <div class="ql-deliv"><div class="ql-deliv-icon">📖</div><div><div class="ql-deliv-name">Brand Book</div><div class="ql-deliv-desc">8 sekcji: logo, kolory, TOV, typografia, szablony</div></div></div>
+          <div class="ql-deliv"><div class="ql-deliv-icon">◈</div><div><div class="ql-deliv-name">System logotypu</div><div class="ql-deliv-desc">6 wariantów × 3 tła · clearspace · zasady użycia</div></div></div>
+          <div class="ql-deliv"><div class="ql-deliv-icon">🖥</div><div><div class="ql-deliv-name">Strona e-commerce</div><div class="ql-deliv-desc">10 sekcji · responsive · AJAX cart · animacje scroll</div></div></div>
+          <div class="ql-deliv"><div class="ql-deliv-icon">📐</div><div><div class="ql-deliv-name">Szablony cyfrowe</div><div class="ql-deliv-desc">Instagram post/story · email header · etykieta · wizytówka</div></div></div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ══ 05 REFLEKSJA ══ -->
+    <section class="ql-section">
+      <div class="ql-container">
+        <div class="ql-sec-header r">
+          <div class="ql-sec-num">05 — Refleksja</div>
+          <div>
+            <h2 class="ql-sec-title">Co <em>działało</em>,<br>co było trudne</h2>
+            <p class="ql-sec-lead">Projekt end-to-end to nie tylko portfolio deliverables — to lekcja iteracyjnego procesu z klientką o innym rytmie decyzyjnym niż korporacja.</p>
+          </div>
+        </div>
+
+        <div class="ql-refl-cols r d1">
+          <div class="ql-refl-panel">
+            <div class="ql-refl-label good">Co działało wyjątkowo dobrze</div>
+            <div class="ql-refl-item">
+              <strong>Iteracyjny naming — 4 rundy</strong>
+              Kolejne rundy propozycji pozwoliły zrozumieć, czego klientka naprawdę szuka — nie to, co mówiła na początku, ale to, co pojawiało się w jej reakcjach na kolejne propozycje.
+            </div>
+            <div class="ql-refl-item">
+              <strong>Równoległa praca nad brandem i UI</strong>
+              Decyzje wizualne testowane od razu w kontekście interfejsu — kolory, które wyglądają świetnie w brand booku, ale nie działają jako CTA na ekranie.
+            </div>
+            <div class="ql-refl-item">
+              <strong>SVG placeholdery z palety brandowej</strong>
+              Proceduralne generowanie placeholderów produktowych — spójny look bez zdjęć produktowych na etapie projektowania. 6 wariantów z brandowej palety.
+            </div>
+            <div class="ql-refl-item">
+              <strong>AJAX cart + toast notifications</strong>
+              Płynny UX bez pełnych przeładowań. Użytkowniczka nie traci kontekstu przeglądania po dodaniu produktu do koszyka.
+            </div>
+          </div>
+          <div class="ql-refl-panel" style="background:var(--ql-bg-off)">
+            <div class="ql-refl-label hard">Wyzwania i nauki</div>
+            <div class="ql-refl-item">
+              <strong>Brand dla kobiet 40+ wymaga świadomości</strong>
+              Każda decyzja kolorystyczna i typograficzna musi być testowana pod kątem infantylizacji. Różowy to nie zawsze problem — ale zależy od odcienia, fontu i kontekstu.
+            </div>
+            <div class="ql-refl-item">
+              <strong>Inny rytm decyzyjny niż korporacja</strong>
+              Klientka z sektora rzemiosła potrzebuje krótszych iteracji i bardziej wizualnych propozycji. Długie briefy zastąpiłem szybkimi mockupami do skomentowania.
+            </div>
+            <div class="ql-refl-item">
+              <strong>5 identyfikacji to nie strata czasu</strong>
+              Każda wersja odkrywała rzeczywiste preferencje, których klientka nie potrafiła zwerbalizować na początku. Proces iteracyjny jest metodą odkrywania — nie błędem planowania.
+            </div>
+            <div class="ql-refl-item">
+              <strong>Decyzja: usunięcie igły z logotypu</strong>
+              Symbol rzemiosła (igła) działał dobrze konceptualnie — ale zagęszczał kompozycję. Znak &amp; okazał się wystarczająco silny jako unikalny element charakterystyczny.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ══ 06 KOMPETENCJE ══ -->
+    <section class="ql-section off">
+      <div class="ql-container">
+        <div class="ql-sec-header r">
+          <div class="ql-sec-num">06 — Kompetencje</div>
+          <div>
+            <h2 class="ql-sec-title">Zademonstrowane <em>umiejętności</em></h2>
+            <p class="ql-sec-lead">Projekt end-to-end wymagał płynnego poruszania się między strategią, designem i frontendem — często w tej samej sesji roboczej.</p>
+          </div>
+        </div>
+
+        <div class="ql-skills-grid r d1">
+          <div class="ql-skill">
+            <div class="ql-skill-area">Brand Strategy</div>
+            <div class="ql-skill-title">Strategia marki</div>
+            <div class="ql-skill-tags">
+              <span class="ql-skill-tag">Pozycjonowanie</span>
+              <span class="ql-skill-tag">Naming</span>
+              <span class="ql-skill-tag">Persony</span>
+              <span class="ql-skill-tag">TOV</span>
+              <span class="ql-skill-tag">Analiza segmentu</span>
+            </div>
+          </div>
+          <div class="ql-skill">
+            <div class="ql-skill-area">Visual Design</div>
+            <div class="ql-skill-title">Design wizualny</div>
+            <div class="ql-skill-tags">
+              <span class="ql-skill-tag">Logo system</span>
+              <span class="ql-skill-tag">Paleta kolorów</span>
+              <span class="ql-skill-tag">Typografia</span>
+              <span class="ql-skill-tag">Brand book</span>
+              <span class="ql-skill-tag">Szablony</span>
+            </div>
+          </div>
+          <div class="ql-skill">
+            <div class="ql-skill-area">UX Design</div>
+            <div class="ql-skill-title">Projektowanie UX</div>
+            <div class="ql-skill-tags">
+              <span class="ql-skill-tag">Architektura IA</span>
+              <span class="ql-skill-tag">User flow</span>
+              <span class="ql-skill-tag">Mikrointerakcje</span>
+              <span class="ql-skill-tag">Ścieżka zakupowa</span>
+            </div>
+          </div>
+          <div class="ql-skill">
+            <div class="ql-skill-area">UI Design</div>
+            <div class="ql-skill-title">Projektowanie UI</div>
+            <div class="ql-skill-tags">
+              <span class="ql-skill-tag">Editorial layout</span>
+              <span class="ql-skill-tag">Component system</span>
+              <span class="ql-skill-tag">Responsive grid</span>
+              <span class="ql-skill-tag">Dark/light UI</span>
+            </div>
+          </div>
+          <div class="ql-skill">
+            <div class="ql-skill-area">Front-end</div>
+            <div class="ql-skill-title">Implementacja</div>
+            <div class="ql-skill-tags">
+              <span class="ql-skill-tag">HTML/CSS/JS</span>
+              <span class="ql-skill-tag">Animacje scroll</span>
+              <span class="ql-skill-tag">AJAX</span>
+              <span class="ql-skill-tag">WooCommerce</span>
+              <span class="ql-skill-tag">SVG inline</span>
+            </div>
+          </div>
+          <div class="ql-skill">
+            <div class="ql-skill-area">Dokumentacja</div>
+            <div class="ql-skill-title">Wiedza i deliverables</div>
+            <div class="ql-skill-tags">
+              <span class="ql-skill-tag">Brand book</span>
+              <span class="ql-skill-tag">Case study</span>
+              <span class="ql-skill-tag">Zasady użycia</span>
+              <span class="ql-skill-tag">Specyfikacja</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ══ NEXT PROJECT ══ -->
+    <div class="ql-next">
+      <div class="ql-next-label">Następny projekt</div>
+      <a href="/#portfolio" class="ql-next-link">Zobacz wszystkie projekty →</a>
+    </div>
+
+  </div>
+
+  <Footer />
+
+  <script>
+    // Scroll reveal
+    const io = new IntersectionObserver(
+      entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('v'); io.unobserve(e.target); } }),
+      { threshold: .08, rootMargin: '0px 0px -48px 0px' }
+    );
+    document.querySelectorAll('.r').forEach(el => io.observe(el));
+
+    // Re-run on Astro page transitions
+    document.addEventListener('astro:after-swap', () => {
+      document.querySelectorAll('.r:not(.v)').forEach(el => io.observe(el));
+    });
+  </script>
+</BaseLayout>

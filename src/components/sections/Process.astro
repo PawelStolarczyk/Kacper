@@ -1,0 +1,109 @@
+---
+// src/components/sections/Process.astro
+
+const steps = [
+  {
+    n:     '01',
+    icon:  '🔍',
+    phase: 'Discover',
+    title: 'Research & Definicja',
+    body:  'AI pomaga generować pytania badawcze, analizować wywiady z użytkownikami i syntetyzować insighty w 10 minut, nie 10 godzin.',
+    tools: ['Claude AI', 'Dovetail', 'Maze'],
+  },
+  {
+    n:     '02',
+    icon:  '💡',
+    phase: 'Define',
+    title: 'Strategia & Persony',
+    body:  'Generuję dziesiątki wariantów person i scenariuszy użycia, a AI wskazuje te statystycznie najbardziej prawdopodobne dla segmentu.',
+    tools: ['GPT-4', 'Figma AI', 'Hotjar'],
+  },
+  {
+    n:     '03',
+    icon:  '🎨',
+    phase: 'Design',
+    title: 'Prototypowanie & UI',
+    body:  'Midjourney dla moodboardów, Claude do copywritingu i naming, Figma AI do generowania wariantów komponentów z semantic layers.',
+    tools: ['Midjourney', 'Figma', 'Claude'],
+  },
+  {
+    n:     '04',
+    icon:  '🚀',
+    phase: 'Deliver',
+    title: 'Testowanie & Wdrożenie',
+    body:  'Automatyczne testy A/B, AI-generated test scenarios, dokumentacja design systemu generowana przez modele językowe.',
+    tools: ['Framer', 'Webflow', 'Notion AI'],
+  },
+];
+---
+
+<section class="section" id="process">
+  <div class="container">
+    <div class="sec-header reveal">
+      <div class="sec-num">03<br>Proces</div>
+      <div>
+        <h2 class="sec-title">AI <em>w każdym</em> <strong>kroku</strong></h2>
+        <p class="sec-lead">Nie używam AI do zastąpienia myślenia. Używam go do przyspieszenia iteracji i eliminacji blokad twórczych w konkretnych fazach procesu.</p>
+      </div>
+    </div>
+
+    <div class="process-grid">
+      {steps.map(({ n, icon, phase, title, body, tools }, i) => (
+        <div class:list={['process-step reveal', `delay-${i + 1}`]}>
+          <div class="ps-icon">{icon}</div>
+          <div class="ps-n">{n} — {phase}</div>
+          <div class="ps-title">{title}</div>
+          <p class="ps-body">{body}</p>
+          <div class="ps-tools">
+            {tools.map(t => <span class="ps-tool">{t}</span>)}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .sec-header { display:grid; grid-template-columns:160px 1fr; gap:48px; margin-bottom:80px; align-items:start; }
+  .sec-num { font-family:var(--font-display); font-weight:300; font-size:11px; letter-spacing:.22em; text-transform:uppercase; color:var(--fg-30); padding-top:10px; display:flex; flex-direction:column; gap:8px; }
+  .sec-num::after { content:''; width:24px; height:1px; background:var(--accent); display:block; }
+  .sec-title { font-family:var(--font-display); font-weight:800; font-size:clamp(30px,3.6vw,52px); line-height:1; letter-spacing:-.03em; }
+  .sec-title em { font-weight:300; color:var(--fg-30); font-style:normal; }
+  .sec-title strong { color:var(--accent); }
+  .sec-lead { font-size:15px; color:var(--fg-60); line-height:1.85; max-width:540px; margin-top:14px; }
+
+  .process-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:2px; }
+
+  .process-step {
+    padding:40px 32px; background:var(--surface); border:1px solid var(--border);
+    position:relative; overflow:hidden; transition:background .3s;
+  }
+  .process-step::before {
+    content:''; position:absolute; top:0; left:0; right:0; height:2px;
+    background:linear-gradient(90deg,var(--accent),transparent);
+    transform:scaleX(0); transform-origin:left; transition:transform .4s;
+  }
+  .process-step:hover { background:var(--bg3); }
+  .process-step:hover::before { transform:scaleX(1); }
+
+  .ps-icon {
+    width:44px; height:44px; border:1px solid var(--border2);
+    display:flex; align-items:center; justify-content:center;
+    margin-bottom:24px; font-size:18px; transition:border-color .3s, background .3s;
+  }
+  .process-step:hover .ps-icon { border-color:var(--accent); background:var(--accent-bg); }
+
+  .ps-n { font-family:var(--font-display); font-weight:800; font-size:10px; letter-spacing:.22em; color:var(--accent); text-transform:uppercase; margin-bottom:12px; }
+  .ps-title { font-family:var(--font-display); font-weight:700; font-size:15px; margin-bottom:10px; letter-spacing:-.01em; }
+  .ps-body { font-size:12px; color:var(--fg-60); line-height:1.7; }
+  .ps-tools { display:flex; flex-wrap:wrap; gap:6px; margin-top:16px; }
+  .ps-tool { font-size:9px; padding:3px 9px; border:1px solid var(--border2); color:var(--fg-30); }
+
+  @media(max-width:1100px) {
+    .sec-header { grid-template-columns:1fr; gap:16px; }
+    .process-grid { grid-template-columns:1fr 1fr; }
+  }
+  @media(max-width:700px) {
+    .process-grid { grid-template-columns:1fr; }
+  }
+</style>
