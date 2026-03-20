@@ -20,7 +20,7 @@ import Button from '@components/ui/Button.astro';
              font-size:10px; letter-spacing:.22em; text-transform:uppercase; color:var(--accent)"
     >
       <span style="width:7px; height:7px; border-radius:50%; background:var(--accent); animation:blink 1.8s ease-in-out infinite"></span>
-      Dostępny do współpracy · 2025
+      Dostępny do współpracy
     </div>
 
     <div class="ha ha1 hero-title" style="font-family:var(--font-display); font-weight:800; font-size:clamp(44px,5.2vw,80px); line-height:1; letter-spacing:-.04em">
@@ -49,8 +49,8 @@ import Button from '@components/ui/Button.astro';
     <!-- Stats -->
     <div class="ha ha5" style="display:flex">
       {[
-        { n: '24', suffix: '+',   label: 'Projektów'       },
-        { n: '6',  suffix: 'lat', label: 'Doświadczenia'   },
+        { n: '10', suffix: '+',   label: 'Projektów'       },
+        { n: '4',  suffix: 'lat', label: 'Doświadczenia'   },
         { n: '60', suffix: '%',   label: 'Szybciej z AI'   },
       ].map(({ n, suffix, label }, i) => (
         <div style={`padding:24px 32px; border:1px solid var(--border); border-right:${i < 2 ? 'none' : '1px solid var(--border)'}`}>
