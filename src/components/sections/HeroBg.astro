@@ -17,7 +17,7 @@
 </style>
 
 <script>
-  (function () {
+  function initHeroBg() {
     const canvas = document.getElementById("hero-bg-canvas") as HTMLCanvasElement;
     if (!canvas) return;
     const ctx = canvas.getContext("2d")!;
@@ -353,5 +353,13 @@
       cancelAnimationFrame(rafId);
       ro.disconnect();
     });
-  })();
+  }
+
+  // Pierwsze uruchomienie
+  initHeroBg();
+
+  // Ponowne uruchomienie po każdej nawigacji View Transition
+  document.addEventListener("astro:after-swap", () => {
+    initHeroBg();
+  });
 </script>
