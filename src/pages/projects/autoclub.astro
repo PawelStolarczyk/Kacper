@@ -121,9 +121,9 @@ import Footer from '@components/layout/Footer.astro';
     }
     .cta-label { font-size: 9px; letter-spacing: .2em; text-transform: uppercase; color: rgba(255,255,255,.3); margin-bottom: 12px; }
     .cta-title { font-family: var(--font-display); font-weight: 900; font-size: clamp(22px, 2.8vw, 40px); letter-spacing: -.03em; color: #fff; line-height: 1.15; }
-    .cta-title em { color: var(--ac-orange); font-style: normal; }
-    .cta-btn { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; white-space: nowrap; padding: 16px 36px; background: linear-gradient(135deg, var(--ac-orange), #EA6A0A); color: #fff; border: none; box-shadow: 0 8px 24px rgba(249,115,22,.40); transition: transform .2s, box-shadow .2s; flex-shrink: 0; font-weight: 700; }
-    .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(249,115,22,.50); }
+    .cta-title em { color: var(--ac-blue-l); font-style: normal; }
+    .cta-btn { font-size: 10px; letter-spacing: .16em; text-transform: uppercase; white-space: nowrap; padding: 15px 32px; border: 1px solid var(--ac-blue-l); color: var(--ac-blue-l); transition: background .2s, color .2s; flex-shrink: 0; font-weight: 600; }
+    .cta-btn:hover { background: var(--ac-blue-l); color: #fff; }
 
     /* NEXT */
     .next { padding: 72px 0; text-align: center; border-top: 1px solid var(--border); background: var(--bg); }
@@ -301,10 +301,10 @@ import Footer from '@components/layout/Footer.astro';
     <!-- CTA -->
     <div class="cta-band">
       <div>
-        <div class="cta-label">Chcesz zobaczyć klikalne demo?</div>
-        <div class="cta-title">Prototyp w Figmie — <em>pełny flow rezerwacji</em></div>
+        <div class="cta-label">Chcesz poznać cały proces?</div>
+        <div class="cta-title">Pełne case study — <em>decyzje,<br>iteracje i refleksja</em></div>
       </div>
-      <a href="/#contact" class="cta-btn">Porozmawiajmy →</a>
+      <a href="/cases/autoclub" class="cta-btn">Czytaj case study →</a>
     </div>
 
     <!-- NEXT -->
