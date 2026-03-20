@@ -12,6 +12,7 @@ role:     "Lead UX/UI Designer"
 duration: "10 tygodni"
 tools:    ["Figma", "Claude AI", "Maze", "Framer"]
 liveUrl:  "/projects/autoclub"
+caseUrl:  "/cases/autoclub"
 stats:
   - { value: "3",    label: "poziomy membership" }
   - { value: "12+",  label: "modeli w flocie" }

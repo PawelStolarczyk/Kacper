@@ -1,0 +1,469 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Nav from '@components/layout/Nav.astro';
+import Footer from '@components/layout/Footer.astro';
+---
+<BaseLayout
+  title="AutoClub — Case Study · Kacper Stolarczyk"
+  description="End-to-end UX/UI dla platformy rezerwacji luksusowych samochodów. Membership system, booking flow w 3 krokach, design system — od badań do interaktywnego prototypu."
+>
+  <Nav />
+  <style>
+    :root {
+      --ac-blue:   #2563EB;
+      --ac-blue-l: #3B82F6;
+      --ac-orange: #F97316;
+      --ac-dark:   #0F1E3C;
+    }
+
+    /* HERO */
+    .hero { min-height: 90vh; padding-top: 60px; position: relative; overflow: hidden; display: flex; align-items: flex-end; }
+    .hero-bg { position: absolute; inset: 0; }
+    .hero-bg img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; }
+    .hero-bg::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(10,20,50,.92) 0%, rgba(10,20,50,.45) 40%, rgba(10,20,50,.12) 70%, transparent 100%); }
+    .hero-body { position: relative; z-index: 1; width: 100%; padding: 0 56px 64px; }
+    .back { position: absolute; top: 28px; left: 56px; display: inline-flex; align-items: center; gap: 8px; font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: rgba(255,255,255,.3); transition: color .2s; }
+    .back:hover { color: rgba(255,255,255,.75); }
+    .eyebrow { font-size: 10px; letter-spacing: .26em; text-transform: uppercase; color: rgba(255,255,255,.55); margin-bottom: 18px; display: flex; align-items: center; gap: 10px; }
+    .eyebrow::before { content: ''; width: 24px; height: 1px; background: var(--ac-orange); }
+    h1 { font-family: var(--font-display); font-weight: 900; font-size: clamp(52px, 5.5vw, 88px); line-height: .92; letter-spacing: -.04em; color: #fff; margin-bottom: 20px; }
+    h1 em { color: var(--ac-blue-l); font-style: normal; }
+    .sub { font-size: 14px; color: rgba(255,255,255,.5); max-width: 420px; line-height: 1.7; margin-bottom: 36px; }
+    .pills { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 40px; }
+    .pill { font-size: 9px; letter-spacing: .16em; text-transform: uppercase; padding: 5px 13px; border: 1px solid rgba(255,255,255,.18); color: rgba(255,255,255,.4); }
+    .pill.on { border-color: var(--ac-blue); color: #93BBFD; }
+    .stats { display: grid; grid-template-columns: repeat(4, auto); gap: 1px; background: rgba(255,255,255,.08); width: fit-content; }
+    .stat { padding: 16px 28px; background: rgba(0,0,0,.35); }
+    .stat-n { font-family: var(--font-display); font-weight: 900; font-size: 26px; color: #fff; line-height: 1; }
+    .stat-l { font-size: 8px; letter-spacing: .14em; text-transform: uppercase; color: rgba(255,255,255,.32); margin-top: 4px; }
+
+    /* LAYOUT */
+    .w { max-width: 1160px; margin: 0 auto; padding: 0 56px; }
+    .section { padding: 96px 0; border-top: 1px solid var(--border); background: var(--bg); }
+    .section.alt { background: var(--bg2); }
+    .section.dark { background: var(--ac-dark); border-top: none; }
+    .sec-label { font-size: 9px; letter-spacing: .22em; text-transform: uppercase; color: var(--ac-blue); margin-bottom: 14px; font-weight: 600; }
+    .sec-label.orange { color: var(--ac-orange); }
+    .sec-h { font-family: var(--font-display); font-weight: 900; font-size: clamp(26px, 3vw, 44px); letter-spacing: -.03em; color: var(--fg); margin-bottom: 12px; }
+    .sec-h em { color: var(--ac-blue); font-style: normal; }
+    .sec-h.light { color: #fff; }
+    .sec-h.light em { color: var(--ac-blue-l); }
+    .sec-lead { font-size: 14px; color: var(--fg-60); line-height: 1.8; max-width: 560px; margin-bottom: 48px; }
+    .sec-lead.light { color: rgba(255,255,255,.55); }
+
+    /* META */
+    .meta { display: grid; grid-template-columns: repeat(4,1fr); border: 1px solid var(--border); background: var(--bg); }
+    .meta-cell { padding: 28px 32px; border-right: 1px solid var(--border); }
+    .meta-cell:last-child { border-right: none; }
+    .meta-l { font-size: 9px; letter-spacing: .18em; text-transform: uppercase; color: var(--fg-60); margin-bottom: 8px; }
+    .meta-v { font-size: 13px; font-weight: 600; color: var(--fg); line-height: 1.4; }
+    .meta-s { font-size: 11px; color: var(--fg-60); font-weight: 400; }
+
+    /* QUOTE */
+    .quote-block { border-left: 3px solid var(--ac-blue); padding: 24px 32px; background: var(--fg-10); margin: 48px 0; }
+    .quote-text { font-family: var(--font-display); font-size: clamp(16px, 1.8vw, 22px); font-weight: 300; color: var(--fg); line-height: 1.55; font-style: italic; margin-bottom: 10px; }
+    .quote-src { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg-60); }
+
+    /* INSIGHT CARDS */
+    .insights { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); }
+    .insight { padding: 28px 24px; background: var(--bg); }
+    .insight-n { font-family: var(--font-display); font-weight: 900; font-size: 36px; color: var(--ac-blue); line-height: 1; margin-bottom: 8px; }
+    .insight-title { font-size: 13px; font-weight: 600; color: var(--fg); margin-bottom: 6px; }
+    .insight-body { font-size: 12px; color: var(--fg-60); line-height: 1.65; }
+
+    /* FLOW STEPS */
+    .flow { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); margin-bottom: 48px; }
+    .flow-step { padding: 32px 28px; background: var(--bg); position: relative; }
+    .flow-step::after { content: '→'; position: absolute; right: -14px; top: 50%; transform: translateY(-50%); font-size: 18px; color: var(--fg-30); z-index: 2; }
+    .flow-step:last-child::after { display: none; }
+    .flow-n { font-size: 9px; letter-spacing: .18em; text-transform: uppercase; color: var(--ac-blue); margin-bottom: 10px; font-weight: 700; }
+    .flow-title { font-family: var(--font-display); font-weight: 800; font-size: 16px; color: var(--fg); margin-bottom: 8px; }
+    .flow-body { font-size: 12px; color: var(--fg-60); line-height: 1.65; }
+    .flow-tag { display: inline-block; margin-top: 10px; font-size: 9px; letter-spacing: .12em; text-transform: uppercase; padding: 3px 10px; border: 1px solid var(--border); color: var(--fg-60); }
+
+    /* DECISIONS GRID */
+    .decisions { display: grid; grid-template-columns: repeat(2,1fr); gap: 1px; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.10); }
+    .dec { padding: 36px 32px; }
+    .dec-n { font-size: 9px; letter-spacing: .2em; color: rgba(255,255,255,.25); margin-bottom: 10px; font-weight: 600; }
+    .dec-title { font-family: var(--font-display); font-weight: 800; font-size: 17px; color: #fff; margin-bottom: 10px; }
+    .dec-body { font-size: 13px; color: rgba(255,255,255,.45); line-height: 1.75; }
+    .dec-result { margin-top: 12px; font-size: 11px; color: var(--ac-blue-l); letter-spacing: .06em; }
+
+    /* SCREENS STRIP */
+    .screens { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); margin-bottom: 48px; }
+    .screen { padding: 24px; background: var(--bg2); }
+    .screen-label { font-size: 9px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg-60); margin-bottom: 8px; }
+    .screen-title { font-size: 13px; font-weight: 600; color: var(--fg); margin-bottom: 6px; }
+    .screen-body { font-size: 11px; color: var(--fg-60); line-height: 1.6; }
+    .screen-tag { margin-top: 10px; display: inline-flex; align-items: center; gap: 6px; font-size: 9px; letter-spacing: .1em; text-transform: uppercase; color: var(--ac-blue); }
+    .screen-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--ac-blue); }
+
+    /* TIER TABLE */
+    .tier-table { border: 1px solid var(--border); overflow: hidden; }
+    .tier-header { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; background: var(--fg-10); border-bottom: 1px solid var(--border); }
+    .tier-row { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; border-bottom: 1px solid var(--border); }
+    .tier-row:last-child { border-bottom: none; }
+    .tier-cell { padding: 14px 20px; font-size: 12px; color: var(--fg-60); border-right: 1px solid var(--border); }
+    .tier-cell:last-child { border-right: none; }
+    .tier-cell.head { font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--fg); }
+    .tier-cell.feat { color: var(--fg); font-size: 12px; }
+    .tier-cell.yes { color: var(--ac-blue); font-weight: 600; font-size: 11px; }
+    .tier-cell.no { color: var(--fg-30); font-size: 11px; }
+    .tier-cell.highlight { background: rgba(37,99,235,.06); }
+
+    /* RESULTS */
+    .results { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); }
+    .res { padding: 36px 24px; background: var(--bg); text-align: center; }
+    .res-n { font-family: var(--font-display); font-weight: 900; font-size: 44px; color: var(--ac-blue); line-height: 1; }
+    .res-l { font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg-60); margin-top: 8px; }
+
+    /* REFLECTION */
+    .reflection { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); border: 1px solid var(--border); }
+    .ref-col { padding: 40px 36px; background: var(--bg); }
+    .ref-title { font-size: 10px; letter-spacing: .2em; text-transform: uppercase; margin-bottom: 20px; font-weight: 700; }
+    .ref-title.pos { color: var(--ac-blue); }
+    .ref-title.neg { color: var(--ac-orange); }
+    .ref-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .ref-list li { font-size: 13px; color: var(--fg-60); line-height: 1.6; padding-left: 18px; position: relative; }
+    .ref-list li::before { content: ''; position: absolute; left: 0; top: 8px; width: 6px; height: 6px; border-radius: 50%; }
+    .ref-col.pos .ref-list li::before { background: var(--ac-blue); }
+    .ref-col.neg .ref-list li::before { background: var(--ac-orange); }
+
+    /* CTA */
+    .cta-band { background: linear-gradient(135deg, var(--ac-dark) 0%, #162040 100%); padding: 80px 56px; display: flex; align-items: center; justify-content: space-between; gap: 40px; }
+    .cta-label { font-size: 9px; letter-spacing: .2em; text-transform: uppercase; color: rgba(255,255,255,.3); margin-bottom: 12px; }
+    .cta-title { font-family: var(--font-display); font-weight: 900; font-size: clamp(22px, 2.8vw, 40px); letter-spacing: -.03em; color: #fff; line-height: 1.15; }
+    .cta-title em { color: var(--ac-orange); font-style: normal; }
+    .cta-btn { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; white-space: nowrap; padding: 16px 36px; background: linear-gradient(135deg, var(--ac-orange), #EA6A0A); color: #fff; border: none; box-shadow: 0 8px 24px rgba(249,115,22,.40); transition: transform .2s, box-shadow .2s; flex-shrink: 0; font-weight: 700; }
+    .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(249,115,22,.50); }
+
+    /* NEXT */
+    .next { padding: 72px 0; text-align: center; border-top: 1px solid var(--border); background: var(--bg); }
+    .next-l { font-size: 9px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg-60); margin-bottom: 14px; }
+    .next-a { font-family: var(--font-display); font-weight: 900; font-size: clamp(24px, 3vw, 44px); letter-spacing: -.03em; color: var(--fg); transition: color .2s; }
+    .next-a:hover { color: var(--ac-blue); }
+
+    /* REVEAL */
+    .r { opacity: 0; transform: translateY(20px); transition: opacity .65s cubic-bezier(.22,.61,.36,1), transform .65s cubic-bezier(.22,.61,.36,1); }
+    .r.v { opacity: 1; transform: none; }
+    .d1 { transition-delay: .1s; } .d2 { transition-delay: .2s; } .d3 { transition-delay: .3s; }
+
+    @media (max-width: 1024px) {
+      .insights { grid-template-columns: 1fr; }
+      .flow { grid-template-columns: 1fr; }
+      .flow-step::after { display: none; }
+      .decisions { grid-template-columns: 1fr; }
+      .screens { grid-template-columns: 1fr 1fr; }
+      .tier-table { overflow-x: auto; }
+      .results { grid-template-columns: repeat(2,1fr); }
+      .reflection { grid-template-columns: 1fr; }
+      .meta { grid-template-columns: 1fr 1fr; }
+      .meta-cell:nth-child(2) { border-right: none; }
+      .meta-cell:nth-child(1), .meta-cell:nth-child(2) { border-bottom: 1px solid var(--border); }
+      .cta-band { flex-direction: column; text-align: center; padding: 60px 32px; }
+      .w { padding: 0 24px; }
+    }
+    @media (max-width: 600px) {
+      .hero-body { padding: 0 20px 40px; }
+      .back { left: 20px; }
+      .stats { grid-template-columns: repeat(2, auto); }
+      .meta { grid-template-columns: 1fr; }
+      .meta-cell { border-right: none !important; border-bottom: 1px solid var(--border); }
+      .meta-cell:last-child { border-bottom: none; }
+      .screens { grid-template-columns: 1fr; }
+      .results { grid-template-columns: 1fr 1fr; }
+      .w { padding: 0 20px; }
+      .cta-band { padding: 56px 20px; }
+    }
+  </style>
+
+  <div>
+
+    <!-- ── HERO ── -->
+    <section class="hero">
+      <div class="hero-bg">
+        <img src="/images/autoclub-hero.jpg" alt="AutoClub Case Study" fetchpriority="high" decoding="async" />
+      </div>
+      <div class="hero-body">
+        <a href="/#cases" class="back">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+          Case Studies
+        </a>
+        <div class="eyebrow">Case Study · SaaS · E-commerce UX · 2024</div>
+        <h1>Auto<em>Club</em><br>Platform</h1>
+        <p class="sub">Platforma rezerwacji luksusowych samochodów z systemem membership. End-to-end — od badań użytkowników przez design system po interaktywny prototyp z booking flow.</p>
+        <div class="pills">
+          <span class="pill on">UX Research</span>
+          <span class="pill on">Design System</span>
+          <span class="pill on">Booking Flow</span>
+          <span class="pill on">Membership</span>
+          <span class="pill on">AI-assisted</span>
+        </div>
+        <div class="stats">
+          <div class="stat"><div class="stat-n">-40%</div><div class="stat-l">czas rezerwacji</div></div>
+          <div class="stat"><div class="stat-n">94%</div><div class="stat-l">task completion</div></div>
+          <div class="stat"><div class="stat-n">3</div><div class="stat-l">tiery membership</div></div>
+          <div class="stat"><div class="stat-n">NPS 71</div><div class="stat-l">wynik prototypu</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── META ── -->
+    <div class="meta r">
+      <div class="meta-cell"><div class="meta-l">Klient</div><div class="meta-v">AutoClub Sp. z o.o.</div><div class="meta-s">Ekskluzywny klub motoryzacyjny</div></div>
+      <div class="meta-cell"><div class="meta-l">Moja rola</div><div class="meta-v">Lead UX/UI Designer</div><div class="meta-s">Badania · Design System · Prototyp</div></div>
+      <div class="meta-cell"><div class="meta-l">Zakres</div><div class="meta-v">SaaS · E-commerce UX</div><div class="meta-s">Membership Flow · Booking System</div></div>
+      <div class="meta-cell"><div class="meta-l">Czas realizacji</div><div class="meta-v">10 tygodni</div><div class="meta-s">End-to-end</div></div>
+    </div>
+
+    <!-- ── 00 KONTEKST ── -->
+    <section class="section">
+      <div class="w">
+        <div class="r">
+          <div class="sec-label">00 — Kontekst</div>
+          <h2 class="sec-h">Wypożyczalnia premium chciała <em>zostać klubem</em></h2>
+          <p class="sec-lead">AutoClub — operator floty 85+ luksusowych samochodów w 12 miastach Polski — chciał przejść z modelu jednorazowych rezerwacji na subskrypcyjny system membership. Problem: cała istniejąca architektura UX była zaprojektowana pod transakcje, nie pod relację z marką.</p>
+        </div>
+        <div class="insights r d1">
+          <div class="insight">
+            <div class="insight-n">85+</div>
+            <div class="insight-title">Pojazdów w flocie</div>
+            <div class="insight-body">Ferrari, Lamborghini, Porsche, Mercedes AMG — 12 miast, jeden system rezerwacji. Brak spójnego UX łączącego dostępność z profilem użytkownika.</div>
+          </div>
+          <div class="insight">
+            <div class="insight-n">11</div>
+            <div class="insight-title">Kroków do rezerwacji</div>
+            <div class="insight-body">Tyle wymagał stary flow zanim użytkownik zobaczył potwierdzenie. Każdy dodatkowy krok to 12–18% wzrost porzuceń według benchmarków branżowych.</div>
+          </div>
+          <div class="insight">
+            <div class="insight-n">3 200</div>
+            <div class="insight-title">Potencjalnych członków</div>
+            <div class="insight-body">Tylu lojalnych klientów korzystało z usług AutoClub regularnie — bez żadnego systemu nagradzania, tiering ani poczucia ekskluzywności.</div>
+          </div>
+        </div>
+        <div class="quote-block r d2">
+          <div class="quote-text">„Mamy najlepsze samochody w Polsce. Ale nasi klienci rezerwują nas jak taksówkę, nie jak klub do którego chcą należeć."</div>
+          <div class="quote-src">— CEO AutoClub, kick-off meeting</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 01 RESEARCH ── -->
+    <section class="section alt">
+      <div class="w">
+        <div class="r">
+          <div class="sec-label">01 — Badania</div>
+          <h2 class="sec-h">8 konkurentów, <em>24 wywiady</em></h2>
+          <p class="sec-lead">Analiza porównawcza: Hertz Dream Collection, Sixt Prestige, Revolut-style membership apps. Claude AI pomógł skodować transkrypty i wyłonić wzorce decyzyjne w 3 godziny zamiast 3 tygodni.</p>
+        </div>
+        <div class="screens r d1">
+          <div class="screen">
+            <div class="screen-label">Insight 01</div>
+            <div class="screen-title">Klienci premium kupują emocjami</div>
+            <div class="screen-body">67% badanych podjęło decyzję o rezerwacji zanim sprawdziło cenę. Zdjęcie samochodu, dostępność i czas dostawy — to były kluczowe triggery. Specyfikacja techniczna była na końcu.</div>
+            <div class="screen-tag"><span class="screen-dot"></span>Badania jakościowe</div>
+          </div>
+          <div class="screen">
+            <div class="screen-label">Insight 02</div>
+            <div class="screen-title">Tier musi być widoczny zawsze</div>
+            <div class="screen-body">Użytkownicy nie rozumieli wartości subskrypcji bo widzieli ją tylko na stronie cennika. „Nie wiem co dostaję za te 199 zł miesięcznie" — powiedziało 14 z 24 badanych.</div>
+            <div class="screen-tag"><span class="screen-dot"></span>Wywiady moderowane</div>
+          </div>
+          <div class="screen">
+            <div class="screen-label">Insight 03</div>
+            <div class="screen-title">Zaufanie = transparentność floty</div>
+            <div class="screen-body">Użytkownicy chcieli wiedzieć czy samochód jest dostępny w czasie rzeczywistym — „dostępny", „limitowany", „zarezerwowany". Brak tej informacji powodował porzucenie formularza.</div>
+            <div class="screen-tag"><span class="screen-dot"></span>Analiza zachowań</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 02 BOOKING FLOW ── dark ── -->
+    <section class="section dark">
+      <div class="w">
+        <div class="r">
+          <div class="sec-label orange">02 — Booking Flow</div>
+          <h2 class="sec-h light">11 kroków → <em>3 kroki</em></h2>
+          <p class="sec-lead light">Główna hipoteza badawcza: większość kroków starego flow dotyczyła preferencji które użytkownik może ustawić w profilu. Booking powinien być jednym gestem, nie formularzem.</p>
+        </div>
+        <div class="flow r d1">
+          <div class="flow-step">
+            <div class="flow-n">Krok 01</div>
+            <div class="flow-title">Wybór samochodu + dat</div>
+            <div class="flow-body">Wyszukiwarka jako główny CTA. Data odbioru, data zwrotu, miasto — wszystko w jednym widżecie. Real-time status dostępności przy każdej karcie floty.</div>
+            <div class="flow-tag">Search-first pattern</div>
+          </div>
+          <div class="flow-step">
+            <div class="flow-n">Krok 02</div>
+            <div class="flow-title">Opcje dodatkowe + płatność</div>
+            <div class="flow-body">Ubezpieczenie, dostawa pod adres, dodatkowy kierowca — checkboxy z cenami inline. Trzy metody płatności: karta, BLIK, saldo członkowskie. Sidebar z podsumowaniem na żywo.</div>
+            <div class="flow-tag">Progressive disclosure</div>
+          </div>
+          <div class="flow-step">
+            <div class="flow-n">Krok 03</div>
+            <div class="flow-title">Potwierdzenie</div>
+            <div class="flow-body">Animowany ekran sukcesu z numerem zamówienia, 4 następnymi krokami (e-mail, kontakt, dostawa, klucze) i CTA do zarządzania rezerwacją. Zero porzuconych formularzy w testach.</div>
+            <div class="flow-tag">Celebration pattern</div>
+          </div>
+        </div>
+        <div class="decisions r d2">
+          <div class="dec">
+            <div class="dec-n">Decyzja 01</div>
+            <div class="dec-title">Progress bar z 3 krokami zamiast breadcrumbs</div>
+            <div class="dec-body">Użytkownicy w testach A/B z breadcrumbs czuli się zagubieni — nie widzieli końca. Progress bar z procentami i etykietami kroków obniżył porzucenia o 23% w prototypie.</div>
+            <div class="dec-result">↑ Redukcja porzuceń o 23%</div>
+          </div>
+          <div class="dec">
+            <div class="dec-n">Decyzja 02</div>
+            <div class="dec-title">Sidebar summary zawsze widoczny</div>
+            <div class="dec-body">Podsumowanie rezerwacji (samochód, daty, cena) przytwierdzone po prawej stronie przez cały flow. Użytkownicy przestali wracać do poprzednich kroków żeby sprawdzić co wybrali.</div>
+            <div class="dec-result">↓ Nawigacja wstecz -67%</div>
+          </div>
+          <div class="dec">
+            <div class="dec-n">Decyzja 03</div>
+            <div class="dec-title">Inline auth zamiast modalu logowania</div>
+            <div class="dec-body">Zamiast przerywać flow modalem z logowaniem, użytkownik widzi opcje: kontynuuj jako gość, zaloguj inline lub zarejestruj. Membership automatycznie aplikuje zniżkę bez wychodzenia ze ścieżki.</div>
+            <div class="dec-result">↑ Konwersja membership +18%</div>
+          </div>
+          <div class="dec">
+            <div class="dec-n">Decyzja 04</div>
+            <div class="dec-title">Billing toggle z animowaną kalkulacją</div>
+            <div class="dec-body">Przełącznik miesięczny/roczny z animowaną kalkulacją oszczędności (do 960 zł/rok). Toast notification po przełączeniu. Konwersja na plany roczne wzrosła o 28% w porównaniu ze statycznym cennikiem.</div>
+            <div class="dec-result">↑ Plany roczne +28%</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 03 MEMBERSHIP ── -->
+    <section class="section">
+      <div class="w">
+        <div class="r">
+          <div class="sec-label">03 — System Membership</div>
+          <h2 class="sec-h">Trzy tiery, <em>jeden język wizualny</em></h2>
+          <p class="sec-lead">Każdy tier ma inny kolor akcentu, dostęp do floty i zestaw benefitów — ale spójną architekturę informacji. Różnicowanie przez kolor i typografię, nie przez osobne layouty. Tier badge widoczny w nav, kartach floty, profilu i booking flow.</p>
+        </div>
+        <div class="tier-table r d1">
+          <div class="tier-header">
+            <div class="tier-cell head">Funkcja</div>
+            <div class="tier-cell head">Basic · 99 zł/mies.</div>
+            <div class="tier-cell head highlight">Premium · 199 zł/mies.</div>
+            <div class="tier-cell head">VIP · 399 zł/mies.</div>
+          </div>
+          <div class="tier-row">
+            <div class="tier-cell feat">Dostęp do floty</div>
+            <div class="tier-cell">35 pojazdów</div>
+            <div class="tier-cell highlight">85+ pojazdów</div>
+            <div class="tier-cell">85+ + exkl. modele</div>
+          </div>
+          <div class="tier-row">
+            <div class="tier-cell feat">Zniżka na wynajem</div>
+            <div class="tier-cell">10%</div>
+            <div class="tier-cell highlight yes">40%</div>
+            <div class="tier-cell yes">40% + negocjacja</div>
+          </div>
+          <div class="tier-row">
+            <div class="tier-cell feat">Dostawa pod adres</div>
+            <div class="tier-cell no">—</div>
+            <div class="tier-cell highlight yes">✓ Bezpłatna</div>
+            <div class="tier-cell yes">✓ Priorytetowa</div>
+          </div>
+          <div class="tier-row">
+            <div class="tier-cell feat">OC/AC w cenie wynajmu</div>
+            <div class="tier-cell no">—</div>
+            <div class="tier-cell highlight yes">✓ Pełne OC/AC</div>
+            <div class="tier-cell yes">✓ Zero franszyzy</div>
+          </div>
+          <div class="tier-row">
+            <div class="tier-cell feat">Eventy i track days</div>
+            <div class="tier-cell no">—</div>
+            <div class="tier-cell highlight">4 rocznie</div>
+            <div class="tier-cell yes">Nieograniczone</div>
+          </div>
+          <div class="tier-row">
+            <div class="tier-cell feat">Concierge 24/7</div>
+            <div class="tier-cell no">—</div>
+            <div class="tier-cell highlight no">—</div>
+            <div class="tier-cell yes">✓ Dedykowany opiekun</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 04 WYNIKI ── -->
+    <section class="section alt">
+      <div class="w">
+        <div class="r">
+          <div class="sec-label">04 — Wyniki</div>
+          <h2 class="sec-h">Prototyp <em>przetestowany</em> z 18 użytkownikami</h2>
+          <p class="sec-lead">Mieszanka nowych i powracających klientów premium (9+9). Sesje moderowane (Zoom) + testy niemodernowane na Maze. Rekrutacja przez bazę AutoClub, czas sesji: 45–60 min.</p>
+        </div>
+        <div class="results r d1">
+          <div class="res"><div class="res-n">-40%</div><div class="res-l">czas do rezerwacji</div></div>
+          <div class="res"><div class="res-n">94%</div><div class="res-l">task completion</div></div>
+          <div class="res"><div class="res-n">NPS 71</div><div class="res-l">wynik prototypu</div></div>
+          <div class="res"><div class="res-n">+28%</div><div class="res-l">wybór planu rocznego</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 05 REFLEKSJA ── -->
+    <section class="section">
+      <div class="w">
+        <div class="r">
+          <div class="sec-label">05 — Refleksja</div>
+          <h2 class="sec-h">Co <em>działało</em> i co było trudne</h2>
+        </div>
+        <div class="reflection r d1">
+          <div class="ref-col pos">
+            <div class="ref-title pos">Co działało dobrze</div>
+            <ul class="ref-list">
+              <li>Search-first pattern skrócił ścieżkę o 8 kroków — największa wygrana projektu</li>
+              <li>Real-time status dostępności (dostępny/limitowany/zarezerwowany) zbudował zaufanie bez dodatkowej treści</li>
+              <li>Sidebar summary przez cały flow — prosta decyzja która drastycznie obniżyła nawigację wstecz</li>
+              <li>AI (Claude) do kodowania transkryptów badań — 24 wywiady przeanalizowane w 3h zamiast 3 tygodni</li>
+            </ul>
+          </div>
+          <div class="ref-col neg">
+            <div class="ref-title neg">Wyzwania</div>
+            <ul class="ref-list">
+              <li>Tier system był trudny do komunikacji — użytkownicy rozumieli benefity dopiero po 3. ekranie onboardingu</li>
+              <li>Inline auth stworzył edge case dla użytkowników z wygasłym membership — wymagał osobnej ścieżki</li>
+              <li>Billing toggle był percepcyjnie atrakcyjny ale część użytkowników nie rozumiała co oznacza „miesięczny ekwiwalent" przy planie rocznym</li>
+              <li>Brak danych produkcyjnych — wszystkie wyniki to dane z prototypu, nie wdrożenia</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── CTA ── -->
+    <div class="cta-band">
+      <div>
+        <div class="cta-label">Chcesz zobaczyć klikalne demo?</div>
+        <div class="cta-title">Prototyp w Figmie — <em>pełny flow rezerwacji</em></div>
+      </div>
+      <a href="/#contact" class="cta-btn">Porozmawiajmy →</a>
+    </div>
+
+    <!-- ── NEXT ── -->
+    <div class="next">
+      <div class="next-l">Następne case study</div>
+      <a href="/cases/qljoy" class="next-a">QL&Joy Studio →</a>
+    </div>
+
+  </div>
+
+  <Footer />
+
+  <script>
+    const io = new IntersectionObserver(
+      entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('v'); io.unobserve(e.target); } }),
+      { threshold: .08, rootMargin: '0px 0px -40px 0px' }
+    );
+    function initReveal() { document.querySelectorAll('.r:not(.v)').forEach(el => io.observe(el)); }
+    initReveal();
+    document.addEventListener('astro:after-swap', initReveal);
+  </script>
+</BaseLayout>
