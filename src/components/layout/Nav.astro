@@ -262,6 +262,16 @@ const links = [
   #nav[data-skin="light"] .nav-cta   { border-color: #2563EB; color: #2563EB; }
   #nav[data-skin="light"] .nav-cta:hover { background: #2563EB; color: #fff; }
   #nav[data-skin="light"] .burger-bar { background: #1E293B; }
+
+  /* ── CSS fallback — działa bez JS, od razu przy renderze ── */
+  body[data-nav-theme="light"] #nav { background: rgba(248,250,252,.85); border-bottom-color: transparent; }
+  body[data-nav-theme="light"] #nav .nav-logo  { color: #1E293B; }
+  body[data-nav-theme="light"] #nav .nav-dot   { background: #2563EB; }
+  body[data-nav-theme="light"] #nav .nav-link  { color: #64748B; }
+  body[data-nav-theme="light"] #nav .nav-link:hover { color: #1E293B; }
+  body[data-nav-theme="light"] #nav .nav-cta   { border-color: #2563EB; color: #2563EB; }
+  body[data-nav-theme="light"] #nav .nav-cta:hover { background: #2563EB; color: #fff; }
+  body[data-nav-theme="light"] #nav .burger-bar { background: #1E293B; }
 </style>
 
 <script>
@@ -291,6 +301,7 @@ const links = [
 
   window.addEventListener('scroll', updateNav, { passive: true });
   document.addEventListener('themechange', updateNav);
+  updateNav(); // ustaw skórkę od razu przy załadowaniu
 
   /* ── Mobile drawer ── */
   const burger  = document.getElementById('nav-burger')!;

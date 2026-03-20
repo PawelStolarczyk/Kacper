@@ -6,7 +6,7 @@ import Footer from '@components/layout/Footer.astro';
 <BaseLayout
   title="AutoClub — Projekt · Kacper Stolarczyk"
   description="Platforma rezerwacji luksusowych samochodów z systemem membership. End-to-end UX/UI — badania, design system, interaktywny prototyp."
-  navTheme="light"
+  navTheme="dark"
 >
   <Nav />
   <style>
@@ -25,87 +25,47 @@ import Footer from '@components/layout/Footer.astro';
 
     .w { max-width: 1160px; margin: 0 auto; padding: 0 48px; }
 
-    /* HERO */
+    /* HERO — układ jak QL&Joy: zdjęcie pełnoekranowe, treść na dole */
     .hero {
-      min-height: 100vh; padding-top: 60px;
+      min-height: 90vh; padding-top: 60px;
       position: relative; overflow: hidden;
-      display: flex; align-items: center;
-      background: radial-gradient(ellipse 80% 70% at 65% 40%, rgba(59,130,246,0.18) 0%, transparent 65%),
-                  radial-gradient(ellipse 50% 50% at 10% 85%, rgba(249,115,22,0.10) 0%, transparent 60%),
-                  #F8FAFC;
+      display: flex; align-items: flex-end;
     }
-    .hero-orb {
-      position: absolute; border-radius: 50%; filter: blur(80px); pointer-events: none;
+    .hero-bg { position: absolute; inset: 0; }
+    .hero-bg img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; }
+    .hero-bg::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(10,20,50,.90) 0%, rgba(10,20,50,.40) 40%, rgba(10,20,50,.10) 70%, transparent 100%);
     }
-    .hero-orb-1 { width: 560px; height: 560px; top: -80px; right: -60px;
-      background: radial-gradient(circle, rgba(59,130,246,0.20), transparent 70%); }
-    .hero-orb-2 { width: 400px; height: 400px; bottom: 0; left: -100px;
-      background: radial-gradient(circle, rgba(249,115,22,0.12), transparent 70%); }
-
-    .hero-inner { position: relative; z-index: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; padding: 80px 0; }
-
+    .hero-body { position: relative; z-index: 1; width: 100%; padding: 0 56px 64px; }
     .back {
-      display: inline-flex; align-items: center; gap: 8px; margin-bottom: 32px;
-      font-size: 11px; letter-spacing: .16em; text-transform: uppercase;
-      color: var(--ac-muted); transition: color .2s;
+      position: absolute; top: 28px; left: 56px;
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 10px; letter-spacing: .18em; text-transform: uppercase;
+      color: rgba(255,255,255,.3); transition: color .2s;
     }
-    .back:hover { color: var(--ac-blue); }
-
-    .badge {
-      display: inline-flex; align-items: center; gap: 8px; margin-bottom: 20px;
-      padding: 5px 14px; border-radius: 99px; font-size: 11px; font-weight: 600;
-      color: var(--ac-blue); background: rgba(37,99,235,0.10); border: 1px solid rgba(37,99,235,0.20);
+    .back:hover { color: rgba(255,255,255,.75); }
+    .eyebrow {
+      font-size: 10px; letter-spacing: .26em; text-transform: uppercase;
+      color: rgba(255,255,255,.55); margin-bottom: 18px;
+      display: flex; align-items: center; gap: 10px;
     }
-    .badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--ac-blue); }
-
+    .eyebrow::before { content: ''; width: 24px; height: 1px; background: var(--ac-blue); }
     h1 {
       font-family: var(--font-display); font-weight: 900;
-      font-size: clamp(44px, 5vw, 80px); line-height: .95;
-      letter-spacing: -.04em; color: var(--ac-text); margin-bottom: 20px;
+      font-size: clamp(56px, 6vw, 96px); line-height: .92;
+      letter-spacing: -.04em; color: #fff; margin-bottom: 20px;
     }
-    h1 em { color: var(--ac-blue); font-style: normal; }
+    h1 em { color: var(--ac-blue-l); font-style: normal; }
     h1 strong { color: var(--ac-orange); font-weight: 900; }
-
-    .hero-sub { font-size: 15px; color: var(--ac-muted); max-width: 440px; line-height: 1.75; margin-bottom: 40px; }
-
-    .hero-stats {
-      display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px;
-      background: var(--ac-border); border: 1px solid var(--ac-border);
-    }
-    .hs { padding: 20px 24px; background: var(--ac-glass); backdrop-filter: var(--ac-blur); }
-    .hs-n { font-family: var(--font-display); font-weight: 900; font-size: 28px; color: var(--ac-blue); line-height: 1; }
-    .hs-l { font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--ac-muted); margin-top: 4px; }
-
-    /* GLASS CARD (hero right) */
-    .hero-card {
-      background: var(--ac-glass); backdrop-filter: var(--ac-blur);
-      border: 1px solid rgba(255,255,255,0.70);
-      box-shadow: 0 24px 64px rgba(15,30,60,0.12);
-      border-radius: 24px; padding: 32px; position: relative; overflow: hidden;
-    }
-    .hero-card::before {
-      content: ''; position: absolute; inset: 0;
-      background: linear-gradient(135deg, rgba(37,99,235,0.05) 0%, rgba(249,115,22,0.03) 100%);
-      border-radius: inherit;
-    }
-    .car-badge {
-      display: inline-flex; align-items: center; gap: 6px; margin-bottom: 20px;
-      font-size: 10px; letter-spacing: .16em; text-transform: uppercase; font-weight: 600;
-      color: var(--ac-orange);
-    }
-    .car-name { font-family: var(--font-display); font-weight: 900; font-size: 24px; color: var(--ac-text); margin-bottom: 4px; letter-spacing: -.02em; }
-    .car-sub { font-size: 12px; color: var(--ac-muted); margin-bottom: 24px; }
-    .car-specs { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-bottom: 24px; }
-    .spec { background: rgba(37,99,235,0.06); border: 1px solid var(--ac-border); border-radius: 12px; padding: 12px; text-align: center; }
-    .spec-v { font-family: var(--font-display); font-weight: 800; font-size: 16px; color: var(--ac-text); }
-    .spec-l { font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: var(--ac-muted); margin-top: 2px; }
-    .tier-strip { display: flex; gap: 8px; }
-    .tier { flex: 1; padding: 8px; border-radius: 10px; border: 1.5px solid transparent; text-align: center; font-size: 10px; font-weight: 700; letter-spacing: .08em; }
-    .tier.silver { background: rgba(148,163,184,0.10); color: #94A3B8; border-color: rgba(148,163,184,0.25); }
-    .tier.gold   { background: rgba(249,115,22,0.08); color: var(--ac-orange); border-color: rgba(249,115,22,0.30); }
-    .tier.plat   { background: rgba(37,99,235,0.08); color: var(--ac-blue); border-color: rgba(37,99,235,0.30); }
-    .status-bar { display: flex; align-items: center; gap: 8px; margin-top: 16px; font-size: 11px; color: var(--ac-muted); }
-    .status-dot { width: 8px; height: 8px; border-radius: 50%; background: #22C55E; flex-shrink: 0; }
+    .sub { font-size: 14px; color: rgba(255,255,255,.5); max-width: 420px; line-height: 1.7; margin-bottom: 36px; }
+    .pills { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 40px; }
+    .pill { font-size: 9px; letter-spacing: .16em; text-transform: uppercase; padding: 5px 13px; border: 1px solid rgba(255,255,255,.18); color: rgba(255,255,255,.4); }
+    .pill.on { border-color: var(--ac-blue); color: #93BBFD; }
+    .stats { display: grid; grid-template-columns: repeat(4, auto); gap: 1px; background: rgba(255,255,255,.08); width: fit-content; }
+    .stat { padding: 16px 28px; background: rgba(0,0,0,.35); }
+    .stat-n { font-family: var(--font-display); font-weight: 900; font-size: 26px; color: #fff; line-height: 1; }
+    .stat-l { font-size: 8px; letter-spacing: .14em; text-transform: uppercase; color: rgba(255,255,255,.32); margin-top: 4px; }
 
     /* SECTIONS */
     .section { padding: 96px 0; border-top: 1px solid var(--ac-border); background: var(--ac-bg); }
@@ -181,8 +141,6 @@ import Footer from '@components/layout/Footer.astro';
     .d1 { transition-delay: .1s; } .d2 { transition-delay: .2s; } .d3 { transition-delay: .3s; }
 
     @media (max-width: 1024px) {
-      .hero-inner { grid-template-columns: 1fr; }
-      .hero-card { display: none; }
       .meta { grid-template-columns: 1fr 1fr; }
       .meta-cell:nth-child(2) { border-right: none; }
       .meta-cell:nth-child(1), .meta-cell:nth-child(2) { border-bottom: 1px solid var(--ac-border); }
@@ -193,10 +151,12 @@ import Footer from '@components/layout/Footer.astro';
       .w { padding: 0 24px; }
     }
     @media (max-width: 600px) {
+      .hero-body { padding: 0 20px 40px; }
+      .back { left: 20px; }
+      .stats { grid-template-columns: repeat(2, auto); }
       .meta { grid-template-columns: 1fr; }
       .meta-cell { border-right: none !important; border-bottom: 1px solid var(--ac-border); }
       .meta-cell:last-child { border-bottom: none; }
-      .hero-stats { grid-template-columns: repeat(2,1fr); }
       .results { grid-template-columns: 1fr 1fr; }
       .cta-band { padding: 56px 20px; }
       .w { padding: 0 20px; }
@@ -204,51 +164,31 @@ import Footer from '@components/layout/Footer.astro';
   </style>
 
   <div>
-    <!-- HERO -->
+    <!-- HERO — zdjęcie pełnoekranowe, treść na dole (jak QL&Joy) -->
     <section class="hero">
-      <div class="hero-orb hero-orb-1"></div>
-      <div class="hero-orb hero-orb-2"></div>
-      <div class="w" style="width:100%">
-        <div class="hero-inner">
-          <div>
-            <a href="/#portfolio" class="back">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
-              Portfolio
-            </a>
-            <div class="badge"><span class="badge-dot"></span> SaaS · E-commerce UX · 2024</div>
-            <h1>Auto<em>Club</em><br><strong>Platform</strong></h1>
-            <p class="hero-sub">Platforma rezerwacji luksusowych samochodów z systemem membership Silver / Gold / Platinum. End-to-end UX/UI — od badań przez design system po interaktywny prototyp.</p>
-            <div class="hero-stats">
-              <div class="hs"><div class="hs-n">-40%</div><div class="hs-l">czas rezerwacji</div></div>
-              <div class="hs"><div class="hs-n">94%</div><div class="hs-l">task completion</div></div>
-              <div class="hs"><div class="hs-n">3</div><div class="hs-l">poziomy membership</div></div>
-              <div class="hs"><div class="hs-n">NPS 71</div><div class="hs-l">wynik prototypu</div></div>
-            </div>
-          </div>
-
-          <!-- GLASS MOCKUP CARD -->
-          <div class="hero-card">
-            <div class="car-badge">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="var(--ac-orange)"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-              Dostępny · PLATINUM
-            </div>
-            <div class="car-name">Porsche 911 Turbo S</div>
-            <div class="car-sub">Cabrio · 650 KM · 2024</div>
-            <div class="car-specs">
-              <div class="spec"><div class="spec-v">2.7s</div><div class="spec-l">0–100</div></div>
-              <div class="spec"><div class="spec-v">330</div><div class="spec-l">km/h max</div></div>
-              <div class="spec"><div class="spec-v">650</div><div class="spec-l">KM</div></div>
-            </div>
-            <div class="tier-strip">
-              <div class="tier silver">SILVER</div>
-              <div class="tier gold">GOLD</div>
-              <div class="tier plat" style="border-color:var(--ac-blue);background:rgba(37,99,235,0.15)">PLATINUM ✓</div>
-            </div>
-            <div class="status-bar">
-              <div class="status-dot"></div>
-              Dostępny od zaraz · 3 sztuki
-            </div>
-          </div>
+      <div class="hero-bg">
+        <img src="/images/autoclub-hero.jpg" alt="AutoClub Platform" fetchpriority="high" decoding="async" />
+      </div>
+      <div class="hero-body">
+        <a href="/#portfolio" class="back">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+          Portfolio
+        </a>
+        <div class="eyebrow">SaaS · E-commerce UX · 2024</div>
+        <h1>Auto<em>Club</em><br><strong>Platform</strong></h1>
+        <p class="sub">Platforma rezerwacji luksusowych samochodów z systemem membership Silver / Gold / Platinum. End-to-end UX/UI — od badań przez design system po interaktywny prototyp.</p>
+        <div class="pills">
+          <span class="pill on">SaaS</span>
+          <span class="pill on">E-commerce UX</span>
+          <span class="pill on">Dashboard</span>
+          <span class="pill on">Membership</span>
+          <span class="pill">AI-assisted</span>
+        </div>
+        <div class="stats">
+          <div class="stat"><div class="stat-n">-40%</div><div class="stat-l">czas rezerwacji</div></div>
+          <div class="stat"><div class="stat-n">94%</div><div class="stat-l">task completion</div></div>
+          <div class="stat"><div class="stat-n">3</div><div class="stat-l">tiery membership</div></div>
+          <div class="stat"><div class="stat-n">NPS 71</div><div class="stat-l">wynik prototypu</div></div>
         </div>
       </div>
     </section>
