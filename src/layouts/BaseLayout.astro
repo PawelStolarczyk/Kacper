@@ -8,12 +8,14 @@ interface Props {
   title?:       string;
   description?: string;
   ogImage?:     string;
+  navTheme?:    'dark' | 'light';
 }
 
 const {
   title       = 'Kacper Stolarczyk — UI/UX Designer · AI-Augmented Design',
   description = 'UI/UX designer łączący klasyczny warsztat z narzędziami AI. Projekty e-commerce, SaaS, mobile i branding.',
   ogImage     = '/og/default.png',
+  navTheme    = 'dark',
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
@@ -64,7 +66,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   <ClientRouter />
 </head>
 
-<body>
+<body data-nav-theme={navTheme}>
   <!-- Custom cursor (hidden on touch devices) -->
   <div id="cursor"      aria-hidden="true"></div>
   <div id="cursor-ring" aria-hidden="true"></div>

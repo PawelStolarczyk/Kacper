@@ -253,17 +253,42 @@ const links = [
   @media (max-width: 480px) {
     #nav { padding: 0 16px; }
   }
+
+  /* ── LIGHT SKIN — jasne hero (np. AutoClub) ── */
+  #nav[data-skin="light"] .nav-logo  { color: #1E293B; }
+  #nav[data-skin="light"] .nav-dot   { background: #2563EB; }
+  #nav[data-skin="light"] .nav-link  { color: #64748B; }
+  #nav[data-skin="light"] .nav-link:hover { color: #1E293B; }
+  #nav[data-skin="light"] .nav-cta   { border-color: #2563EB; color: #2563EB; }
+  #nav[data-skin="light"] .nav-cta:hover { background: #2563EB; color: #fff; }
+  #nav[data-skin="light"] .burger-bar { background: #1E293B; }
 </style>
 
 <script>
   /* ── Scroll nav background ── */
   const nav = document.getElementById('nav')!;
+
   function updateNav() {
-    const isLight = document.documentElement.dataset.theme === 'light';
-    nav.style.background = scrollY > 60
-      ? (isLight ? 'rgba(240,242,245,.98)' : 'rgba(26,29,33,.97)')
-      : (isLight ? 'rgba(240,242,245,.90)' : 'rgba(26,29,33,.88)');
+    const isLight     = document.documentElement.dataset.theme === 'light';
+    const heroIsLight = document.body.dataset.navTheme === 'light';
+
+    if (heroIsLight) {
+      // Strona z jasnym hero (np. AutoClub) — nav zawsze jasny
+      nav.style.background = scrollY > 60
+        ? 'rgba(248,250,252,.98)'
+        : 'rgba(248,250,252,.85)';
+      nav.style.borderBottomColor = scrollY > 60 ? 'rgba(37,99,235,0.12)' : 'transparent';
+      nav.dataset.skin = 'light';
+    } else {
+      // Strona z ciemnym hero (główna, QL&Joy, MedTrack itd.)
+      nav.style.background = scrollY > 60
+        ? (isLight ? 'rgba(240,242,245,.98)' : 'rgba(26,29,33,.97)')
+        : (isLight ? 'rgba(240,242,245,.90)' : 'rgba(26,29,33,.88)');
+      nav.style.borderBottomColor = '';
+      nav.dataset.skin = isLight ? 'light' : 'dark';
+    }
   }
+
   window.addEventListener('scroll', updateNav, { passive: true });
   document.addEventListener('themechange', updateNav);
 
@@ -295,17 +320,14 @@ const links = [
   closeBtn.addEventListener('click', closeDrawer);
   overlay.addEventListener('click', closeDrawer);
 
-  // Close on link click
   document.querySelectorAll('[data-drawer-link]').forEach(link => {
     link.addEventListener('click', closeDrawer);
   });
 
-  // Close on Escape
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') closeDrawer();
   });
 
-  // Re-init after view transitions
   document.addEventListener('astro:after-swap', () => {
     closeDrawer();
     updateNav();
