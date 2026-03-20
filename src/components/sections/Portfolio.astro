@@ -22,12 +22,13 @@ const allProjects = (await getCollection('projects'))
       const { title, subtitle, year, tags, accent, coverBg, wide, liveUrl } = project.data;
       const href = liveUrl ?? `/projects/${project.id}`;
       const bg = coverBg ?? '#1A1D21';
-      const isQljoy = project.id === 'qljoy';
+      const isQljoy    = project.id === 'qljoy';
+      const isAutoclub = project.id === 'autoclub';
       return (
         <a
           href={href}
           class:list={['proj-card', wide ? 'proj-wide' : 'proj-narrow']}
-          style={`background-color:${isQljoy ? 'transparent' : bg}; position:relative; display:block; overflow:hidden; text-decoration:none;`}
+          style={`background-color:${bg}; position:relative; display:block; overflow:hidden; text-decoration:none;`}
         >
           <!-- year -->
           <span style="position:absolute; top:24px; left:24px; font-size:9px; letter-spacing:.2em; text-transform:uppercase; color:rgba(255,255,255,.4); z-index:2;">
@@ -44,6 +45,15 @@ const allProjects = (await getCollection('projects'))
             <div style="position:absolute; inset:0; z-index:1; overflow:hidden;">
               <img src="/images/qljoy-hero.png" alt="" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; object-position:center;" />
               <div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(0,0,0,.75) 0%, rgba(0,0,0,.4) 20%, rgba(0,0,0,.1) 40%, transparent 60%);"></div>
+            </div>
+          )}
+
+          <!-- AutoClub visual treatment -->
+          {isAutoclub && (
+            <div style="position:absolute; inset:0; z-index:1; overflow:hidden;">
+              <div style="position:absolute; inset:0; background:radial-gradient(ellipse 80% 70% at 70% 30%, rgba(59,130,246,0.30) 0%, transparent 65%), radial-gradient(ellipse 50% 60% at 20% 80%, rgba(249,115,22,0.18) 0%, transparent 60%);"></div>
+              <div style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); text-align:center; opacity:.12; font-family:var(--font-display); font-weight:900; font-size:clamp(60px,8vw,120px); letter-spacing:-.05em; color:#fff; white-space:nowrap; line-height:1;">AUTO<br>CLUB</div>
+              <div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(15,30,60,.90) 0%, rgba(15,30,60,.50) 40%, transparent 70%);"></div>
             </div>
           )}
 

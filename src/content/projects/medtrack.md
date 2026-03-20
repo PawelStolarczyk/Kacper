@@ -5,7 +5,7 @@ year:     2024
 tags:     ["HealthTech", "Dashboard", "Accessibility", "AI Research"]
 accent:   "#00E5A0"
 coverBg:  "#0C1410"
-order:    2
+order:    3
 featured: true
 client:   "MedTrack Sp. z o.o."
 role:     "Lead UX Designer"
