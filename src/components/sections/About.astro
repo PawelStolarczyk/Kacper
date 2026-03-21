@@ -2,18 +2,23 @@
 // src/components/sections/About.astro
 
 const skills = [
-  
-  { name: 'UI Design & Systems',          pips: 4 },
+  { name: 'UX Research & Strategy',      pips: 5 },
+  { name: 'UI Design & Systems',          pips: 5 },
+  { name: 'Brand Identity',               pips: 4 },
   { name: 'AI-Assisted Prototyping',      pips: 5 },
-  { name: 'Front-end (HTML/CSS/JS)',      pips: 3 },
-  { name: 'E-commerce UX',               pips: 4 },
+  { name: 'Front-end (HTML/CSS/JS)',      pips: 4 },
+  { name: 'E-commerce UX',               pips: 5 },
   { name: 'Prompt Engineering',           pips: 4 },
+  { name: 'User Testing & Analytics',     pips: 3 },
 ];
 
 const tools = [
   { name:'Figma',      cat:'UI · Prototype'  },
   { name:'Claude AI',  cat:'Strategy · Copy' },
   { name:'Midjourney', cat:'Visual concepts' },
+  { name:'Framer',     cat:'No-code · Motion'},
+  { name:'Maze',       cat:'User testing'    },
+  { name:'Webflow',    cat:'CMS · Deploy'    },
 ];
 
 const certs = [
@@ -29,7 +34,7 @@ const certs = [
       <div class="sec-num">01<br>O mnie</div>
       <div>
         <h2 class="sec-title">Projektuję <em>z ludźmi,</em> <strong>wspomagany przez AI</strong></h2>
-        <p class="sec-lead">Ostatnie trzy lata aktywnie integrując AI w każdym etapie procesu projektowego.</p>
+        <p class="sec-lead">Sześć lat doświadczenia w UI/UX, ostatnie trzy lata aktywnie integrując AI w każdym etapie procesu projektowego.</p>
       </div>
     </div>
 
@@ -37,8 +42,8 @@ const certs = [
 
       <!-- Text + tools -->
       <div class="reveal from-left">
-        <p class="body-p">Jestem UI/UX designerem z <strong>3-letnim doświadczeniem</strong> w projektowaniu produktów cyfrowych dla e-commerce, startupów i marek lifestyle. Specjalizuję się w projektach, które wymagają głębokiego rozumienia użytkownika i mocnej tożsamości wizualnej.</p>
-        <p class="body-p">Od 2025 roku systematycznie integruję <strong>narzędzia AI</strong> w procesie projektowym — od generowania konceptów i analizy persony, przez prototypowanie wspomagane modelem, po automatyzację testów użyteczności. Efekt: <strong>krótszy czas realizacji bez kompromisów</strong> w jakości.</p>
+        <p class="body-p">Jestem UI/UX designerem z <strong>6-letnim doświadczeniem</strong> w projektowaniu produktów cyfrowych dla e-commerce, startupów technologicznych i marek lifestyle. Specjalizuję się w projektach, które wymagają głębokiego rozumienia użytkownika i mocnej tożsamości wizualnej.</p>
+        <p class="body-p">Od 2022 roku systematycznie integruję <strong>narzędzia AI</strong> w procesie projektowym — od generowania konceptów i analizy persony, przez prototypowanie wspomagane modelem, po automatyzację testów użyteczności. Efekt: <strong>krótszy czas realizacji bez kompromisów</strong> w jakości.</p>
         <p class="body-p">Nie wierzę, że AI zastąpi designera. Wierzę, że <strong>designer z AI zastąpi designera bez AI</strong>. Dlatego uczę się, eksperymentuję i dokumentuję każde odkrycie.</p>
 
         <!-- AI tags -->
@@ -75,7 +80,7 @@ const certs = [
             </div>
           ))}
         </div>
-        <!--
+
         <div class="skill-label">Wykształcenie &amp; certyfikaty</div>
         <div style="display:flex; flex-direction:column; gap:2px">
           {certs.map(({ name, sub, accent }) => (
@@ -84,7 +89,7 @@ const certs = [
               <div style="font-size:11px; color:var(--fg-30)">{sub}</div>
             </div>
           ))}
-        </div> -->
+        </div>
       </div>
     </div>
   </div>
