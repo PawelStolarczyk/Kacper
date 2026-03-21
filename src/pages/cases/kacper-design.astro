@@ -1,0 +1,380 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Nav from '@components/layout/Nav.astro';
+import Footer from '@components/layout/Footer.astro';
+---
+<BaseLayout
+  title="kacper.design — Case Study · Kacper Stolarczyk"
+  description="Jak zaprojektowałem i zakodowałem portfolio w całości przez Claude AI. Prompty, błędy, wnioski i 4 tygodnie iteracji."
+>
+  <Nav />
+  <style>
+    .w { max-width: 1160px; margin: 0 auto; padding: 0 56px; }
+
+    /* HERO */
+    .hero { min-height: 90vh; padding-top: 60px; position: relative; overflow: hidden; display: flex; align-items: flex-end; background: var(--bg); }
+    .hero-grid { position: absolute; inset: 0; background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px); background-size: 48px 48px; mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%); }
+    .hero-glow { position: absolute; top: -200px; left: 50%; transform: translateX(-50%); width: 800px; height: 800px; border-radius: 50%; background: radial-gradient(circle, rgba(0,229,160,.08) 0%, transparent 65%); }
+    .hero-body { position: relative; z-index: 1; width: 100%; padding: 0 56px 64px; }
+    .back { position: absolute; top: 28px; left: 56px; display: inline-flex; align-items: center; gap: 8px; font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: var(--fg-30); transition: color .2s; }
+    .back:hover { color: var(--accent); }
+    .eyebrow { font-size: 10px; letter-spacing: .26em; text-transform: uppercase; color: var(--fg-60); margin-bottom: 18px; display: flex; align-items: center; gap: 10px; }
+    .eyebrow::before { content: ''; width: 24px; height: 1px; background: var(--accent); }
+    h1 { font-family: var(--font-display); font-weight: 900; font-size: clamp(52px, 5.5vw, 88px); line-height: .92; letter-spacing: -.04em; color: var(--fg); margin-bottom: 20px; }
+    h1 em { color: var(--accent); font-style: normal; }
+    .sub { font-size: 14px; color: var(--fg-60); max-width: 480px; line-height: 1.7; margin-bottom: 36px; }
+    .pills { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 40px; }
+    .pill { font-size: 9px; letter-spacing: .16em; text-transform: uppercase; padding: 5px 13px; border: 1px solid var(--border2); color: var(--fg-60); }
+    .pill.on { border-color: var(--accent); color: var(--accent); }
+    .stats { display: grid; grid-template-columns: repeat(4, auto); gap: 1px; background: var(--border); width: fit-content; }
+    .stat { padding: 16px 28px; background: var(--bg); }
+    .stat-n { font-family: var(--font-display); font-weight: 900; font-size: 26px; color: var(--fg); line-height: 1; }
+    .stat-n span { color: var(--accent); }
+    .stat-l { font-size: 8px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg-30); margin-top: 4px; }
+
+    /* LAYOUT */
+    .section { padding: 96px 0; border-top: 1px solid var(--border); background: var(--bg); }
+    .section.alt { background: var(--bg2); }
+    .section.dark { background: #0D1117; border-top: none; }
+    .sec-label { font-size: 9px; letter-spacing: .22em; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; font-weight: 600; }
+    .sec-h { font-family: var(--font-display); font-weight: 900; font-size: clamp(26px, 3vw, 44px); letter-spacing: -.03em; color: var(--fg); margin-bottom: 12px; }
+    .sec-h em { color: var(--accent); font-style: normal; }
+    .sec-h.light { color: #e6edf3; }
+    .sec-h.light em { color: #58e6a8; }
+    .sec-lead { font-size: 14px; color: var(--fg-60); line-height: 1.8; max-width: 560px; margin-bottom: 48px; }
+    .sec-lead.light { color: rgba(230,237,243,0.6); }
+
+    /* META */
+    .meta { display: grid; grid-template-columns: repeat(4,1fr); border: 1px solid var(--border); }
+    .meta-cell { padding: 28px 32px; border-right: 1px solid var(--border); background: var(--bg); }
+    .meta-cell:last-child { border-right: none; }
+    .meta-l { font-size: 9px; letter-spacing: .18em; text-transform: uppercase; color: var(--fg-60); margin-bottom: 8px; }
+    .meta-v { font-size: 13px; font-weight: 600; color: var(--fg); }
+    .meta-s { font-size: 11px; color: var(--fg-60); }
+
+    /* QUOTE */
+    .quote { border-left: 3px solid var(--accent); padding: 20px 28px; background: var(--fg-10); margin: 40px 0; }
+    .quote-text { font-family: var(--font-display); font-size: clamp(15px, 1.6vw, 20px); font-weight: 300; color: var(--fg); line-height: 1.55; font-style: italic; }
+    .quote-src { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg-60); margin-top: 8px; }
+
+    /* CODE BLOCK */
+    .code-block { border: 1px solid var(--border); overflow: hidden; margin-bottom: 32px; }
+    .code-header { padding: 10px 20px; background: var(--bg2); border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 8px; font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg-60); }
+    .code-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+    .code-body { padding: 24px; font-family: 'DM Mono', 'Courier New', monospace; font-size: 12px; line-height: 1.9; background: var(--bg); white-space: pre-wrap; }
+    .code-body .kw { color: var(--accent); }
+    .code-body .cm { color: var(--fg-30); }
+    .code-body .st { color: #79c0ff; }
+    .code-body .tx { color: var(--fg-60); }
+
+    /* INSIGHTS GRID */
+    .insights { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); margin-bottom: 48px; }
+    .insight { padding: 28px 24px; background: var(--bg); }
+    .insight-n { font-family: var(--font-display); font-weight: 900; font-size: 36px; color: var(--accent); line-height: 1; margin-bottom: 8px; }
+    .insight-title { font-size: 13px; font-weight: 600; color: var(--fg); margin-bottom: 6px; }
+    .insight-body { font-size: 12px; color: var(--fg-60); line-height: 1.65; }
+
+    /* SESSIONS — dark terminal */
+    .sessions { display: flex; flex-direction: column; gap: 1px; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.08); }
+    .sess { display: grid; grid-template-columns: 120px 1fr; }
+    .sess-num { padding: 20px 24px; border-right: 1px solid rgba(255,255,255,.06); display: flex; align-items: flex-start; }
+    .sess-num span { font-family: 'DM Mono', monospace; font-size: 11px; color: #58e6a8; }
+    .sess-body { padding: 20px 28px; }
+    .sess-title { font-size: 13px; font-weight: 600; color: #e6edf3; margin-bottom: 4px; }
+    .sess-desc { font-size: 12px; color: rgba(230,237,243,0.5); line-height: 1.6; }
+    .sess-tag { margin-top: 6px; display: inline-block; font-size: 9px; letter-spacing: .1em; text-transform: uppercase; color: #58e6a8; border: 1px solid rgba(88,230,168,.3); padding: 2px 8px; }
+
+    /* REFLECTION */
+    .reflection { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); border: 1px solid var(--border); }
+    .ref-col { padding: 40px 36px; background: var(--bg); }
+    .ref-title { font-size: 10px; letter-spacing: .2em; text-transform: uppercase; margin-bottom: 20px; font-weight: 700; }
+    .ref-title.pos { color: var(--accent); }
+    .ref-title.neg { color: #f97316; }
+    .ref-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .ref-list li { font-size: 13px; color: var(--fg-60); line-height: 1.6; padding-left: 18px; position: relative; }
+    .ref-col.pos .ref-list li::before { content: ''; position: absolute; left: 0; top: 8px; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+    .ref-col.neg .ref-list li::before { content: ''; position: absolute; left: 0; top: 8px; width: 6px; height: 6px; border-radius: 50%; background: #f97316; }
+
+    /* RESULTS */
+    .results { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); }
+    .res { padding: 36px 24px; background: var(--bg); text-align: center; }
+    .res-n { font-family: var(--font-display); font-weight: 900; font-size: 44px; color: var(--accent); line-height: 1; }
+    .res-l { font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg-60); margin-top: 8px; }
+
+    /* CTA */
+    .cta-band { background: var(--bg2); border-top: 1px solid var(--border); padding: 80px 56px; display: flex; align-items: center; justify-content: space-between; gap: 40px; }
+    .cta-label { font-size: 9px; letter-spacing: .2em; text-transform: uppercase; color: var(--fg-60); margin-bottom: 12px; }
+    .cta-title { font-family: var(--font-display); font-weight: 900; font-size: clamp(22px, 2.8vw, 40px); letter-spacing: -.03em; color: var(--fg); line-height: 1.15; }
+    .cta-title em { color: var(--accent); font-style: normal; }
+    .cta-btn { font-size: 10px; letter-spacing: .16em; text-transform: uppercase; white-space: nowrap; padding: 15px 32px; border: 1px solid var(--accent); color: var(--accent); transition: background .2s, color .2s; flex-shrink: 0; font-weight: 600; }
+    .cta-btn:hover { background: var(--accent); color: #000; }
+
+    /* NEXT */
+    .next { padding: 72px 0; text-align: center; border-top: 1px solid var(--border); background: var(--bg); }
+    .next-l { font-size: 9px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg-60); margin-bottom: 14px; }
+    .next-a { font-family: var(--font-display); font-weight: 900; font-size: clamp(24px, 3vw, 44px); letter-spacing: -.03em; color: var(--fg); transition: color .2s; }
+    .next-a:hover { color: var(--accent); }
+
+    /* REVEAL */
+    .r { opacity: 0; transform: translateY(20px); transition: opacity .65s cubic-bezier(.22,.61,.36,1), transform .65s cubic-bezier(.22,.61,.36,1); }
+    .r.v { opacity: 1; transform: none; }
+    .d1 { transition-delay: .1s; } .d2 { transition-delay: .2s; }
+
+    @media (max-width: 1024px) {
+      .insights { grid-template-columns: 1fr; }
+      .reflection { grid-template-columns: 1fr; }
+      .results { grid-template-columns: repeat(2,1fr); }
+      .meta { grid-template-columns: 1fr 1fr; }
+      .meta-cell:nth-child(2) { border-right: none; }
+      .meta-cell:nth-child(1), .meta-cell:nth-child(2) { border-bottom: 1px solid var(--border); }
+      .cta-band { flex-direction: column; text-align: center; padding: 60px 32px; }
+      .sess { grid-template-columns: 1fr; }
+      .sess-num { border-right: none; border-bottom: 1px solid rgba(255,255,255,.06); padding: 12px 24px 6px; }
+      .w { padding: 0 24px; }
+    }
+    @media (max-width: 600px) {
+      .hero-body { padding: 0 20px 40px; } .back { left: 20px; }
+      .stats { grid-template-columns: repeat(2, auto); }
+      .meta { grid-template-columns: 1fr; }
+      .meta-cell { border-right: none !important; border-bottom: 1px solid var(--border); }
+      .meta-cell:last-child { border-bottom: none; }
+      .w { padding: 0 20px; }
+    }
+  </style>
+
+  <div>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-grid"></div>
+      <div class="hero-glow"></div>
+      <div class="hero-body">
+        <a href="/#cases" class="back">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+          Case Studies
+        </a>
+        <div class="eyebrow">Case Study · AI-Development · 2026</div>
+        <h1>kacper<em>.</em><br>design</h1>
+        <p class="sub">Jak zaprojektowałem i zakodowałem portfolio w całości przez Claude AI — bez napisania ani jednej linii kodu ręcznie. 26 sesji, 4 200 linii kodu, 4 tygodnie.</p>
+        <div class="pills">
+          <span class="pill on">Prompt Engineering</span>
+          <span class="pill on">Astro 5</span>
+          <span class="pill on">AI-First Development</span>
+          <span class="pill on">TypeScript</span>
+        </div>
+        <div class="stats">
+          <div class="stat"><div class="stat-n"><span>100</span>%</div><div class="stat-l">kod przez AI</div></div>
+          <div class="stat"><div class="stat-n">26</div><div class="stat-l">sesji</div></div>
+          <div class="stat"><div class="stat-n">4<span>200</span></div><div class="stat-l">linii kodu</div></div>
+          <div class="stat"><div class="stat-n">4<span>tyg</span></div><div class="stat-l">realizacja</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- META -->
+    <div class="meta r">
+      <div class="meta-cell"><div class="meta-l">Projekt</div><div class="meta-v">kacper.design</div><div class="meta-s">Portfolio własne</div></div>
+      <div class="meta-cell"><div class="meta-l">Moja rola</div><div class="meta-v">Prompt Engineer</div><div class="meta-s">Direction · QA · Deploy</div></div>
+      <div class="meta-cell"><div class="meta-l">AI partner</div><div class="meta-v">Claude Sonnet</div><div class="meta-s">Architektura · Kod · Debug</div></div>
+      <div class="meta-cell"><div class="meta-l">Czas</div><div class="meta-v">4 tygodnie</div><div class="meta-s">Marzec 2026</div></div>
+    </div>
+
+    <!-- 00 KONTEKST -->
+    <section class="section">
+      <div class="w">
+        <div class="r">
+          <div class="sec-label">00 — Kontekst</div>
+          <h2 class="sec-h">Hipoteza: <em>AI jako programista</em></h2>
+          <p class="sec-lead">Chciałem sprawdzić czy możliwe jest stworzenie produkcyjnej strony internetowej bez pisania kodu — wyłącznie przez dialog z modelem językowym. Portfolio designera, które samo w sobie jest dowodem tezy.</p>
+        </div>
+        <div class="insights r d1">
+          <div class="insight">
+            <div class="insight-n">0</div>
+            <div class="insight-title">Linii kodu napisanych ręcznie</div>
+            <div class="insight-body">Każda linia — od `package.json` przez komponenty Astro po animacje canvas — powstała jako odpowiedź Claude na prompt. Moja rola: direction, QA i deploy.</div>
+          </div>
+          <div class="insight">
+            <div class="insight-n">26</div>
+            <div class="insight-title">Sesji konwersacyjnych</div>
+            <div class="insight-body">Każda sesja skupiała się na jednym obszarze: nowym komponencie, naprawie błędu lub dodaniu funkcji. Kontekst projektu przekazywany przez userMemories i podsumowania.</div>
+          </div>
+          <div class="insight">
+            <div class="insight-n">4tyg</div>
+            <div class="insight-title">Od zera do produkcji</div>
+            <div class="insight-body">Setup Astro, design system, wszystkie komponenty, 2 projekty z case studies, CI/CD na Netlify — w 4 tygodnie pracy wieczorami, bez background w front-end developmencie.</div>
+          </div>
+        </div>
+        <div class="quote r d2">
+          <div class="quote-text">„Nie piszesz kodu — opisujesz efekt końcowy, ograniczenia i kontekst. To wymaga innego rodzaju precyzji niż programowanie, ale jest w zasięgu każdego designera."</div>
+          <div class="quote-src">— Kacper Stolarczyk, po 4 tygodniach pracy z Claude</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 01 ARCHITEKTURA -->
+    <section class="section alt">
+      <div class="w">
+        <div class="r">
+          <div class="sec-label">01 — Architektura</div>
+          <h2 class="sec-h">Decyzje techniczne <em>podjęte przez AI</em></h2>
+          <p class="sec-lead">Pierwsza sesja była strategiczna — opisałem cel i ograniczenia, Claude zaproponował i uzasadnił każdy wybór. Żaden nie był przypadkowy.</p>
+        </div>
+        <div class="code-block r d1">
+          <div class="code-header"><div class="code-dot"></div>Prompt #1 — kick-off</div>
+          <div class="code-body"><span class="cm"># Kontekst</span>
+<span class="tx">Jestem UX/UI designerem. Chcę zbudować portfolio które:</span>
+<span class="tx">- Pokazuje moje projekty z opisem procesu</span>
+<span class="tx">- Ma dark/light mode z przełącznikiem</span>
+<span class="tx">- Animowane tło w sekcji hero (canvas)</span>
+<span class="tx">- Szybkie ładowanie, SEO, deploy na Netlify</span>
+
+<span class="cm"># Pytanie</span>
+<span class="tx">Zaproponuj stack technologiczny i uzasadnij każdy wybór.</span>
+<span class="tx">Następnie wygeneruj kompletną strukturę projektu.</span></div>
+        </div>
+        <div class="code-block r d2">
+          <div class="code-header"><div class="code-dot"></div>Odpowiedź Claude — fragment uzasadnienia</div>
+          <div class="code-body"><span class="kw">Astro 5</span> <span class="tx">zamiast Next.js —</span>
+<span class="tx">Portfolio jest głównie statyczne. Astro generuje zero JS</span>
+<span class="tx">dla stron bez interakcji, ładuje React/TypeScript tylko</span>
+<span class="tx">tam gdzie potrzeba (ThemeToggle, ContactForm).</span>
+<span class="tx">View Transitions API daje płynne animacje między stronami</span>
+<span class="tx">bez routera JS.</span>
+
+<span class="kw">CSS Custom Properties</span> <span class="tx">zamiast Tailwind tokens —</span>
+<span class="tx">Dark/light mode działa przez zmianę :root variables,</span>
+<span class="tx">bez dodatkowego JS. Jeden `[data-theme="light"]`</span>
+<span class="tx">w CSS nadpisuje wszystkie kolory globalnie.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02 SESJE — dark terminal -->
+    <section class="section dark">
+      <div class="w">
+        <div class="r">
+          <div class="sec-label" style="color:#58e6a8">02 — Przebieg prac</div>
+          <h2 class="sec-h light">26 sesji, <em>jeden projekt</em></h2>
+          <p class="sec-lead light">Każda sesja skupiała się na konkretnym zadaniu. Kontekst projektu był przekazywany przez userMemories — Claude wiedział co już istnieje i co zostało rozwiązane.</p>
+        </div>
+        <div class="sessions r d1">
+          <div class="sess"><div class="sess-num"><span>01–03</span></div><div class="sess-body"><div class="sess-title">Setup projektu + design system</div><div class="sess-desc">Astro 5, struktura folderów, tokens.css z dark/light mode, typografia, BaseLayout z meta tags i View Transitions.</div><div class="sess-tag">Architektura</div></div></div>
+          <div class="sess"><div class="sess-num"><span>04–07</span></div><div class="sess-body"><div class="sess-title">Komponenty sekcji głównych</div><div class="sess-desc">Hero z animowanym tłem canvas, Portfolio z kartami projektów, About, Process, Contact z formularzem React.</div><div class="sess-tag">Komponenty</div></div></div>
+          <div class="sess"><div class="sess-num"><span>08–10</span></div><div class="sess-body"><div class="sess-title">System treści (Content Collections)</div><div class="sess-desc">Astro Content Collections dla projektów, schemat TypeScript, dynamiczny routing `[slug].astro`, SEO meta per-strona.</div><div class="sess-tag">CMS</div></div></div>
+          <div class="sess"><div class="sess-num"><span>11–14</span></div><div class="sess-body"><div class="sess-title">Projekt QL&Joy — strona i case study</div><div class="sess-desc">Pełna strona projektu z hero na zdjęciu, iteracje brandingu, paleta kolorów, sekcja e-commerce. Case study z 7 sekcjami.</div><div class="sess-tag">Treść</div></div></div>
+          <div class="sess"><div class="sess-num"><span>15–19</span></div><div class="sess-body"><div class="sess-title">Projekt AutoClub — od HTML do Astro</div><div class="sess-desc">Konwersja dwóch stron HTML (index.html, model.html, booking.html) na Astro. Interaktywny kalendarz rezerwacji z kalkulatorem ceny.</div><div class="sess-tag">Konwersja</div></div></div>
+          <div class="sess"><div class="sess-num"><span>20–23</span></div><div class="sess-body"><div class="sess-title">Bugfixing — kursor, animacje, routing</div><div class="sess-desc">Kursor znikający po View Transitions (IIFE → named function), routing /projects vs /cases, dark mode w AutoClub (hardcoded colors → tokens).</div><div class="sess-tag">Debug</div></div></div>
+          <div class="sess"><div class="sess-num"><span>24–26</span></div><div class="sess-body"><div class="sess-title">Deploy, CI/CD, build error</div><div class="sess-desc">Konfiguracja Netlify, skrypt autopush.ps1, rozwiązanie konfliktu merge feature/main, naprawa duplikatu &lt;/style&gt; który powodował build failure.</div><div class="sess-tag">DevOps</div></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03 PROMPT ENGINEERING -->
+    <section class="section">
+      <div class="w">
+        <div class="r">
+          <div class="sec-label">03 — Prompt Engineering</div>
+          <h2 class="sec-h">Anatomia <em>skutecznego promptu</em></h2>
+          <p class="sec-lead">Po 26 sesjach wyłonił się wzorzec. Prompty które generowały użyteczny kod za pierwszym razem miały 4 elementy.</p>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border);border:1px solid var(--border);" class="r d1">
+          <div style="padding:32px 28px;background:var(--bg)">
+            <div style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:14px;font-weight:700">1. Kontekst projektu</div>
+            <div style="font-size:13px;color:var(--fg-60);line-height:1.75;margin-bottom:12px">„Buduję portfolio w Astro 5 z TypeScript. Pliki CSS używają tokenów `var(--fg)`, `var(--bg)`, `var(--accent)`."</div>
+            <div style="font-size:11px;color:var(--fg-30)">Bez tego Claude generuje kod który nie pasuje do istniejącego systemu.</div>
+          </div>
+          <div style="padding:32px 28px;background:var(--bg)">
+            <div style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:14px;font-weight:700">2. Cel (co, nie jak)</div>
+            <div style="font-size:13px;color:var(--fg-60);line-height:1.75;margin-bottom:12px">„Chcę kartę projektu która po hover pokazuje strzałkę i przyciemnia tło."</div>
+            <div style="font-size:11px;color:var(--fg-30)">Opisuj efekt końcowy. Implementację pozostaw Claude — i tak zrobi to lepiej.</div>
+          </div>
+          <div style="padding:32px 28px;background:var(--bg)">
+            <div style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:14px;font-weight:700">3. Ograniczenia</div>
+            <div style="font-size:13px;color:var(--fg-60);line-height:1.75;margin-bottom:12px">„Bez zewnętrznych bibliotek. Tylko vanilla CSS i TypeScript. Responsive od 320px."</div>
+            <div style="font-size:11px;color:var(--fg-30)">Claude bez ograniczeń instaluje niepotrzebne paczki i pisze zbyt skomplikowany kod.</div>
+          </div>
+          <div style="padding:32px 28px;background:var(--bg)">
+            <div style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:14px;font-weight:700">4. Zrzut ekranu przy bugach</div>
+            <div style="font-size:13px;color:var(--fg-60);line-height:1.75;margin-bottom:12px">Dołączałem screenshot z opisem „to działa źle, powinno działać tak".</div>
+            <div style="font-size:11px;color:var(--fg-30)">Wizualny kontekst redukuje liczbę pytań zwrotnych o połowę.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04 REFLEKSJA -->
+    <section class="section alt">
+      <div class="w">
+        <div class="r">
+          <div class="sec-label">04 — Refleksja</div>
+          <h2 class="sec-h">Co <em>zmieniłem</em> w myśleniu o AI</h2>
+        </div>
+        <div class="reflection r d1">
+          <div class="ref-col pos">
+            <div class="ref-title pos">Zaskoczenia pozytywne</div>
+            <ul class="ref-list">
+              <li>Claude samodzielnie proponował lepsze rozwiązania niż to co opisałem — np. CSS tokens zamiast hardcoded kolorów przy pierwszym prompcie o dark mode</li>
+              <li>Debugowanie przez zrzut ekranu działało zadziwiająco dobrze — opis wizualny był często wystarczający do zlokalizowania błędu</li>
+              <li>Kod był czytelny i dobrze skomentowany — łatwiej go czytać niż kod który sam bym napisał</li>
+              <li>Refactoring istniejącego kodu (zamiana hardcoded colors na tokeny) był szybszy niż ręczne szukanie i zastępowanie</li>
+            </ul>
+          </div>
+          <div class="ref-col neg">
+            <div class="ref-title neg">Najtrudniejsze momenty</div>
+            <ul class="ref-list">
+              <li>Brak pamięci między sesjami — każda rozmowa zaczynała się od zera, musiałem odtwarzać kontekst projektu</li>
+              <li>Konflikty między patchami — stosowanie wielu małych ZIP-ów zamiast jednego pełnego prowadziło do niespójności w repo</li>
+              <li>Claude nie może uruchomić kodu lokalnie — błędy które widać dopiero po buildzie (jak duplikat `</style>`) są trudniejsze do przewidzenia</li>
+              <li>Czasem AI „wymyślało" rozwiązania które wyglądały sensownie ale nie działały — potrzebna była weryfikacja po każdej większej zmianie</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05 WYNIKI -->
+    <section class="section">
+      <div class="w">
+        <div class="r">
+          <div class="sec-label">05 — Wyniki</div>
+          <h2 class="sec-h">Portfolio <em>działa na produkcji</em></h2>
+          <p class="sec-lead">kacper.design jest live na Netlify od marca 2026. Wszystkie funkcje działają — dark/light mode, animacje, routing, formularze, interaktywny kalendarz.</p>
+        </div>
+        <div class="results r d1">
+          <div class="res"><div class="res-n">100%</div><div class="res-l">kod przez AI</div></div>
+          <div class="res"><div class="res-n">4 200</div><div class="res-l">linii kodu</div></div>
+          <div class="res"><div class="res-n">38</div><div class="res-l">plików .astro / .ts</div></div>
+          <div class="res"><div class="res-n">Live</div><div class="res-l">na Netlify</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <div class="cta-band">
+      <div>
+        <div class="cta-label">Chcesz porozmawiać o AI w designie?</div>
+        <div class="cta-title">Napisz do mnie — <em>chętnie powiem więcej</em></div>
+      </div>
+      <a href="/#contact" class="cta-btn">Porozmawiajmy →</a>
+    </div>
+
+    <!-- NEXT -->
+    <div class="next">
+      <div class="next-l">Następne case study</div>
+      <a href="/cases/autoclub" class="next-a">AutoClub Platform →</a>
+    </div>
+
+  </div>
+
+  <Footer />
+
+  <script>
+    const io = new IntersectionObserver(
+      entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('v'); io.unobserve(e.target); } }),
+      { threshold: .08, rootMargin: '0px 0px -40px 0px' }
+    );
+    function initReveal() { document.querySelectorAll('.r:not(.v)').forEach(el => io.observe(el)); }
+    initReveal();
+    document.addEventListener('astro:after-swap', initReveal);
+  </script>
+</BaseLayout>
