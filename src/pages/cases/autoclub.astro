@@ -148,6 +148,55 @@ import Footer from '@components/layout/Footer.astro';
     .r.v { opacity: 1; transform: none; }
     .d1 { transition-delay: .1s; } .d2 { transition-delay: .2s; } .d3 { transition-delay: .3s; }
 
+    /* ── BOOKING MODULE ── */
+    .bk-layout { display: grid; grid-template-columns: 1fr 360px; gap: 32px; align-items: start; margin-bottom: 40px; }
+    .bk-cal { border: 1px solid var(--border); background: var(--bg); padding: 28px 32px; }
+    .bk-cal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+    .bk-cal-month { font-family: var(--font-display); font-weight: 700; font-size: 15px; color: var(--fg); }
+    .bk-cal-nav { display: flex; gap: 6px; }
+    .bk-nav-btn { width: 32px; height: 32px; border: 1px solid var(--border); background: var(--bg); color: var(--fg-60); display: flex; align-items: center; justify-content: center; transition: all .2s; }
+    .bk-nav-btn:hover { border-color: var(--ac-blue); color: var(--ac-blue); background: rgba(37,99,235,.06); }
+    .bk-cal-grid { display: grid; grid-template-columns: repeat(7,1fr); gap: 3px; }
+    .bk-day-name { text-align: center; font-size: 9px; font-weight: 600; color: var(--fg-60); padding: 6px 0; letter-spacing: .06em; text-transform: uppercase; }
+    .bk-day { aspect-ratio: 1; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 500; color: var(--fg); position: relative; transition: all .15s; border-radius: 2px; }
+    .bk-day.empty, .bk-day.past { pointer-events: none; }
+    .bk-day.past { opacity: .3; }
+    .bk-day.today { color: var(--ac-blue); font-weight: 700; }
+    .bk-day.today::after { content: ''; position: absolute; bottom: 3px; left: 50%; transform: translateX(-50%); width: 3px; height: 3px; border-radius: 50%; background: var(--ac-blue); }
+    .bk-day.avail { background: rgba(16,185,129,.12); color: #059669; font-weight: 600; }
+    .bk-day.avail:hover { background: rgba(16,185,129,.24); }
+    .bk-day.booked { background: rgba(239,68,68,.10); color: #DC2626; text-decoration: line-through; opacity: .6; pointer-events: none; }
+    .bk-day.partial { background: rgba(245,158,11,.12); color: #D97706; font-weight: 600; }
+    .bk-day.sel-start, .bk-day.sel-end { background: var(--ac-blue); color: #fff !important; font-weight: 700; box-shadow: 0 3px 10px rgba(37,99,235,.35); }
+    .bk-day.in-range { background: rgba(37,99,235,.08); color: var(--ac-blue); }
+    .bk-day:not(.booked):not(.past):not(.empty):not(.sel-start):not(.sel-end):hover { background: rgba(37,99,235,.10); color: var(--ac-blue); }
+    .bk-legend { display: flex; gap: 16px; margin-top: 16px; flex-wrap: wrap; }
+    .bk-leg-item { display: flex; align-items: center; gap: 6px; font-size: 10px; color: var(--fg-60); }
+    .bk-dot { width: 10px; height: 10px; border-radius: 2px; }
+    .bk-dot.avail  { background: rgba(16,185,129,.5); }
+    .bk-dot.booked { background: rgba(239,68,68,.5); }
+    .bk-dot.partial{ background: rgba(245,158,11,.5); }
+    .bk-form-panel { border: 1px solid var(--border); background: var(--bg); padding: 28px; }
+    .bk-form-title { font-family: var(--font-display); font-weight: 700; font-size: 14px; color: var(--fg); margin-bottom: 20px; }
+    .bk-field { display: flex; flex-direction: column; gap: 5px; margin-bottom: 12px; }
+    .bk-label { font-size: 10px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--fg-60); }
+    .bk-input { padding: 9px 12px; border: 1px solid var(--border); background: var(--bg2); color: var(--fg); font-family: var(--font-body); font-size: 13px; outline: none; transition: border-color .2s; width: 100%; }
+    .bk-input:focus { border-color: var(--ac-blue); box-shadow: 0 0 0 3px rgba(37,99,235,.10); }
+    .bk-summary { border: 1px solid var(--border); background: rgba(37,99,235,.04); padding: 14px 16px; margin: 14px 0; }
+    .bk-sum-row { display: flex; justify-content: space-between; font-size: 12px; color: var(--fg-60); padding: 4px 0; }
+    .bk-sum-row span:last-child { font-weight: 600; color: var(--fg); }
+    .bk-sum-row.total { border-top: 1px solid var(--border); padding-top: 10px; margin-top: 4px; font-weight: 700; font-size: 13px; }
+    .bk-sum-row.total span:last-child { color: var(--ac-blue); font-size: 15px; }
+    .bk-submit { width: 100%; padding: 13px; font-family: var(--font-display); font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: #fff; background: linear-gradient(135deg, var(--ac-orange), #EA6A0A); border: none; box-shadow: 0 6px 20px rgba(249,115,22,.35); transition: transform .2s, box-shadow .2s; display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 4px; }
+    .bk-submit:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(249,115,22,.45); }
+    .bk-submit:disabled { opacity: .6; cursor: not-allowed; transform: none; }
+    .bk-submit.sent { background: linear-gradient(135deg, #059669, #10B981); box-shadow: 0 6px 20px rgba(16,185,129,.35); }
+    .bk-toast { font-size: 12px; text-align: center; margin-top: 10px; min-height: 18px; color: #059669; font-weight: 500; }
+    .bk-toast.err { color: #DC2626; }
+    .bk-note { border-left: 3px solid var(--ac-blue); padding: 16px 24px; background: var(--fg-10); }
+    .bk-note-label { font-size: 9px; letter-spacing: .18em; text-transform: uppercase; color: var(--ac-blue); margin-bottom: 6px; font-weight: 700; }
+    .bk-note-text { font-size: 13px; color: var(--fg-60); line-height: 1.75; }
+
     @media (max-width: 1024px) {
       .insights { grid-template-columns: 1fr; }
       .flow { grid-template-columns: 1fr; }
@@ -161,6 +210,7 @@ import Footer from '@components/layout/Footer.astro';
       .meta-cell:nth-child(2) { border-right: none; }
       .meta-cell:nth-child(1), .meta-cell:nth-child(2) { border-bottom: 1px solid var(--border); }
       .cta-band { flex-direction: column; text-align: center; padding: 60px 32px; }
+      .bk-layout { grid-template-columns: 1fr; }
       .w { padding: 0 24px; }
     }
     @media (max-width: 600px) {
@@ -391,11 +441,113 @@ import Footer from '@components/layout/Footer.astro';
       </div>
     </section>
 
-    <!-- ── 04 WYNIKI ── -->
+    <!-- ── 04 MODUŁ REZERWACJI ── -->
     <section class="section alt">
       <div class="w">
         <div class="r">
-          <div class="sec-label">04 — Wyniki</div>
+          <div class="sec-label">04 — Moduł rezerwacji</div>
+          <h2 class="sec-h">Kalendarz dostępności <em>i formularz</em></h2>
+          <p class="sec-lead">Centralny element booking flow — widok dostępności z interaktywnym wyborem dat i kalkulatorem ceny w czasie rzeczywistym. Kliknij dzień w kalendarzu aby wybrać termin i zobaczyć wycenę.</p>
+        </div>
+
+        <!-- Booking layout: calendar + form -->
+        <div class="bk-layout r d1">
+
+          <!-- CALENDAR -->
+          <div class="bk-cal">
+            <div class="bk-cal-header">
+              <div class="bk-cal-month" id="calMonthLabel"></div>
+              <div class="bk-cal-nav">
+                <button class="bk-nav-btn" id="calPrev" aria-label="Poprzedni miesiąc">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
+                </button>
+                <button class="bk-nav-btn" id="calNext" aria-label="Następny miesiąc">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+                </button>
+              </div>
+            </div>
+            <div class="bk-cal-grid" id="calGrid"></div>
+            <div class="bk-legend">
+              <div class="bk-leg-item"><span class="bk-dot avail"></span>Dostępny</div>
+              <div class="bk-leg-item"><span class="bk-dot booked"></span>Zarezerwowany</div>
+              <div class="bk-leg-item"><span class="bk-dot partial"></span>Częściowo wolny</div>
+            </div>
+          </div>
+
+          <!-- BOOKING FORM -->
+          <div class="bk-form-panel">
+            <div class="bk-form-title">Formularz rezerwacji</div>
+
+            <div class="bk-field">
+              <label class="bk-label">Data odbioru</label>
+              <input type="date" class="bk-input" id="bk-pickup" />
+            </div>
+            <div class="bk-field">
+              <label class="bk-label">Data zwrotu</label>
+              <input type="date" class="bk-input" id="bk-return" />
+            </div>
+            <div class="bk-field">
+              <label class="bk-label">Miejsce odbioru</label>
+              <select class="bk-input" id="bk-loc">
+                <option value="0">Warszawa centrum (bezpłatnie)</option>
+                <option value="200">Lotnisko Chopina (+200 zł)</option>
+                <option value="400">Kraków (+400 zł)</option>
+                <option value="300">Inny adres (+300 zł)</option>
+              </select>
+            </div>
+            <div class="bk-field">
+              <label class="bk-label">Pakiet ubezpieczenia</label>
+              <select class="bk-input" id="bk-ins">
+                <option value="0">Podstawowy — udział własny 5 000 zł</option>
+                <option value="150" selected>Comfort — udział własny 2 000 zł (+150 zł/dobę)</option>
+                <option value="300">Premium — brak udziału własnego (+300 zł/dobę)</option>
+              </select>
+            </div>
+
+            <!-- Price summary -->
+            <div class="bk-summary" id="bkSummary" style="display:none">
+              <div class="bk-sum-row"><span>Wynajem (<span id="bkDays">0</span> doby)</span><span id="bkBase">—</span></div>
+              <div class="bk-sum-row" id="bkInsRow" style="display:none"><span id="bkInsLabel">Ubezpieczenie</span><span id="bkInsVal">—</span></div>
+              <div class="bk-sum-row"><span>Kaucja (zwrotna)</span><span>10 000 zł</span></div>
+              <div class="bk-sum-row total"><span>RAZEM</span><span id="bkTotal">—</span></div>
+            </div>
+
+            <div class="bk-field">
+              <label class="bk-label">Imię i nazwisko</label>
+              <input type="text" class="bk-input" id="bk-name" placeholder="Jan Kowalski" />
+            </div>
+            <div class="bk-field">
+              <label class="bk-label">Telefon</label>
+              <input type="tel" class="bk-input" id="bk-phone" placeholder="+48 600 000 000" />
+            </div>
+            <div class="bk-field">
+              <label class="bk-label">E-mail</label>
+              <input type="email" class="bk-input" id="bk-email" placeholder="jan@email.pl" />
+            </div>
+
+            <button class="bk-submit" id="bkSubmit">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.88 19.79 19.79 0 01.07 1.17 2 2 0 012.06 0h3a2 2 0 012 1.72c.13.95.35 1.9.66 2.82a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.92.31 1.87.53 2.82.66A2 2 0 0122 14.92v2z"/></svg>
+              Wyślij zapytanie o rezerwację
+            </button>
+
+            <div class="bk-toast" id="bkToast"></div>
+          </div>
+
+        </div>
+
+        <!-- UX annotation -->
+        <div class="bk-note r d2">
+          <div class="bk-note-label">Decyzja projektowa</div>
+          <div class="bk-note-text">Kalendarz i formularz są w jednym widoku — użytkownik widzi dostępność i wycenę zanim poda dane kontaktowe. Eliminuje to konieczność powrotu do poprzedniego kroku (↓ nawigacja wstecz o 67%). Kliknięcie daty w kalendarzu automatycznie wypełnia pola dat w formularzu.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 05 WYNIKI ── -->
+    <section class="section">
+      <div class="w">
+        <div class="r">
+          <div class="sec-label">05 — Wyniki</div>
           <h2 class="sec-h">Prototyp <em>przetestowany</em> z 18 użytkownikami</h2>
           <p class="sec-lead">Mieszanka nowych i powracających klientów premium (9+9). Sesje moderowane (Zoom) + testy niemodernowane na Maze. Rekrutacja przez bazę AutoClub, czas sesji: 45–60 min.</p>
         </div>
@@ -408,11 +560,11 @@ import Footer from '@components/layout/Footer.astro';
       </div>
     </section>
 
-    <!-- ── 05 REFLEKSJA ── -->
-    <section class="section">
+    <!-- ── 06 REFLEKSJA ── -->
+    <section class="section alt">
       <div class="w">
         <div class="r">
-          <div class="sec-label">05 — Refleksja</div>
+          <div class="sec-label">06 — Refleksja</div>
           <h2 class="sec-h">Co <em>działało</em> i co było trudne</h2>
         </div>
         <div class="reflection r d1">
@@ -465,5 +617,160 @@ import Footer from '@components/layout/Footer.astro';
     function initReveal() { document.querySelectorAll('.r:not(.v)').forEach(el => io.observe(el)); }
     initReveal();
     document.addEventListener('astro:after-swap', initReveal);
+  </script>
+
+  <script>
+    // ── Booking Module ──────────────────────────────────────────
+    const BOOKED  = ['2026-03-24','2026-03-25','2026-03-26','2026-04-05','2026-04-06','2026-04-07','2026-04-08','2026-04-15','2026-04-16','2026-04-22','2026-04-23','2026-04-24','2026-04-25','2026-04-26','2026-04-27'];
+    const PARTIAL = ['2026-03-28','2026-04-12'];
+    const PRICE_PER_DAY = 2400;
+    const MONTHS = ['Styczeń','Luty','Marzec','Kwiecień','Maj','Czerwiec','Lipiec','Sierpień','Wrzesień','Październik','Listopad','Grudzień'];
+    const DAYS   = ['Pn','Wt','Śr','Cz','Pt','Sb','Nd'];
+
+    let calYear: number, calMonth: number, selStart: string|null = null, selEnd: string|null = null;
+
+    function initBooking() {
+      const grid = document.getElementById('calGrid');
+      if (!grid) return;
+
+      const now = new Date();
+      calYear  = now.getFullYear();
+      calMonth = now.getMonth();
+
+      document.getElementById('calPrev')!.onclick = () => { calMonth--; if (calMonth < 0) { calMonth = 11; calYear--; } renderCal(); };
+      document.getElementById('calNext')!.onclick = () => { calMonth++; if (calMonth > 11) { calMonth = 0; calYear++; } renderCal(); };
+      document.getElementById('bk-pickup')!.addEventListener('change', calcPrice);
+      document.getElementById('bk-return')!.addEventListener('change', calcPrice);
+      document.getElementById('bk-ins')!.addEventListener('change', calcPrice);
+      document.getElementById('bkSubmit')!.addEventListener('click', submitBooking);
+
+      renderCal();
+    }
+
+    function renderCal() {
+      const label = document.getElementById('calMonthLabel');
+      const grid  = document.getElementById('calGrid');
+      if (!label || !grid) return;
+
+      label.textContent = `${MONTHS[calMonth]} ${calYear}`;
+      grid.innerHTML = '';
+
+      DAYS.forEach(d => {
+        const el = document.createElement('div');
+        el.className = 'bk-day-name';
+        el.textContent = d;
+        grid.appendChild(el);
+      });
+
+      const firstDay = new Date(calYear, calMonth, 1).getDay();
+      const offset   = (firstDay + 6) % 7; // Mon-start
+      for (let i = 0; i < offset; i++) {
+        const el = document.createElement('div');
+        el.className = 'bk-day empty';
+        grid.appendChild(el);
+      }
+
+      const daysInMonth = new Date(calYear, calMonth + 1, 0).getDate();
+      const today = new Date(); today.setHours(0,0,0,0);
+
+      for (let d = 1; d <= daysInMonth; d++) {
+        const dateStr = `${calYear}-${String(calMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+        const date    = new Date(calYear, calMonth, d);
+        const el      = document.createElement('div');
+        el.className  = 'bk-day';
+        el.textContent = String(d);
+
+        if (date < today)             el.classList.add('past');
+        else if (BOOKED.includes(dateStr))  el.classList.add('booked');
+        else if (PARTIAL.includes(dateStr)) el.classList.add('partial');
+        else                                el.classList.add('avail');
+
+        if (dateStr === today.toISOString().split('T')[0]) el.classList.add('today');
+        if (selStart && dateStr === selStart) el.classList.add('sel-start');
+        if (selEnd   && dateStr === selEnd)   el.classList.add('sel-end');
+        if (selStart && selEnd && dateStr > selStart && dateStr < selEnd) el.classList.add('in-range');
+
+        if (!el.classList.contains('booked') && !el.classList.contains('past')) {
+          el.onclick = () => onDayClick(dateStr);
+        }
+        grid.appendChild(el);
+      }
+    }
+
+    function onDayClick(dateStr: string) {
+      const pickup = document.getElementById('bk-pickup') as HTMLInputElement;
+      const ret    = document.getElementById('bk-return') as HTMLInputElement;
+
+      if (!selStart || (selStart && selEnd)) {
+        selStart = dateStr; selEnd = null;
+        pickup.value = dateStr; ret.value = '';
+      } else {
+        if (dateStr <= selStart) { selStart = dateStr; pickup.value = dateStr; }
+        else { selEnd = dateStr; ret.value = dateStr; }
+      }
+      renderCal();
+      calcPrice();
+    }
+
+    function calcPrice() {
+      const p   = (document.getElementById('bk-pickup') as HTMLInputElement).value;
+      const r   = (document.getElementById('bk-return') as HTMLInputElement).value;
+      const ins = parseInt((document.getElementById('bk-ins') as HTMLSelectElement).value) || 0;
+      const summary = document.getElementById('bkSummary')!;
+
+      if (!p || !r || r <= p) { summary.style.display = 'none'; return; }
+
+      const days  = Math.round((new Date(r).getTime() - new Date(p).getTime()) / 86400000);
+      if (days < 1) { summary.style.display = 'none'; return; }
+
+      const base  = days * PRICE_PER_DAY;
+      const insTotal = ins * days;
+      const fmt = (n: number) => n.toLocaleString('pl-PL') + ' zł';
+
+      document.getElementById('bkDays')!.textContent = String(days);
+      document.getElementById('bkBase')!.textContent = fmt(base);
+
+      const insRow = document.getElementById('bkInsRow')!;
+      if (ins > 0) {
+        insRow.style.display = '';
+        const lbl = ins === 150 ? 'Ubezpieczenie Comfort' : 'Ubezpieczenie Premium';
+        document.getElementById('bkInsLabel')!.textContent = lbl;
+        document.getElementById('bkInsVal')!.textContent = fmt(insTotal);
+      } else {
+        insRow.style.display = 'none';
+      }
+
+      document.getElementById('bkTotal')!.textContent = fmt(base + insTotal + 10000) + ' (kaucja zwrotna)';
+      summary.style.display = '';
+    }
+
+    function submitBooking() {
+      const name  = (document.getElementById('bk-name')  as HTMLInputElement).value.trim();
+      const phone = (document.getElementById('bk-phone') as HTMLInputElement).value.trim();
+      const email = (document.getElementById('bk-email') as HTMLInputElement).value.trim();
+      const p     = (document.getElementById('bk-pickup') as HTMLInputElement).value;
+      const r     = (document.getElementById('bk-return') as HTMLInputElement).value;
+      const toast = document.getElementById('bkToast')!;
+      const btn   = document.getElementById('bkSubmit')  as HTMLButtonElement;
+
+      if (!name || !phone || !email || !p || !r) {
+        toast.textContent = 'Uzupełnij wszystkie pola.';
+        toast.className = 'bk-toast err'; return;
+      }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        toast.textContent = 'Podaj prawidłowy adres e-mail.';
+        toast.className = 'bk-toast err'; return;
+      }
+
+      btn.textContent = 'Wysyłanie…'; btn.disabled = true;
+      setTimeout(() => {
+        btn.innerHTML = '✓ Wysłano!'; btn.classList.add('sent');
+        toast.textContent = `Zapytanie wysłane! Oddzwonimy wkrótce, ${name.split(' ')[0]}.`;
+        toast.className = 'bk-toast';
+      }, 1200);
+    }
+
+    initBooking();
+    document.addEventListener('astro:after-swap', initBooking);
   </script>
 </BaseLayout>
