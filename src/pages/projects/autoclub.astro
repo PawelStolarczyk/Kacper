@@ -81,38 +81,123 @@ import Footer from '@components/layout/Footer.astro';
     .meta-v { font-size: 13px; font-weight: 600; color: var(--fg); line-height: 1.4; }
     .meta-s { font-size: 11px; color: var(--fg-60); font-weight: 400; }
 
-    /* TIER CARDS */
-    .tiers { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); }
-    .tier-card { padding: 36px 28px; background: var(--bg); position: relative; overflow: hidden; }
-    .tier-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
-    .tier-card.silver::before { background: linear-gradient(90deg, #94A3B8, #CBD5E1); }
-    .tier-card.gold::before   { background: linear-gradient(90deg, var(--ac-orange), #FBBF24); }
-    .tier-card.plat::before   { background: linear-gradient(90deg, var(--ac-blue), var(--ac-blue-l)); }
-    .tier-name { font-family: var(--font-display); font-weight: 900; font-size: 20px; letter-spacing: -.02em; margin-bottom: 4px; }
-    .tier-card.silver .tier-name { color: #94A3B8; }
-    .tier-card.gold   .tier-name { color: var(--ac-orange); }
-    .tier-card.plat   .tier-name { color: var(--ac-blue); }
-    .tier-price { font-family: var(--font-display); font-weight: 900; font-size: 40px; color: var(--fg); line-height: 1; margin: 16px 0 4px; }
-    .tier-per { font-size: 12px; color: var(--fg-60); margin-bottom: 20px; }
-    .tier-feat { list-style: none; display: flex; flex-direction: column; gap: 8px; }
-    .tier-feat li { font-size: 12px; color: var(--fg); display: flex; align-items: center; gap: 8px; }
-    .tier-feat li::before { content: ''; width: 16px; height: 16px; border-radius: 50%; flex-shrink: 0; }
-    .tier-card.silver .tier-feat li::before { background: var(--fg-10); border: 1px solid #94A3B8; }
-    .tier-card.gold   .tier-feat li::before { background: rgba(249,115,22,0.12); border: 1px solid var(--ac-orange); }
-    .tier-card.plat   .tier-feat li::before { background: rgba(37,99,235,0.12); border: 1px solid var(--ac-blue); }
+    /* PRICING CARDS */
+    .pricing-wrap { background: var(--bg2); }
+    .billing-toggle { display: inline-flex; align-items: center; background: var(--surface); border: 1.5px solid var(--border); border-radius: 14px; padding: 5px; box-shadow: 0 4px 16px rgba(0,0,0,0.07); }
+    .toggle-btn { position: relative; padding: 10px 26px; border-radius: 10px; font-size: 0.875rem; font-weight: 700; cursor: pointer; border: none; background: transparent; color: var(--fg-60); transition: all 0.28s cubic-bezier(0.25,0.8,0.25,1); font-family: var(--font-body); display: flex; align-items: center; gap: 8px; }
+    .toggle-btn.active { background: var(--bg); color: var(--fg); box-shadow: 0 2px 10px rgba(0,0,0,0.10); }
+    .toggle-save-chip { display: inline-flex; align-items: center; padding: 2px 8px; border-radius: 99px; font-size: 0.68rem; font-weight: 800; background: linear-gradient(135deg,#F97316,#EA6A0A); color: #fff; }
+    .pricing-grid { display: grid; grid-template-columns: 1fr 1.08fr 1fr; gap: 20px; align-items: start; max-width: 1060px; margin: 0 auto; }
+    .pricing-card { border-radius: 32px; padding: 36px 32px 32px; position: relative; overflow: hidden; transition: all 0.28s cubic-bezier(0.25,0.8,0.25,1); }
+    .pricing-card:hover { transform: translateY(-6px); }
+    .pricing-basic { background: var(--surface); border: 1px solid var(--border2); box-shadow: 0 8px 32px rgba(0,0,0,0.08); }
+    .pricing-premium { background: linear-gradient(160deg, rgba(37,99,235,0.88) 0%, rgba(29,78,216,0.92) 100%); border: 1px solid rgba(255,255,255,0.28); box-shadow: 0 32px 80px rgba(37,99,235,0.32); color: #fff; transform: translateY(-10px); }
+    .pricing-premium:hover { transform: translateY(-18px); }
+    .pricing-premium::before { content: ''; position: absolute; width: 320px; height: 320px; border-radius: 50%; background: radial-gradient(circle, rgba(255,255,255,0.09), transparent 70%); top: -100px; right: -80px; pointer-events: none; }
+    .pricing-vip { background: var(--surface); border: 1px solid rgba(249,115,22,0.22); box-shadow: 0 8px 32px rgba(249,115,22,0.08); }
+    .popular-badge { position: absolute; top: -1px; left: 50%; transform: translateX(-50%); padding: 5px 18px; border-radius: 0 0 14px 14px; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; background: linear-gradient(135deg, #F97316, #EA6A0A); color: #fff; box-shadow: 0 4px 12px rgba(249,115,22,0.35); white-space: nowrap; }
+    .plan-icon { width: 48px; height: 48px; border-radius: 14px; display: flex; align-items: center; justify-content: center; margin-bottom: 18px; }
+    .plan-icon svg { width: 22px; height: 22px; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .icon-basic { background: rgba(37,99,235,0.10); } .icon-basic svg { stroke: #2563EB; fill: none; }
+    .icon-premium { background: rgba(255,255,255,0.18); } .icon-premium svg { stroke: #fff; fill: none; }
+    .icon-vip { background: rgba(249,115,22,0.12); } .icon-vip svg { stroke: #F97316; fill: none; }
+    .plan-name { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 6px; }
+    .plan-name-basic { color: #2563EB; } .plan-name-premium { color: rgba(255,255,255,0.75); } .plan-name-vip { color: #F97316; }
+    .plan-headline { font-size: 1.3rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 6px; color: var(--fg); }
+    .pricing-premium .plan-headline { color: #fff; }
+    .plan-desc { font-size: 0.82rem; line-height: 1.55; color: var(--fg-60); margin-bottom: 24px; }
+    .pricing-premium .plan-desc { color: rgba(255,255,255,0.65); }
+    .price-block { margin-bottom: 8px; display: flex; align-items: flex-end; gap: 6px; }
+    .price-main { font-size: 2.8rem; font-weight: 900; letter-spacing: -0.04em; line-height: 1; color: var(--fg); }
+    .pricing-premium .price-main { color: #fff; }
+    .price-unit { font-size: 0.82rem; font-weight: 600; color: var(--fg-60); padding-bottom: 6px; }
+    .pricing-premium .price-unit { color: rgba(255,255,255,0.60); }
+    .price-saving { display: inline-flex; align-items: center; gap: 6px; font-size: 0.75rem; font-weight: 600; margin-bottom: 8px; }
+    .price-saving-basic { color: #2563EB; } .price-saving-premium { color: #FCD34D; } .price-saving-vip { color: #F97316; }
+    .price-old { font-size: 0.8rem; font-weight: 500; text-decoration: line-through; opacity: 0.5; margin-bottom: 24px; color: var(--fg); }
+    .pricing-premium .price-old { color: rgba(255,255,255,0.55); }
+    .plan-divider { height: 1px; margin: 20px 0; background: var(--border); }
+    .pricing-premium .plan-divider { background: rgba(255,255,255,0.15); }
+    .pricing-vip .plan-divider { background: rgba(249,115,22,0.14); }
+    .plan-features { list-style: none; display: flex; flex-direction: column; gap: 11px; margin-bottom: 28px; }
+    .plan-feature { display: flex; align-items: flex-start; gap: 10px; font-size: 0.84rem; line-height: 1.45; }
+    .feat-icon { width: 18px; height: 18px; border-radius: 6px; flex-shrink: 0; margin-top: 1px; display: flex; align-items: center; justify-content: center; }
+    .feat-icon svg { width: 10px; height: 10px; stroke-width: 3; }
+    .feat-yes-basic { background: rgba(16,185,129,0.12); } .feat-yes-basic svg { stroke: #10B981; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    .feat-yes-premium { background: rgba(255,255,255,0.20); } .feat-yes-premium svg { stroke: #fff; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    .feat-yes-vip { background: rgba(249,115,22,0.13); } .feat-yes-vip svg { stroke: #F97316; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    .feat-no { background: var(--fg-10); } .feat-no svg { stroke: var(--fg-30); fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    .feat-text-basic { color: var(--fg); } .feat-text-premium { color: rgba(255,255,255,0.88); } .feat-text-vip { color: var(--fg); } .feat-text-muted { color: var(--fg-60); }
+    .feat-highlight { display: inline; background: rgba(255,255,255,0.16); border-radius: 4px; padding: 0 5px; font-weight: 700; font-size: 0.8rem; color: #fff; }
+    .feat-highlight-vip { display: inline; background: rgba(249,115,22,0.12); border-radius: 4px; padding: 0 5px; font-weight: 700; font-size: 0.8rem; color: #F97316; }
+    .btn-plan-basic { width: 100%; padding: 13px; border-radius: 13px; font-size: 0.9rem; font-weight: 700; cursor: pointer; border: 1.5px solid rgba(37,99,235,0.28); background: rgba(37,99,235,0.07); color: #2563EB; transition: all 0.28s cubic-bezier(0.25,0.8,0.25,1); font-family: var(--font-body); }
+    .btn-plan-basic:hover { background: rgba(37,99,235,0.14); border-color: #2563EB; transform: translateY(-2px); }
+    .btn-plan-premium { width: 100%; padding: 13px; border-radius: 13px; font-size: 0.9rem; font-weight: 700; cursor: pointer; border: none; background: #fff; color: #2563EB; box-shadow: 0 4px 20px rgba(0,0,0,0.14); transition: all 0.28s cubic-bezier(0.25,0.8,0.25,1); font-family: var(--font-body); }
+    .btn-plan-premium:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,0,0,0.18); }
+    .btn-plan-vip { width: 100%; padding: 13px; border-radius: 13px; font-size: 0.9rem; font-weight: 700; cursor: pointer; border: none; background: linear-gradient(135deg, #F97316, #EA6A0A); color: #fff; box-shadow: 0 4px 20px rgba(249,115,22,0.38); transition: all 0.28s cubic-bezier(0.25,0.8,0.25,1); font-family: var(--font-body); }
+    .btn-plan-vip:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(249,115,22,0.48); }
+    .price-val { transition: opacity 0.25s ease, transform 0.25s ease; }
+    .price-val.switching { opacity: 0; transform: translateY(-6px); }
+    .pricing-footnote { text-align: center; margin-top: 36px; font-size: 0.8rem; color: var(--fg-60); line-height: 1.65; }
 
-    /* UX DECISIONS — zawsze ciemna sekcja, stałe kolory */
+    /* UX DECISIONS — zawsze ciemna sekcja */
     .decisions { display: grid; grid-template-columns: repeat(2,1fr); gap: 1px; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.10); }
     .dec { padding: 32px 28px; }
     .dec-n { font-size: 10px; letter-spacing: .2em; color: rgba(255,255,255,.25); margin-bottom: 8px; font-weight: 600; }
     .dec-title { font-family: var(--font-display); font-weight: 800; font-size: 16px; color: #fff; margin-bottom: 8px; }
     .dec-body { font-size: 12px; color: rgba(255,255,255,.45); line-height: 1.7; }
 
-    /* RESULTS */
-    .results { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); }
-    .res { padding: 32px 24px; background: var(--bg); text-align: center; }
-    .res-n { font-family: var(--font-display); font-weight: 900; font-size: 40px; color: var(--ac-blue); line-height: 1; }
-    .res-l { font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg-60); margin-top: 6px; }
+    /* CALENDAR */
+    .glass { background: var(--surface); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); border: 1px solid var(--border2); box-shadow: 0 8px 32px rgba(0,0,0,0.12); }
+    .glass-strong { background: var(--bg); backdrop-filter: saturate(200%) blur(40px); -webkit-backdrop-filter: saturate(200%) blur(40px); border: 1px solid var(--border2); box-shadow: 0 24px 64px rgba(0,0,0,0.14); }
+    .calendar-layout { display: grid; grid-template-columns: 1fr 360px; gap: 32px; align-items: start; }
+    .calendar-card { border-radius: 20px; padding: 32px 36px; }
+    .cal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; }
+    .cal-month { font-size: 1.1rem; font-weight: 700; color: var(--fg); }
+    .cal-nav { display: flex; gap: 8px; }
+    .cal-nav-btn { width: 36px; height: 36px; border-radius: 10px; border: 1px solid var(--border); background: var(--bg2); cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--fg-60); transition: all 0.2s; }
+    .cal-nav-btn:hover { background: rgba(37,99,235,0.08); color: #2563EB; border-color: #3B82F6; }
+    .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
+    .cal-day-name { text-align: center; font-size: 0.72rem; font-weight: 700; color: var(--fg-60); padding: 8px 0 12px; text-transform: uppercase; letter-spacing: 0.08em; }
+    .cal-day { min-height: 72px; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; font-weight: 500; border-radius: 12px; cursor: pointer; transition: all 0.2s; color: var(--fg); position: relative; }
+    .cal-day:hover:not(.booked):not(.empty):not(.past) { background: rgba(37,99,235,0.12); color: #2563EB; }
+    .cal-day.empty { cursor: default; color: transparent; pointer-events: none; background: var(--fg-10); }
+    .cal-day.past { opacity: 0.3; cursor: default; pointer-events: none; }
+    .cal-day.today { font-weight: 700; color: #2563EB; }
+    .cal-day.today::after { content: ''; position: absolute; bottom: 6px; left: 50%; transform: translateX(-50%); width: 4px; height: 4px; border-radius: 50%; background: #2563EB; }
+    .cal-day.available { background: rgba(16,185,129,0.14); color: #059669; font-weight: 600; }
+    .cal-day.available:hover { background: rgba(16,185,129,0.26); }
+    .cal-day.booked { background: rgba(239,68,68,0.12); color: #DC2626; cursor: not-allowed; text-decoration: line-through; opacity: 0.75; }
+    .cal-day.partial { background: rgba(245,158,11,0.14); color: #D97706; font-weight: 600; }
+    .cal-day.selected-start, .cal-day.selected-end { background: #2563EB !important; color: #fff !important; font-weight: 700; box-shadow: 0 4px 12px rgba(37,99,235,0.40); }
+    .cal-day.in-range { background: rgba(37,99,235,0.10); color: #2563EB; }
+    [data-theme="dark"] .cal-day.available  { background: rgba(16,185,129,0.22); color: #34D399; }
+    [data-theme="dark"] .cal-day.available:hover { background: rgba(16,185,129,0.35); }
+    [data-theme="dark"] .cal-day.booked     { background: rgba(239,68,68,0.22); color: #F87171; }
+    [data-theme="dark"] .cal-day.partial    { background: rgba(245,158,11,0.22); color: #FCD34D; }
+    [data-theme="dark"] .cal-day.in-range   { background: rgba(37,99,235,0.22); color: #93C5FD; }
+    [data-theme="dark"] .cal-day.empty      { background: rgba(255,255,255,0.03); }
+    .cal-legend { display: flex; gap: 16px; margin-top: 20px; flex-wrap: wrap; }
+    .legend-item { display: flex; align-items: center; gap: 6px; font-size: 0.78rem; color: var(--fg-60); }
+    .legend-dot { width: 10px; height: 10px; border-radius: 3px; }
+    .legend-dot.avail { background: rgba(16,185,129,0.60); } .legend-dot.booked { background: rgba(239,68,68,0.60); } .legend-dot.partial { background: rgba(245,158,11,0.60); }
+
+    /* BOOKING FORM */
+    .booking-panel { border-radius: 20px; padding: 28px 28px 32px; }
+    .booking-panel-title { font-size: 1.05rem; font-weight: 700; color: var(--fg); margin-bottom: 20px; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+    .form-label { font-size: 0.8rem; font-weight: 600; color: var(--fg); }
+    .form-input, .form-select { padding: 10px 14px; border-radius: 10px; font-family: var(--font-body); font-size: 0.88rem; border: 1px solid var(--border2); background: var(--bg2); color: var(--fg); outline: none; transition: all 0.2s; width: 100%; }
+    .form-input:focus, .form-select:focus { border-color: #2563EB; box-shadow: 0 0 0 3px rgba(37,99,235,0.12); }
+    .form-input::placeholder { color: var(--fg-30); }
+    .price-summary { border-radius: 12px; padding: 16px; margin: 16px 0; border: 1px solid var(--border); background: rgba(37,99,235,0.06); }
+    .price-row { display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; padding: 4px 0; color: var(--fg-60); }
+    .price-row:last-child { padding-top: 10px; margin-top: 4px; border-top: 1px solid var(--border); font-weight: 700; font-size: 0.92rem; color: var(--fg); }
+    .price-row span:last-child { font-weight: 600; color: var(--fg); }
+    .price-total-num { font-size: 1.1rem; color: #2563EB; font-weight: 800; }
+    .form-submit { width: 100%; padding: 14px; border-radius: 12px; font-size: 0.95rem; font-weight: 700; color: #fff; cursor: pointer; border: none; background: linear-gradient(135deg, #F97316, #EA6A0A); box-shadow: 0 6px 24px rgba(249,115,22,0.40); transition: all 0.28s cubic-bezier(0.25,0.8,0.25,1); display: flex; align-items: center; justify-content: center; gap: 8px; font-family: var(--font-body); }
+    .form-submit:hover { transform: translateY(-2px); box-shadow: 0 10px 32px rgba(249,115,22,0.50); }
+    .form-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
 
     /* CTA — zawsze ciemna, stałe kolory */
     .cta-band {
@@ -140,9 +225,11 @@ import Footer from '@components/layout/Footer.astro';
       .meta { grid-template-columns: 1fr 1fr; }
       .meta-cell:nth-child(2) { border-right: none; }
       .meta-cell:nth-child(1), .meta-cell:nth-child(2) { border-bottom: 1px solid var(--border); }
-      .tiers { grid-template-columns: 1fr; }
       .decisions { grid-template-columns: 1fr; }
-      .results { grid-template-columns: repeat(2,1fr); }
+      .calendar-layout { grid-template-columns: 1fr; }
+      .pricing-grid { grid-template-columns: 1fr; max-width: 480px; }
+      .pricing-premium { transform: none; }
+      .pricing-premium:hover { transform: translateY(-6px); }
       .cta-band { flex-direction: column; text-align: center; }
       .w { padding: 0 24px; }
     }
@@ -153,6 +240,12 @@ import Footer from '@components/layout/Footer.astro';
       .meta { grid-template-columns: 1fr; }
       .meta-cell { border-right: none !important; border-bottom: 1px solid var(--border); }
       .meta-cell:last-child { border-bottom: none; }
+      .cta-band { padding: 56px 20px; }
+      .w { padding: 0 20px; }
+    }
+  </style>
+
+  <div>
       .results { grid-template-columns: 1fr 1fr; }
       .cta-band { padding: 56px 20px; }
       .w { padding: 0 20px; }
@@ -197,54 +290,81 @@ import Footer from '@components/layout/Footer.astro';
       <div class="meta-cell"><div class="meta-l">Czas realizacji</div><div class="meta-v">10 tygodni</div><div class="meta-s">End-to-end</div></div>
     </div>
 
-    <!-- MEMBERSHIP TIERS -->
-    <section class="section">
+    <!-- MEMBERSHIP TIERS — pricing cards z billing toggle -->
+    <section class="section pricing-wrap">
       <div class="w">
-        <div class="r">
+        <div class="r" style="text-align:center;margin-bottom:48px">
           <div class="sec-label">01 — System membership</div>
           <h2 class="sec-h">Trzy poziomy, <em>jedno doświadczenie</em></h2>
-          <p class="sec-lead">Każdy tier ma inny ton komunikacji, dostęp do floty i zestaw benefitów — ale spójny język wizualny. Różnicowanie przez kolor i typografię, nie przez osobne layouty.</p>
+          <p class="sec-lead" style="margin:0 auto">Każdy tier ma inny ton komunikacji, dostęp do floty i zestaw benefitów — ale spójny język wizualny. Billing toggle z animowaną kalkulacją oszczędności.</p>
         </div>
-        <div class="tiers r d1">
-          <div class="tier-card silver">
-            <div class="tier-name">Silver</div>
-            <div style="font-size:11px;color:var(--ac-muted)">Dla nowych członków</div>
-            <div class="tier-price">99 <span style="font-size:16px;font-weight:400">zł</span></div>
-            <div class="tier-per">/miesiąc lub 79 zł przy planie rocznym</div>
-            <ul class="tier-feat">
-              <li>Dostęp do floty podstawowej (8 modeli)</li>
-              <li>2 rezerwacje miesięcznie</li>
-              <li>Standard insurance</li>
-              <li>24/7 support chat</li>
-            </ul>
-          </div>
-          <div class="tier-card gold">
-            <div class="tier-name">Gold</div>
-            <div style="font-size:11px;color:var(--ac-muted)">Dla regularnych klientów</div>
-            <div class="tier-price">199 <span style="font-size:16px;font-weight:400">zł</span></div>
-            <div class="tier-per">/miesiąc lub 159 zł przy planie rocznym</div>
-            <ul class="tier-feat">
-              <li>Pełna flota (12+ modeli)</li>
-              <li>5 rezerwacji miesięcznie</li>
-              <li>Premium insurance + GPS</li>
-              <li>Priorytetowe wsparcie</li>
-              <li>Bezpłatna dostawa pojazdu</li>
-            </ul>
-          </div>
-          <div class="tier-card plat">
-            <div class="tier-name">Platinum</div>
-            <div style="font-size:11px;color:var(--ac-muted)">Dla wymagających</div>
-            <div class="tier-price">399 <span style="font-size:16px;font-weight:400">zł</span></div>
-            <div class="tier-per">/miesiąc lub 319 zł przy planie rocznym</div>
-            <ul class="tier-feat">
-              <li>Ekskluzywna flota (wszystkie modele)</li>
-              <li>Nieograniczone rezerwacje</li>
-              <li>VIP concierge 24/7</li>
-              <li>Dedykowany opiekun klienta</li>
-              <li>Dostęp do wydarzeń zamkniętych</li>
-            </ul>
+        <div class="r" style="display:flex;justify-content:center;margin-bottom:48px">
+          <div class="billing-toggle" role="group">
+            <button class="toggle-btn active" id="toggleMonthly" aria-pressed="true">Miesięcznie</button>
+            <button class="toggle-btn" id="toggleAnnual" aria-pressed="false">Rocznie <span class="toggle-save-chip">-20%</span></button>
           </div>
         </div>
+        <div class="pricing-grid r d1">
+          <!-- BASIC -->
+          <div class="pricing-card pricing-basic">
+            <div class="plan-icon icon-basic"><svg viewBox="0 0 24 24"><path d="M20 7H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div>
+            <div class="plan-name plan-name-basic">Basic</div>
+            <div class="plan-headline">Wejście do świata</div>
+            <div class="plan-desc">Idealny start dla osób, które chcą poznać AutoClub bez zobowiązań.</div>
+            <div class="price-block"><div class="price-main price-val" id="price-basic">99</div><div class="price-unit">zł<br>/mies.</div></div>
+            <div class="price-saving price-saving-basic" id="saving-basic" style="visibility:hidden"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Oszczędzasz 238 zł rocznie</div>
+            <div class="price-old" id="old-basic" style="visibility:hidden">było 99 zł/mies.</div>
+            <div class="plan-divider"></div>
+            <ul class="plan-features">
+              <li class="plan-feature"><span class="feat-icon feat-yes-basic"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span><span class="feat-text-basic">Dostęp do <strong>35 pojazdów</strong> z floty podstawowej</span></li>
+              <li class="plan-feature"><span class="feat-icon feat-yes-basic"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span><span class="feat-text-basic">Zniżka <strong>10%</strong> na każdy wynajem</span></li>
+              <li class="plan-feature"><span class="feat-icon feat-yes-basic"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span><span class="feat-text-basic">Rezerwacja online 24/7</span></li>
+              <li class="plan-feature"><span class="feat-icon feat-no"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span><span class="feat-text-muted">Dostawa pod wskazany adres</span></li>
+              <li class="plan-feature"><span class="feat-icon feat-no"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span><span class="feat-text-muted">Concierge i pełne OC/AC</span></li>
+            </ul>
+            <button class="btn-plan-basic">Zacznij z Basic</button>
+          </div>
+          <!-- PREMIUM -->
+          <div class="pricing-card pricing-premium">
+            <div class="popular-badge">Najpopularniejszy</div>
+            <div class="plan-icon icon-premium"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+            <div class="plan-name plan-name-premium">Premium</div>
+            <div class="plan-headline" style="color:#fff">Pełne doświadczenie</div>
+            <div class="plan-desc">Nieograniczony dostęp do floty premium, obsługa VIP i ekskluzywne eventy.</div>
+            <div class="price-block"><div class="price-main price-val" id="price-premium" style="color:#fff">199</div><div class="price-unit" style="color:rgba(255,255,255,0.60)">zł<br>/mies.</div></div>
+            <div class="price-saving price-saving-premium" id="saving-premium" style="visibility:hidden"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Oszczędzasz <strong style="color:#FCD34D">478 zł</strong> rocznie</div>
+            <div class="price-old" id="old-premium" style="visibility:hidden;color:rgba(255,255,255,0.45)">normalna cena: 199 zł/mies.</div>
+            <div class="plan-divider"></div>
+            <ul class="plan-features">
+              <li class="plan-feature"><span class="feat-icon feat-yes-premium"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span><span class="feat-text-premium">Dostęp do <span class="feat-highlight">85+ pojazdów</span> — cała flota</span></li>
+              <li class="plan-feature"><span class="feat-icon feat-yes-premium"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span><span class="feat-text-premium">Zniżka <span class="feat-highlight">40%</span> na każdy wynajem</span></li>
+              <li class="plan-feature"><span class="feat-icon feat-yes-premium"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span><span class="feat-text-premium">Dostawa i odbiór pod wskazany adres</span></li>
+              <li class="plan-feature"><span class="feat-icon feat-yes-premium"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span><span class="feat-text-premium">Pełne OC/AC + assistance 24/7</span></li>
+              <li class="plan-feature"><span class="feat-icon feat-yes-premium"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span><span class="feat-text-premium">Zaproszenia na <span class="feat-highlight">4 eventy</span> rocznie</span></li>
+            </ul>
+            <button class="btn-plan-premium">Wybierz Premium</button>
+          </div>
+          <!-- VIP -->
+          <div class="pricing-card pricing-vip">
+            <div class="plan-icon icon-vip"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+            <div class="plan-name plan-name-vip">VIP</div>
+            <div class="plan-headline">Bez kompromisów</div>
+            <div class="plan-desc">Absolutna ekskluzywność, dedykowany concierge i prywatny kierowca na zawołanie.</div>
+            <div class="price-block"><div class="price-main price-val" id="price-vip">399</div><div class="price-unit">zł<br>/mies.</div></div>
+            <div class="price-saving price-saving-vip" id="saving-vip" style="visibility:hidden"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Oszczędzasz 957 zł rocznie</div>
+            <div class="price-old" id="old-vip" style="visibility:hidden">było 399 zł/mies.</div>
+            <div class="plan-divider"></div>
+            <ul class="plan-features">
+              <li class="plan-feature"><span class="feat-icon feat-yes-vip"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span><span class="feat-text-vip">Dostęp do <span class="feat-highlight-vip">całej floty</span> + pojazdy kolekcjonerskie</span></li>
+              <li class="plan-feature"><span class="feat-icon feat-yes-vip"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span><span class="feat-text-vip">Zniżka <span class="feat-highlight-vip">55%</span> — najlepsza stawka</span></li>
+              <li class="plan-feature"><span class="feat-icon feat-yes-vip"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span><span class="feat-text-vip">Dedykowany kierowca <span class="feat-highlight-vip">on-call 24/7</span></span></li>
+              <li class="plan-feature"><span class="feat-icon feat-yes-vip"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span><span class="feat-text-vip">Prywatny concierge — pełna obsługa</span></li>
+              <li class="plan-feature"><span class="feat-icon feat-yes-vip"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span><span class="feat-text-vip">Karta <span class="feat-highlight-vip">AutoClub Black</span></span></li>
+            </ul>
+            <button class="btn-plan-vip">Zostań VIP</button>
+          </div>
+        </div>
+        <div class="pricing-footnote r d2">Wszystkie ceny zawierają VAT 23%. Brak długoterminowych umów — anuluj w każdej chwili.</div>
       </div>
     </section>
 
@@ -257,43 +377,71 @@ import Footer from '@components/layout/Footer.astro';
           <p class="sec-lead light">Każda decyzja poprzedzona analizą danych z badań i A/B testów na istniejących przepływach.</p>
         </div>
         <div class="decisions r d1">
-          <div class="dec">
-            <div class="dec-n">01</div>
-            <div class="dec-title">Booking w 3 krokach</div>
-            <div class="dec-body">Stary flow miał 11 kroków — zbędne pytania o preferencje odkładaliśmy na profil. Wyszukiwarka z datami jako główny CTA, reszta opcjonalna. Task completion: 34% → 94%.</div>
-          </div>
-          <div class="dec">
-            <div class="dec-n">02</div>
-            <div class="dec-title">Real-time status floty</div>
-            <div class="dec-body">Dostępny / Limitowany / Zarezerwowany / Wkrótce — żywy stan zamiast statycznej listy. Użytkownicy rezerwują szybciej gdy widzą ograniczoną dostępność.</div>
-          </div>
-          <div class="dec">
-            <div class="dec-n">03</div>
-            <div class="dec-title">Tier badge w każdym kontekście</div>
-            <div class="dec-body">Status membership widoczny w nav, kartach floty i profilu — poczucie przynależności do ekskluzywnego klubu na każdym kroku, nie tylko na stronie cennika.</div>
-          </div>
-          <div class="dec">
-            <div class="dec-n">04</div>
-            <div class="dec-title">Billing toggle z animacją oszczędności</div>
-            <div class="dec-body">Przełącznik miesięczny/roczny z animowaną kalkulacją oszczędności (do 960 zł/rok) i toast notification — konwersja na plany roczne wzrosła o 28%.</div>
-          </div>
+          <div class="dec"><div class="dec-n">01</div><div class="dec-title">Booking w 3 krokach</div><div class="dec-body">Stary flow miał 11 kroków — zbędne pytania o preferencje odkładaliśmy na profil. Wyszukiwarka z datami jako główny CTA. Task completion: 34% → 94%.</div></div>
+          <div class="dec"><div class="dec-n">02</div><div class="dec-title">Real-time status floty</div><div class="dec-body">Dostępny / Limitowany / Zarezerwowany — żywy stan zamiast statycznej listy. Użytkownicy rezerwują szybciej gdy widzą ograniczoną dostępność.</div></div>
+          <div class="dec"><div class="dec-n">03</div><div class="dec-title">Tier badge w każdym kontekście</div><div class="dec-body">Status membership widoczny w nav, kartach floty i profilu — poczucie przynależności do ekskluzywnego klubu na każdym kroku.</div></div>
+          <div class="dec"><div class="dec-n">04</div><div class="dec-title">Billing toggle z animacją oszczędności</div><div class="dec-body">Przełącznik miesięczny/roczny z animowaną kalkulacją oszczędności (do 960 zł/rok) — konwersja na plany roczne wzrosła o 28%.</div></div>
         </div>
       </div>
     </section>
 
-    <!-- RESULTS -->
-    <section class="section">
+    <!-- BOOKING CALENDAR -->
+    <section class="section alt">
       <div class="w">
         <div class="r">
-          <div class="sec-label">03 — Wyniki</div>
-          <h2 class="sec-h">Prototyp <em>przetestowany</em> z 18 użytkownikami</h2>
-          <p class="sec-lead">Mieszanka nowych i powracających klientów premium. Sesje moderowane + testy niemodernowane na Maze.</p>
+          <div class="sec-label">03 — Moduł rezerwacji</div>
+          <h2 class="sec-h">Kalendarz dostępności <em>i formularz</em></h2>
+          <p class="sec-lead">Kliknij dzień w kalendarzu aby wybrać termin — formularz i kalkulator ceny aktualizują się na żywo.</p>
         </div>
-        <div class="results r d1">
-          <div class="res"><div class="res-n">-40%</div><div class="res-l">czas do rezerwacji</div></div>
-          <div class="res"><div class="res-n">94%</div><div class="res-l">task completion</div></div>
-          <div class="res"><div class="res-n">NPS 71</div><div class="res-l">wynik prototypu</div></div>
-          <div class="res"><div class="res-n">+28%</div><div class="res-l">wybór planu rocznego</div></div>
+        <div class="calendar-layout r d1">
+          <div class="calendar-card glass">
+            <div class="cal-header">
+              <div class="cal-month" id="calMonthLabel"></div>
+              <div class="cal-nav">
+                <button class="cal-nav-btn" id="calPrev" aria-label="Poprzedni miesiąc"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg></button>
+                <button class="cal-nav-btn" id="calNext" aria-label="Następny miesiąc"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></button>
+              </div>
+            </div>
+            <div class="cal-grid" id="calGrid"></div>
+            <div class="cal-legend">
+              <div class="legend-item"><div class="legend-dot avail"></div>Dostępny</div>
+              <div class="legend-item"><div class="legend-dot booked"></div>Zarezerwowany</div>
+              <div class="legend-item"><div class="legend-dot partial"></div>Częściowo wolny</div>
+            </div>
+          </div>
+          <div class="booking-panel glass-strong">
+            <div class="booking-panel-title">Formularz rezerwacji</div>
+            <div class="form-group"><label class="form-label" for="pickup-date">Data odbioru *</label><input type="date" class="form-input" id="pickup-date" /></div>
+            <div class="form-group"><label class="form-label" for="return-date">Data zwrotu *</label><input type="date" class="form-input" id="return-date" /></div>
+            <div class="form-group"><label class="form-label" for="pickup-loc">Miejsce odbioru</label>
+              <select class="form-select" id="pickup-loc">
+                <option value="0">Warszawa centrum (bezpłatnie)</option>
+                <option value="200">Lotnisko Chopina (+200 zł)</option>
+                <option value="400">Kraków (+400 zł)</option>
+              </select>
+            </div>
+            <div class="form-group"><label class="form-label" for="insurance">Pakiet ubezpieczenia</label>
+              <select class="form-select" id="insurance">
+                <option value="0">Podstawowy — udział własny 5 000 zł</option>
+                <option value="150" selected>Comfort (+150 zł/dobę)</option>
+                <option value="300">Premium — brak udziału (+300 zł/dobę)</option>
+              </select>
+            </div>
+            <div class="form-group"><label class="form-label" for="client-name">Imię i nazwisko *</label><input type="text" class="form-input" id="client-name" placeholder="Jan Kowalski" /></div>
+            <div class="form-group"><label class="form-label" for="client-phone">Telefon *</label><input type="tel" class="form-input" id="client-phone" placeholder="+48 600 000 000" /></div>
+            <div class="form-group"><label class="form-label" for="client-email">E-mail *</label><input type="email" class="form-input" id="client-email" placeholder="jan@email.pl" /></div>
+            <div class="price-summary" id="priceSummary" style="display:none">
+              <div class="price-row"><span>Wynajem (<span id="ps-days">0</span> doby)</span><span id="ps-base">0 zł</span></div>
+              <div class="price-row" id="ps-ins-row" style="display:none"><span id="ps-ins-label">Ubezpieczenie</span><span id="ps-ins">0 zł</span></div>
+              <div class="price-row"><span>Kaucja (zwrotna)</span><span>10 000 zł</span></div>
+              <div class="price-row"><span style="font-weight:700">RAZEM</span><span class="price-total-num" id="ps-total">0 zł</span></div>
+            </div>
+            <button class="form-submit" id="bookingSubmit">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.88 19.79 19.79 0 01.07 1.17 2 2 0 012.06 0h3a2 2 0 012 1.72c.13.95.35 1.9.66 2.82a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.92.31 1.87.53 2.82.66A2 2 0 0122 14.92v2z"/></svg>
+              Wyślij zapytanie o rezerwację
+            </button>
+            <div id="bookingToast" style="margin-top:12px;font-size:0.82rem;text-align:center;min-height:18px;font-weight:600"></div>
+          </div>
         </div>
       </div>
     </section>
@@ -324,5 +472,139 @@ import Footer from '@components/layout/Footer.astro';
     function initReveal() { document.querySelectorAll('.r:not(.v)').forEach(el => io.observe(el)); }
     initReveal();
     document.addEventListener('astro:after-swap', initReveal);
+  </script>
+
+  <script>
+    const BOOKED  = ['2026-03-24','2026-03-25','2026-03-26','2026-04-05','2026-04-06','2026-04-07','2026-04-08','2026-04-15','2026-04-16','2026-04-22','2026-04-23','2026-04-24','2026-04-25','2026-04-26','2026-04-27'];
+    const PARTIAL = ['2026-03-28','2026-04-12'];
+    const MONTHS  = ['Styczeń','Luty','Marzec','Kwiecień','Maj','Czerwiec','Lipiec','Sierpień','Wrzesień','Październik','Listopad','Grudzień'];
+    const DAYS_PL = ['Pn','Wt','Śr','Cz','Pt','Sb','Nd'];
+    let calYear: number, calMonth: number, selStart: string|null = null, selEnd: string|null = null;
+
+    function initBooking() {
+      const grid = document.getElementById('calGrid');
+      if (!grid) return;
+      const now = new Date(); calYear = now.getFullYear(); calMonth = now.getMonth();
+      document.getElementById('calPrev')!.onclick = () => { calMonth--; if (calMonth < 0) { calMonth = 11; calYear--; } renderCal(); };
+      document.getElementById('calNext')!.onclick = () => { calMonth++; if (calMonth > 11) { calMonth = 0; calYear++; } renderCal(); };
+      document.getElementById('pickup-date')!.addEventListener('change', calcPrice);
+      document.getElementById('return-date')!.addEventListener('change', calcPrice);
+      document.getElementById('insurance')!.addEventListener('change', calcPrice);
+      document.getElementById('bookingSubmit')!.addEventListener('click', submitBooking);
+      renderCal();
+    }
+
+    function renderCal() {
+      const label = document.getElementById('calMonthLabel');
+      const grid  = document.getElementById('calGrid');
+      if (!label || !grid) return;
+      label.textContent = `${MONTHS[calMonth]} ${calYear}`;
+      grid.innerHTML = '';
+      DAYS_PL.forEach(d => { const el = document.createElement('div'); el.className = 'cal-day-name'; el.textContent = d; grid.appendChild(el); });
+      const offset = (new Date(calYear, calMonth, 1).getDay() + 6) % 7;
+      for (let i = 0; i < offset; i++) { const el = document.createElement('div'); el.className = 'cal-day empty'; grid.appendChild(el); }
+      const daysInMonth = new Date(calYear, calMonth + 1, 0).getDate();
+      const today = new Date(); today.setHours(0,0,0,0);
+      for (let d = 1; d <= daysInMonth; d++) {
+        const dateStr = `${calYear}-${String(calMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+        const date = new Date(calYear, calMonth, d);
+        const el = document.createElement('div'); el.className = 'cal-day'; el.textContent = String(d);
+        if (date < today) el.classList.add('past');
+        else if (BOOKED.includes(dateStr)) el.classList.add('booked');
+        else if (PARTIAL.includes(dateStr)) el.classList.add('partial');
+        else el.classList.add('available');
+        if (dateStr === today.toISOString().split('T')[0]) el.classList.add('today');
+        if (selStart && dateStr === selStart) el.classList.add('selected-start');
+        if (selEnd   && dateStr === selEnd)   el.classList.add('selected-end');
+        if (selStart && selEnd && dateStr > selStart && dateStr < selEnd) el.classList.add('in-range');
+        if (!el.classList.contains('booked') && !el.classList.contains('past')) el.onclick = () => onDayClick(dateStr);
+        grid.appendChild(el);
+      }
+    }
+
+    function onDayClick(dateStr: string) {
+      const pickup = document.getElementById('pickup-date') as HTMLInputElement;
+      const ret    = document.getElementById('return-date') as HTMLInputElement;
+      if (!selStart || (selStart && selEnd)) { selStart = dateStr; selEnd = null; pickup.value = dateStr; ret.value = ''; }
+      else { if (dateStr <= selStart) { selStart = dateStr; pickup.value = dateStr; } else { selEnd = dateStr; ret.value = dateStr; } }
+      renderCal(); calcPrice();
+    }
+
+    function calcPrice() {
+      const p = (document.getElementById('pickup-date') as HTMLInputElement).value;
+      const r = (document.getElementById('return-date') as HTMLInputElement).value;
+      const ins = parseInt((document.getElementById('insurance') as HTMLSelectElement).value) || 0;
+      const summary = document.getElementById('priceSummary')!;
+      if (!p || !r || r <= p) { summary.style.display = 'none'; return; }
+      const days = Math.round((new Date(r).getTime() - new Date(p).getTime()) / 86400000);
+      if (days < 1) { summary.style.display = 'none'; return; }
+      const fmt = (n: number) => n.toLocaleString('pl-PL') + ' zł';
+      const base = days * 2400; const insTotal = ins * days;
+      document.getElementById('ps-days')!.textContent = String(days);
+      document.getElementById('ps-base')!.textContent = fmt(base);
+      const insRow = document.getElementById('ps-ins-row')!;
+      if (ins > 0) { insRow.style.display = ''; document.getElementById('ps-ins-label')!.textContent = ins === 150 ? 'Ubezpieczenie Comfort' : 'Ubezpieczenie Premium'; document.getElementById('ps-ins')!.textContent = fmt(insTotal); }
+      else insRow.style.display = 'none';
+      (document.querySelector('#priceSummary .price-total-num') as HTMLElement).textContent = fmt(base + insTotal + 10000);
+      summary.style.display = '';
+    }
+
+    function submitBooking() {
+      const name  = (document.getElementById('client-name')  as HTMLInputElement).value.trim();
+      const phone = (document.getElementById('client-phone') as HTMLInputElement).value.trim();
+      const email = (document.getElementById('client-email') as HTMLInputElement).value.trim();
+      const p     = (document.getElementById('pickup-date')  as HTMLInputElement).value;
+      const r     = (document.getElementById('return-date')  as HTMLInputElement).value;
+      const toast = document.getElementById('bookingToast')!;
+      const btn   = document.getElementById('bookingSubmit') as HTMLButtonElement;
+      if (!name || !phone || !email || !p || !r) { toast.style.color = '#EF4444'; toast.textContent = 'Uzupełnij wszystkie wymagane pola.'; return; }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { toast.style.color = '#EF4444'; toast.textContent = 'Podaj prawidłowy adres e-mail.'; return; }
+      btn.textContent = 'Wysyłanie…'; btn.disabled = true;
+      setTimeout(() => {
+        btn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> Wysłano!`;
+        btn.style.background = 'linear-gradient(135deg,#059669,#10B981)';
+        toast.style.color = '#059669'; toast.textContent = `✓ Zapytanie wysłane! Oddzwonimy wkrótce, ${name.split(' ')[0]}.`;
+      }, 1400);
+    }
+
+    const PRICES = { monthly: { basic: 99, premium: 199, vip: 399 }, annual: { basic: 79, premium: 159, vip: 319 } };
+    let currentBilling = 'monthly';
+
+    function initBillingToggle() {
+      const btnM = document.getElementById('toggleMonthly');
+      const btnA = document.getElementById('toggleAnnual');
+      if (!btnM || !btnA) return;
+      btnM.onclick = () => setBilling('monthly');
+      btnA.onclick = () => setBilling('annual');
+    }
+
+    function setBilling(mode: string) {
+      if (mode === currentBilling) return;
+      currentBilling = mode;
+      document.getElementById('toggleMonthly')!.classList.toggle('active', mode === 'monthly');
+      document.getElementById('toggleAnnual')!.classList.toggle('active',  mode === 'annual');
+      (['basic','premium','vip'] as const).forEach(plan => {
+        const priceEl = document.getElementById(`price-${plan}`);
+        const savingEl = document.getElementById(`saving-${plan}`);
+        const oldEl = document.getElementById(`old-${plan}`);
+        if (!priceEl) return;
+        priceEl.classList.add('switching');
+        setTimeout(() => {
+          priceEl.textContent = String((PRICES as any)[mode][plan]);
+          if (mode === 'annual') {
+            if (savingEl) savingEl.style.visibility = 'visible';
+            if (oldEl) { oldEl.style.visibility = 'visible'; oldEl.textContent = `było ${(PRICES as any).monthly[plan]} zł/mies.`; }
+          } else {
+            if (savingEl) savingEl.style.visibility = 'hidden';
+            if (oldEl) oldEl.style.visibility = 'hidden';
+          }
+          priceEl.classList.remove('switching');
+        }, 220);
+      });
+    }
+
+    function init() { selStart = null; selEnd = null; initBooking(); initBillingToggle(); }
+    init();
+    document.addEventListener('astro:after-swap', init);
   </script>
 </BaseLayout>
