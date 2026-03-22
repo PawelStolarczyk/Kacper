@@ -37,11 +37,11 @@ const projects = (await getCollection('projects'))
                 </div>
                 <!-- Stats preview -->
                 {stats.length > 0 && (
-                  <div style="display:flex; gap:24px; margin-top:16px; padding-top:16px; border-top:1px solid var(--ls-border)">
+                  <div style="display:flex; gap:16px; margin-top:16px; padding-top:16px; border-top:1px solid var(--ls-border); flex-wrap:wrap;">
                     {stats.slice(0,3).map(s => (
-                      <div>
-                        <div style="font-family:var(--font-display); font-weight:800; font-size:20px; color:var(--ls-fg)">{s.value}</div>
-                        <div style="font-size:9px; letter-spacing:.14em; text-transform:uppercase; color:var(--ls-fg-50)">{s.label}</div>
+                      <div style="min-width:0;">
+                        <div style="font-family:var(--font-display); font-weight:800; font-size:20px; color:var(--ls-fg); white-space:nowrap;">{s.value}</div>
+                        <div style="font-size:9px; letter-spacing:.14em; text-transform:uppercase; color:var(--ls-fg-50); white-space:nowrap;">{s.label}</div>
                       </div>
                     ))}
                   </div>
@@ -95,5 +95,20 @@ const projects = (await getCollection('projects'))
     .sec-header { grid-template-columns:1fr; gap:16px; }
     .case-item { grid-template-columns:60px 1fr; gap:24px; }
     .case-cta { display:none; }
+  }
+  @media(max-width:700px) {
+    .case-item {
+      grid-template-columns: 1fr;
+      gap: 12px;
+      padding: 24px 20px;
+    }
+    .case-n { font-size: 20px; }
+    .case-title { font-size: 17px; }
+    .case-item > div:first-child { display: none; }
+    /* stats row — wrap zamiast overflow */
+    .case-item > div > div[style*="display:flex; gap:24px"] {
+      flex-wrap: wrap;
+      gap: 16px;
+    }
   }
 </style>
