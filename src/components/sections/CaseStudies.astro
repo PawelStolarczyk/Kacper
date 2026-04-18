@@ -3,7 +3,7 @@
 import { getCollection } from 'astro:content';
 
 const projects = (await getCollection('projects'))
-  .sort((a, b) => a.data.order - b.data.order)
+  .sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0))
   .slice(0, 3); // show top 3 in the list
 ---
 
@@ -36,7 +36,7 @@ const projects = (await getCollection('projects'))
                   <span class="case-tag">{year}</span>
                 </div>
                 <!-- Stats preview -->
-                {stats.length > 0 && (
+                {stats && stats.length > 0 && (
                   <div style="display:flex; gap:16px; margin-top:16px; padding-top:16px; border-top:1px solid var(--ls-border); flex-wrap:wrap;">
                     {stats.slice(0,3).map(s => (
                       <div style="min-width:0;">

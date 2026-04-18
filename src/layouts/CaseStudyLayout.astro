@@ -82,7 +82,7 @@ const { title, subtitle, year, tags, accent, stats, client, role, duration, tool
                 <div style="font-size:13px; font-weight:500">{duration}</div>
               </div>
             )}
-            {tools.length > 0 && (
+            {tools && tools.length > 0 && (
               <div style="padding:24px; background:var(--bg2)">
                 <div style="font-size:9px; letter-spacing:.2em; text-transform:uppercase; color:var(--fg-30); margin-bottom:8px">Narzędzia</div>
                 <div style="font-size:12px; color:var(--fg-60)">{tools.join(' · ')}</div>
@@ -92,7 +92,7 @@ const { title, subtitle, year, tags, accent, stats, client, role, duration, tool
         </div>
 
         <!-- Stats row -->
-        {stats.length > 0 && (
+        {stats && stats.length > 0 && (
           <div class="reveal" style="display:grid; grid-template-columns:repeat(4,1fr); border:1px solid var(--border); margin-top:64px">
             {stats.map((s, i) => (
               <div style={`padding:32px; border-right:${i < stats.length - 1 ? '1px solid var(--border)' : 'none'}`}>

@@ -1,15 +1,37 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from "motion/react";
 import { Cpu } from "lucide-react";
 
 const PARTICLE_COUNT = 40;
 
 const Particle = () => {
-  const randomX = useMemo(() => Math.random() * 100, []);
-  const randomY = useMemo(() => Math.random() * 100, []);
-  const randomDelay = useMemo(() => Math.random() * 5, []);
-  const randomDuration = useMemo(() => 15 + Math.random() * 25, []);
-  const randomSize = useMemo(() => 1 + Math.random() * 2, []);
+  const [mounted, setMounted] = useState(false);
+  const [randomVals, setRandomVals] = useState({
+    startX: 0,
+    endX: 0,
+    startY: 0,
+    endY: 0,
+    delay: 0,
+    duration: 15,
+    size: 1,
+  });
+
+  useEffect(() => {
+    const x = Math.random() * 100;
+    const y = Math.random() * 100;
+    setRandomVals({
+      startX: x,
+      endX: x + (Math.random() * 10 - 5),
+      startY: y,
+      endY: y + (Math.random() * 10 - 5),
+      delay: Math.random() * 5,
+      duration: 15 + Math.random() * 25,
+      size: 1 + Math.random() * 2,
+    });
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
 
   return (
     <motion.div
@@ -17,17 +39,17 @@ const Particle = () => {
       animate={{
         opacity: [0, 0.4, 0],
         scale: [0, 1, 0],
-        x: [`${randomX}%`, `${randomX + (Math.random() * 10 - 5)}%`],
-        y: [`${randomY}%`, `${randomY + (Math.random() * 10 - 5)}%`],
+        x: [`${randomVals.startX}%`, `${randomVals.endX}%`],
+        y: [`${randomVals.startY}%`, `${randomVals.endY}%`],
       }}
       transition={{
-        duration: randomDuration,
+        duration: randomVals.duration,
         repeat: Infinity,
-        delay: randomDelay,
+        delay: randomVals.delay,
         ease: "linear",
       }}
       className="absolute bg-emerald-400/30 rounded-full blur-[1px]"
-      style={{ width: randomSize, height: randomSize }}
+      style={{ width: randomVals.size, height: randomVals.size }}
     />
   );
 };

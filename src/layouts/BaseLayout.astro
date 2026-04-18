@@ -55,7 +55,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap"
     rel="stylesheet"
     media="print"
-    onload="this.media='all'"
+    onload="this.setAttribute('media','all')"
   />
   <noscript><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" /></noscript>
 
@@ -145,7 +145,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     /* ── Particle canvas ── */
     const canvas = document.getElementById('bg-canvas') as HTMLCanvasElement;
     const ctx    = canvas.getContext('2d')!;
-    let W: number, H: number;
+    let W: number = 0, H: number = 0;
 
     function resize() {
       W = canvas.width  = window.innerWidth;
@@ -209,12 +209,17 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
       }
     }
 
+    let bgRafId: number | null = null;
     (function animate() {
       ctx.clearRect(0, 0, W, H);
       particles.forEach(p => { p.update(); p.draw(); });
       drawConnections();
-      requestAnimationFrame(animate);
+      bgRafId = requestAnimationFrame(animate);
     })();
+
+    document.addEventListener('astro:before-swap', () => {
+      if (bgRafId !== null) cancelAnimationFrame(bgRafId);
+    });
 
     /* ── Scroll reveal (IntersectionObserver) ── */
     const io = new IntersectionObserver(entries => {
